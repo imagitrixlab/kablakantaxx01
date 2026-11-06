@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Kablakanta 2.0 — ক্যাবলাকান্ত</title>
+    <title>ক্যাবলাকান্ত</title>
     <meta name="theme-color" content="#f4f6fa">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -12,7 +12,7 @@
     <!-- Premium Fonts: Inter & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -155,20 +155,6 @@
             background: linear-gradient(135deg, var(--text-primary) 20%, var(--electric-sky-deep) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .brand-badge {
-            font-size: 10px;
-            font-weight: 700;
-            color: #ffffff;
-            background: linear-gradient(135deg, var(--electric-sky) 0%, var(--electric-cyan) 100%);
-            padding: 1px 7px;
-            border-radius: var(--radius-capsule);
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 6px var(--electric-glow);
         }
 
         .brand-sub {
@@ -213,7 +199,7 @@
             box-shadow: 0 0 12px var(--electric-glow);
         }
 
-        /* 4. CHAT STREAM VIEWPORT */
+        /* 4. CHAT STREAM VIEWPORT & NEW DYNAMIC HERO SECTION */
         .chat-viewport {
             position: relative;
             z-index: 10;
@@ -241,22 +227,141 @@
             animation: fadeIn 0.4s ease;
         }
 
+        /* VIBRANT HOLOGRAPHIC TITLE */
         .hero-title {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.6px;
-            color: var(--text-primary);
+            font-size: 40px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #0f172a 15%, #0284c7 48%, #00ffaa 82%, #38bdf8 100%);
+            background-size: 250% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShimmer 4.5s ease-in-out infinite alternate;
+            filter: drop-shadow(0 4px 14px rgba(14, 165, 233, 0.22));
+            cursor: pointer;
+            transition: transform 0.3s var(--spring-transition);
+            user-select: none;
+            margin-bottom: 2px;
         }
 
-        .hero-title span {
-            color: var(--electric-sky);
+        .hero-title:hover {
+            transform: scale(1.05);
         }
 
-        .hero-subtitle {
-            font-size: 13.8px;
-            max-width: 480px;
-            line-height: 1.6;
+        @keyframes textShimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* 3D FLOATING NEURAL ORB (IDEA 1) */
+        .hero-neural-orb {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2px auto 8px auto;
+            cursor: pointer;
+            transition: transform 0.4s var(--spring-transition);
+        }
+
+        .hero-neural-orb:hover {
+            transform: scale(1.18) rotate(12deg);
+        }
+
+        .hero-neural-orb:active {
+            transform: scale(0.94);
+        }
+
+        .orb-core-sphere {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 30%, #0284c7 72%, #0369a1 100%);
+            box-shadow: 0 0 26px rgba(14, 165, 233, 0.65), inset 0 2px 5px rgba(255, 255, 255, 0.85);
+            position: relative;
+            z-index: 2;
+            animation: orbBreathe 2.8s infinite ease-in-out;
+        }
+
+        .orb-ring {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: var(--electric-sky);
+            border-bottom-color: var(--electric-cyan);
+            animation: orbSpin 3.2s linear infinite;
+        }
+
+        .orb-ring-outer {
+            position: absolute;
+            inset: -11px;
+            border-radius: 50%;
+            border: 1px dashed rgba(14, 165, 233, 0.45);
+            animation: orbSpinRev 7.5s linear infinite;
+        }
+
+        @keyframes orbBreathe {
+            0%, 100% { transform: scale(0.96); box-shadow: 0 0 18px rgba(14, 165, 233, 0.45); }
+            50% { transform: scale(1.05); box-shadow: 0 0 34px rgba(14, 165, 233, 0.85), 0 0 8px #ffffff; }
+        }
+
+        @keyframes orbSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes orbSpinRev { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
+
+        /* LIVE DYNAMIC SHIFTING TYPEWRITER (IDEA 2) */
+        .typewriter-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--silver-metal-border);
+            padding: 8px 18px;
+            border-radius: var(--radius-capsule);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            margin-bottom: 8px;
+            min-height: 38px;
+        }
+
+        .typewriter-status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: var(--electric-sky);
+            box-shadow: 0 0 8px var(--electric-sky);
+            animation: blinkDot 1.6s infinite ease-in-out;
+            flex-shrink: 0;
+        }
+
+        @keyframes blinkDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(0.8); }
+        }
+
+        .typewriter-text {
+            font-size: 13.5px;
+            font-weight: 600;
             color: var(--text-secondary);
+            letter-spacing: -0.2px;
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 14px;
+            background-color: var(--electric-sky);
+            margin-left: 2px;
+            animation: blinkCursor 0.8s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .prompt-tray {
@@ -264,7 +369,7 @@
             flex-wrap: wrap;
             gap: 8px;
             justify-content: center;
-            margin-top: 12px;
+            margin-top: 8px;
             max-width: 620px;
         }
 
@@ -716,11 +821,8 @@
         <div class="brand-core" onclick="resetChatView()">
             <div class="brand-orb"></div>
             <div class="brand-text-block">
-                <div class="brand-title">
-                    KABLAKANTA
-                    <span class="brand-badge">2.0</span>
-                </div>
-                <div class="brand-sub">ক্যাবলাকান্ত • Fluid Intelligence</div>
+                <div class="brand-title">ক্যাবলাকান্ত</div>
+                <div class="brand-sub">Fluid Intelligence Core</div>
             </div>
         </div>
 
@@ -745,9 +847,25 @@
     <!-- 3. MAIN CHAT VIEWPORT -->
     <main class="chat-viewport" id="chatViewport">
         <div class="empty-hero" id="emptyHero">
-            <h1 class="hero-title">ক্যাবলাকান্ত <span>2.0</span></h1>
-            <p class="hero-subtitle">ডিফারেনশিয়েশন ও ক্যালকুলাসের স্টেপ-বাই-স্টেপ সমাধান, বই/খাতার মাল্টিমোডাল স্ক্যান, Groq Whisper লাইভ ভয়েস টাইপিং ও 8K Imagen ৩ ভিজ্যুয়ালস।</p>
             
+            <!-- VIBRANT SHIMMERING TITLE (NO 2.0) -->
+            <h1 class="hero-title">ক্যাবলাকান্ত</h1>
+
+            <!-- 3D FLOATING NEURAL ORB (IDEA 1) -->
+            <div class="hero-neural-orb" onclick="pingNeuralOrb()" title="Neural Core Pulse">
+                <div class="orb-ring-outer"></div>
+                <div class="orb-ring"></div>
+                <div class="orb-core-sphere"></div>
+            </div>
+
+            <!-- LIVE CYBER TYPEWRITER (IDEA 2) -->
+            <div class="typewriter-badge">
+                <div class="typewriter-status-dot"></div>
+                <span class="typewriter-text" id="typewriterDynamicText"></span>
+                <span class="typewriter-cursor"></span>
+            </div>
+            
+            <!-- QUICK PROMPT TRAYS -->
             <div class="prompt-tray">
                 <div class="prompt-pill-card" onclick="quickFillPrompt('Find derivative of f(x) = (x^3 + 2x) * cos(x) step-by-step.')">
                     <span>📐</span> Solve: (x³+2x)·cos(x) Derivative
@@ -1029,7 +1147,6 @@
             render();
         })();
 
-        // Water Ripple on Tap
         window.addEventListener('pointerdown', (e) => {
             initAudioContext();
             const rip = document.createElement('div');
@@ -1044,7 +1161,67 @@
         });
 
         // ====================================================================
-        // 5. INPUT CONTROLLER & ATTACHMENTS
+        // 5. LIVE TYPEWRITER ENGINE & ORB INTERACTION
+        // ====================================================================
+        const TYPEWRITER_PHRASES = [
+            "বলো, আমি শুনছি...",
+            "যেকোনো জটিল ক্যালকুলাস এক সেকেন্ডে সমাধান...",
+            "বই বা খাতার পাতার ছবি স্ক্যান করো...",
+            "মাইকে বাংলায় কথা বলো, সাথে সাথে লিখছি...",
+            "৮K সিনেমাটিক দৃশ্য আঁকতে বলো..."
+        ];
+        let phraseIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+        let typewriterTimeout = null;
+
+        function runTypewriter() {
+            const el = document.getElementById('typewriterDynamicText');
+            if (!el) return;
+            const currentPhrase = TYPEWRITER_PHRASES[phraseIdx];
+            
+            if (isDeleting) {
+                el.innerText = currentPhrase.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                el.innerText = currentPhrase.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            let typeSpeed = isDeleting ? 30 : 65;
+
+            if (!isDeleting && charIdx === currentPhrase.length) {
+                typeSpeed = 2200;
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                phraseIdx = (phraseIdx + 1) % TYPEWRITER_PHRASES.length;
+                typeSpeed = 450;
+            }
+
+            typewriterTimeout = setTimeout(runTypewriter, typeSpeed);
+        }
+
+        // Start Typewriter
+        runTypewriter();
+
+        function pingNeuralOrb() {
+            triggerHaptic('success');
+            playCrystalDualPing();
+            const el = document.getElementById('typewriterDynamicText');
+            if (el) {
+                clearTimeout(typewriterTimeout);
+                el.innerText = "ক্যাবলাকান্ত কোর সক্রিয় ও প্রস্তুত!";
+                setTimeout(() => {
+                    isDeleting = true;
+                    charIdx = el.innerText.length;
+                    runTypewriter();
+                }, 1800);
+            }
+        }
+
+        // ====================================================================
+        // 6. INPUT CONTROLLER & ATTACHMENTS
         // ====================================================================
         function autoGrowInput(el) {
             el.style.height = 'auto';
@@ -1089,8 +1266,17 @@
                 const vp = document.getElementById('chatViewport');
                 vp.innerHTML = `
                     <div class="empty-hero" id="emptyHero">
-                        <h1 class="hero-title">ক্যাবলাকান্ত <span>2.0</span></h1>
-                        <p class="hero-subtitle">ডিফারেনশিয়েশন ও ক্যালকুলাসের স্টেপ-বাই-স্টেপ সমাধান, বই/খাতার মাল্টিমোডাল স্ক্যান, Groq Whisper লাইভ ভয়েস টাইপিং ও 8K Imagen ৩ ভিজ্যুয়ালস।</p>
+                        <h1 class="hero-title">ক্যাবলাকান্ত</h1>
+                        <div class="hero-neural-orb" onclick="pingNeuralOrb()" title="Neural Core Pulse">
+                            <div class="orb-ring-outer"></div>
+                            <div class="orb-ring"></div>
+                            <div class="orb-core-sphere"></div>
+                        </div>
+                        <div class="typewriter-badge">
+                            <div class="typewriter-status-dot"></div>
+                            <span class="typewriter-text" id="typewriterDynamicText"></span>
+                            <span class="typewriter-cursor"></span>
+                        </div>
                         <div class="prompt-tray">
                             <div class="prompt-pill-card" onclick="quickFillPrompt('Find derivative of f(x) = (x^3 + 2x) * cos(x) step-by-step.')">
                                 <span>📐</span> Solve: (x³+2x)·cos(x) Derivative
@@ -1105,6 +1291,11 @@
                     </div>
                 `;
                 stopSpeechSynthesis();
+                clearTimeout(typewriterTimeout);
+                phraseIdx = 0;
+                charIdx = 0;
+                isDeleting = false;
+                runTypewriter();
             }
         }
 
@@ -1136,7 +1327,7 @@
         }
 
         // ====================================================================
-        // 6. GROQ WHISPER-LARGE-V3 SPEECH TO TEXT (STT)
+        // 7. GROQ WHISPER-LARGE-V3 SPEECH TO TEXT (STT)
         // ====================================================================
         let groqMediaRecorder = null;
         let groqAudioChunks = [];
@@ -1243,7 +1434,7 @@
         }
 
         // ====================================================================
-        // 7. BUBBLE RENDERING, CODE HIGHLIGHTING & ACTIONS
+        // 8. BUBBLE RENDERING, CODE HIGHLIGHTING & ACTIONS
         // ====================================================================
         function appendUserMessage(text, fileObj) {
             const hero = document.getElementById('emptyHero');
@@ -1306,7 +1497,6 @@
         function formatAiMarkup(rawText) {
             let res = escapeHtml(rawText);
 
-            // Code blocks with embedded header and quick copy
             res = res.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (m, lang, code) => {
                 const codeId = 'code-' + Math.random().toString(36).substring(2, 9);
                 return `
@@ -1320,16 +1510,9 @@
                 `;
             });
 
-            // Inline code
             res = res.replace(/`([^`]+)`/g, '<code>$1</code>');
-
-            // Math expressions ($...$ or \[...\])
             res = res.replace(/\n\s*(\$|\\\[)(.+?)(\$|\\\])\s*\n/g, '<div class="math-block-card">$2</div>');
-
-            // Bold
             res = res.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-
-            // Linebreaks
             res = res.replace(/\n/g, '<br>');
 
             return res;
@@ -1459,7 +1642,7 @@
             if (navigator.share) {
                 try {
                     await navigator.share({
-                        title: 'Kablakanta 2.0 AI Result',
+                        title: 'ক্যাবলাকান্ত AI Result',
                         text: textToShare
                     });
                 } catch (_) {}
@@ -1471,7 +1654,7 @@
         }
 
         // ====================================================================
-        // 8. DISPATCH: DYNAMIC GEMINI CASCADE & IMAGEN 3 PIPELINE
+        // 9. DISPATCH: DYNAMIC GEMINI CASCADE & IMAGEN 3 PIPELINE
         // ====================================================================
         async function sendUserMessage() {
             const inputField = document.getElementById('mainInputField');
@@ -1519,7 +1702,7 @@
                 });
             }
 
-            const sysPrompt = "You are Kablakanta 2.0 (ক্যাবলাকান্ত), a high-tier minimalist and vibrant AI collaborator. When solving calculus, differentiation, or math problems, break down derivations step-by-step with clean clarity. Deeply analyze images and media files. Be precise, accurate, and energetic.";
+            const sysPrompt = "You are Kablakanta (ক্যাবলাকান্ত), an elite minimalist, vibrant and highly intelligent AI collaborator. When solving calculus, differentiation, or complex math problems, break down derivations step-by-step with clean clarity. Deeply analyze images and media files. Be precise, accurate, and energetic.";
             parts.push({ text: `${sysPrompt}\n\nUser: ${queryText || 'Examine this attachment thoroughly.'}` });
 
             let lastError = null;
@@ -1579,7 +1762,7 @@
         }
 
         // ====================================================================
-        // 9. NEURAL TTS & BREATHE HIGHLIGHTER
+        // 10. NEURAL TTS & BREATHE HIGHLIGHTER
         // ====================================================================
         function stopSpeechSynthesis() {
             document.querySelectorAll('.bubble-ai').forEach(el => el.classList.remove('tts-reading'));
