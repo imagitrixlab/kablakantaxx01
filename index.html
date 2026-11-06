@@ -6,7 +6,7 @@
     <title>ক্যাবলাকান্ত</title>
     <meta name="theme-color" content="#f4f6fa">
 
-    <!-- Puter.js Intelligence Gateway (Text Fallback Only) -->
+    <!-- Puter.js Cloud Engine (Zero Watermark Image & Fallback Gateway) -->
     <script src="https://js.puter.com/v2/"></script>
 
     <!-- Google Fonts: Inter & JetBrains Mono -->
@@ -19,13 +19,13 @@
             --bg-base: #f4f6fa;
             --silver-metal-border: rgba(203, 213, 225, 0.75);
             
-            /* নিচের ডক ও ইউজারের পিওর স্কাই ব্লু থিম (১০০% ব্লু) */
+            /* নিচের ডক ও ব্যবহারকারীর পিওর ডিপ স্কাই ব্লু থিম (১০০% ব্লু) */
             --electric-sky: #0ea5e9;
             --electric-sky-deep: #0284c7;
             --electric-cyan: #06b6d4;
             --electric-glow: rgba(14, 165, 233, 0.35);
             
-            /* শুধুমাত্র এআই বাবলের জন্য ভাইব্রেন্ট এমারেল্ড/মিন্ট থিম */
+            /* শুধুমাত্র এআই বাবলের জন্য ভাইব্রেন্ট এমারেল্ড/মিন্ট গ্লাস থিম */
             --emerald-core: #10b981;
             --emerald-deep: #047857;
             --emerald-glow: rgba(16, 185, 129, 0.38);
@@ -89,7 +89,7 @@
             100% { transform: scale(3.8); opacity: 0; }
         }
 
-        /* হেডার */
+        /* ১. হেডার */
         .aura-header {
             position: relative;
             z-index: 50;
@@ -199,7 +199,7 @@
             box-shadow: 0 0 14px var(--electric-glow);
         }
 
-        /* চ্যাট ভিউপোর্ট */
+        /* ২. চ্যাট ভিউপোর্ট */
         .chat-viewport {
             position: relative;
             z-index: 10;
@@ -341,7 +341,7 @@
 
         @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* মেসেজ বাবলস: স্প্রিং ফ্লোটিং অ্যানিমেশন */
+        /* ৩. মেসেজ বাবলস: স্প্রিং ফ্লোটিং অ্যানিমেশন */
         .message-row {
             display: flex;
             flex-direction: column;
@@ -446,6 +446,7 @@
             100% { transform: scaleY(1.3); }
         }
 
+        /* পিওর ইমেজ ফ্রেম (কোনো ওয়াটারমার্ক নেই) */
         .gen-art-frame {
             width: 100%;
             max-width: 512px;
@@ -510,7 +511,7 @@
             color: var(--emerald-deep);
         }
 
-        /* ফ্লোটিং ডক: ১০০% পিওর ব্লু থিম */
+        /* ৪. ফ্লোটিং ডক: ১০০% পিওর স্কাই ব্লু থিম */
         .dock-container {
             position: fixed;
             bottom: 0;
@@ -541,7 +542,6 @@
             position: relative;
         }
 
-        /* ফোকাস করলে ইলেকট্রিক ব্লু গ্লো */
         .elastic-capsule:focus-within {
             border-color: var(--electric-sky);
             box-shadow: 0 24px 54px -8px var(--electric-glow), 0 0 0 1px var(--electric-sky);
@@ -827,7 +827,7 @@
                     <span>ক্যামেরা দিয়ে স্ক্যান</span>
                 </button>
                 <button type="button" class="attach-menu-btn" onclick="openFileGallery()">
-                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
                     <span>গ্যালারি / ফাইল আপলোড</span>
                 </button>
             </div>
@@ -871,15 +871,16 @@
             <div class="dock-meta-tray">
                 <div class="mode-group">
                     <button class="mode-chip active" id="chipChat" onclick="setAppMode('chat')">💬 Chat & Scan</button>
-                    <button class="mode-chip" id="chipImage" onclick="setAppMode('image')">🎨 Imagen 3 Studio</button>
+                    <button class="mode-chip" id="chipImage" onclick="setAppMode('image')">🎨 Imagen Studio</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        const GEMINI_API_KEY = "AQ.Ab8RN6LMO7i7aqFgPUL8ZPG4tpZh8LWU9FV_-wy9O3aFW9EEPg";
-        const GROQ_API_KEY   = "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";
+        // আপনার নতুন Google Auth Key এবং Groq Key
+        const GEMINI_AUTH_KEY = "AQ.Ab8RN6IQJpRu3tGk-Ccj59DwfX98_OVOUTmlji4dX1ct5TFsSg";
+        const GROQ_API_KEY    = "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";
 
         let currentAppMode = 'chat';
         let isSoundActive = true;
@@ -1058,7 +1059,7 @@
             "বলো, আমি শুনছি...",
             "প্লাসে চাপ দিয়ে ক্যামেরা খুলে বই-খাতা স্ক্যান করো...",
             "যেকোনো ক্যালকুলাস ও জটিল অংক এক সেকেন্ডে সমাধান...",
-            "Google Imagen 3 দিয়ে ৮K দৃশ্য তৈরি করো..."
+            "হাই-ডেফিনিশন সিনেমাটিক দৃশ্য আঁকতে বলো..."
         ];
         let phraseIdx = 0, charIdx = 0, isDeleting = false;
 
@@ -1103,7 +1104,7 @@
             document.getElementById('chipImage').classList.toggle('active', mode === 'image');
             const field = document.getElementById('mainInputField');
             field.placeholder = mode === 'image' 
-                ? "Describe visual for Google Imagen 3..." 
+                ? "Describe detailed visual in English..." 
                 : "Type a message, calculus query or speak...";
             playPing();
         }
@@ -1283,7 +1284,7 @@
             row.className = 'message-row ai';
             const msgId = 'ai-msg-' + Date.now();
 
-            let artHtml = artUrl ? `<img src="${artUrl}" class="gen-art-frame" alt="Google Imagen 3 Result">` : '';
+            let artHtml = artUrl ? `<img src="${artUrl}" class="gen-art-frame" alt="AI Generated Image">` : '';
 
             row.innerHTML = `
                 <div class="bubble-ai" id="${msgId}-content">
@@ -1392,42 +1393,20 @@
         }
 
         // ====================================================================
-        // সরাসরি GOOGLE IMAGEN 3 API (ZERO POLLINATIONS)
+        // সরাসরি PUTER.JS ইমেজ ইঞ্জিন (কোনো পলিনেশন নেই, নো ওয়াটারমার্ক)
         // ====================================================================
-        async function executeGoogleImagen(promptText) {
-            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${GEMINI_API_KEY}`;
-            const payload = {
-                instances: [{ prompt: promptText }],
-                parameters: { sampleCount: 1, aspectRatio: "1:1", outputMimeType: "image/jpeg" }
-            };
-
+        async function executePuterImage(promptText) {
             try {
-                const response = await fetch(endpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'x-goog-api-key': GEMINI_API_KEY
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                const data = await response.json();
-
-                if (data.predictions && data.predictions[0]?.bytesBase64Encoded) {
-                    const imgDataUrl = `data:image/jpeg;base64,${data.predictions[0].bytesBase64Encoded}`;
-                    appendAiMessage(`গুগল Imagen 3 দ্বারা তৈরি দৃশ্য: "${promptText}"`, imgDataUrl);
-                } else if (data.error) {
-                    appendAiMessage(`গুগল Imagen 3 API এরর: ${data.error.message || 'ইমেজ রেন্ডার করা সম্ভব হয়নি।'}`);
-                } else {
-                    appendAiMessage("গুগল Imagen 3 এরর: কোনো ইমেজ ডেটা ফেরত আসেনি। প্রম্পট পরিবর্তন করে দেখুন।");
-                }
+                const imgElement = await puter.ai.txt2img(promptText);
+                const imgSrc = imgElement.src;
+                appendAiMessage(`ক্যাবলাকান্ত AI দ্বারা তৈরি দৃশ্য: "${promptText}"`, imgSrc);
             } catch (err) {
-                appendAiMessage(`গুগল Imagen 3 কানেকশন এরর: ${err.message}`);
+                appendAiMessage(`ইমেজ রেন্ডারিং এরর: ${err.message || 'Puter ইঞ্জিন সংযোগে সমস্যা হয়েছে।'}`);
             }
         }
 
         // ====================================================================
-        // GOOGLE GEMINI মাল্টিমোডাল চ্যাট ও ভিশন
+        // GOOGLE GEMINI মাল্টিমোডাল চ্যাট ও ভিশন (AUTH KEY BEARER ARCHITECTURE)
         // ====================================================================
         async function executeGoogleGemini(text, fileBase64, fileMime) {
             const parts = [];
@@ -1461,13 +1440,14 @@ User Question: ${text || 'এই ছবিটি বা পাতার অং�
             const models = ['gemini-2.0-flash', 'gemini-1.5-flash'];
             for (const model of models) {
                 try {
-                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
+                    // Auth Key এর জন্য অফিশিয়াল Bearer Header মেথড
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
                     const res = await fetch(endpoint, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'x-goog-api-key': GEMINI_API_KEY,
-                            'Authorization': `Bearer ${GEMINI_API_KEY}`
+                            'Authorization': `Bearer ${GEMINI_AUTH_KEY}`,
+                            'x-goog-api-key': GEMINI_AUTH_KEY
                         },
                         body: JSON.stringify(payload)
                     });
@@ -1480,6 +1460,7 @@ User Question: ${text || 'এই ছবিটি বা পাতার অং�
                 } catch (_) {}
             }
 
+            // সাইলেন্ট অটো-ফলব্যাক গেটওয়ে (যাতে স্ক্রিনে কোনো এরর আটকে না থাকে)
             if (!isGeminiSuccess) {
                 try {
                     const fallbackQuery = `${promptDirective}\n\n${text}`;
@@ -1514,7 +1495,8 @@ User Question: ${text || 'এই ছবিটি বা পাতার অং�
 
             try {
                 if (currentAppMode === 'image') {
-                    await executeGoogleImagen(text);
+                    // পুটার ক্লাউড দিয়ে পিওর নো-ওয়াটারমার্ক ইমেজ জেনারেশন
+                    await executePuterImage(text);
                 } else {
                     await executeGoogleGemini(text, currentFileBase64, currentFileMime);
                 }
