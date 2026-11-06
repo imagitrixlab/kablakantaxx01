@@ -6,7 +6,7 @@
     <title>ক্যাবলাকান্ত</title>
     <meta name="theme-color" content="#f4f6fa">
 
-    <!-- Puter.js Intelligence Gateway -->
+    <!-- Puter.js Intelligence Gateway (Text Fallback Only) -->
     <script src="https://js.puter.com/v2/"></script>
 
     <!-- Google Fonts: Inter & JetBrains Mono -->
@@ -18,12 +18,14 @@
         :root {
             --bg-base: #f4f6fa;
             --silver-metal-border: rgba(203, 213, 225, 0.75);
+            
+            /* নিচের ডক ও ইউজারের পিওর স্কাই ব্লু থিম */
             --electric-sky: #0ea5e9;
             --electric-sky-deep: #0284c7;
             --electric-cyan: #06b6d4;
             --electric-glow: rgba(14, 165, 233, 0.35);
             
-            /* ভাইব্রেন্ট এমারেল্ড ও সাইবার মিন্ট থিম */
+            /* শুধুমাত্র এআই বাবলের জন্য ভাইব্রেন্ট এমারেল্ড/মিন্ট থিম */
             --emerald-core: #10b981;
             --emerald-deep: #047857;
             --emerald-glow: rgba(16, 185, 129, 0.38);
@@ -228,7 +230,7 @@
             font-size: 46px;
             font-weight: 900;
             letter-spacing: -0.6px;
-            background: linear-gradient(135deg, #0f172a 10%, #0284c7 45%, #10b981 80%, #38bdf8 100%);
+            background: linear-gradient(135deg, #0f172a 10%, #0284c7 45%, #0ea5e9 80%, #38bdf8 100%);
             background-size: 260% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -246,6 +248,7 @@
             100% { background-position: 100% 50%; }
         }
 
+        /* নিউরাল ওর্ব */
         .hero-neural-orb {
             width: 88px;
             height: 88px;
@@ -266,8 +269,8 @@
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #34d399 30%, #059669 72%, #064e3b 100%);
-            box-shadow: 0 0 32px var(--emerald-glow), inset 0 2px 6px rgba(255,255,255,0.9);
+            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 30%, #0284c7 72%, #0369a1 100%);
+            box-shadow: 0 0 32px var(--electric-glow), inset 0 2px 6px rgba(255,255,255,0.9);
             animation: orbBreathe 2.8s infinite ease-in-out;
             z-index: 2;
         }
@@ -277,7 +280,7 @@
             inset: -4px;
             border-radius: 50%;
             border: 2px solid transparent;
-            border-top-color: var(--emerald-core);
+            border-top-color: var(--electric-sky);
             border-bottom-color: var(--electric-cyan);
             animation: orbSpin 3.2s linear infinite;
         }
@@ -286,13 +289,13 @@
             position: absolute;
             inset: -14px;
             border-radius: 50%;
-            border: 1.5px dashed rgba(16, 185, 129, 0.55);
+            border: 1.5px dashed rgba(14, 165, 233, 0.5);
             animation: orbSpinRev 7.5s linear infinite;
         }
 
         @keyframes orbBreathe {
-            0%, 100% { transform: scale(0.96); box-shadow: 0 0 20px rgba(16, 185, 129, 0.45); }
-            50% { transform: scale(1.06); box-shadow: 0 0 40px rgba(16, 185, 129, 0.9), 0 0 10px #ffffff; }
+            0%, 100% { transform: scale(0.96); box-shadow: 0 0 20px rgba(14, 165, 233, 0.45); }
+            50% { transform: scale(1.06); box-shadow: 0 0 40px rgba(14, 165, 233, 0.9), 0 0 10px #ffffff; }
         }
 
         @keyframes orbSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -315,8 +318,8 @@
             width: 7px;
             height: 7px;
             border-radius: 50%;
-            background-color: var(--emerald-core);
-            box-shadow: 0 0 10px var(--emerald-core);
+            background-color: var(--electric-sky);
+            box-shadow: 0 0 10px var(--electric-sky);
             animation: blinkDot 1.6s infinite ease-in-out;
         }
 
@@ -332,7 +335,7 @@
             display: inline-block;
             width: 2px;
             height: 14px;
-            background-color: var(--emerald-core);
+            background-color: var(--electric-sky);
             animation: blinkCursor 0.8s infinite;
         }
 
@@ -355,6 +358,7 @@
         .message-row.user { align-items: flex-end; }
         .message-row.ai { align-items: flex-start; }
 
+        /* ব্যবহারকারীর চ্যাট বাবল: পিওর ডিপ স্কাই ব্লু */
         .bubble-user {
             background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
             color: #ffffff;
@@ -376,7 +380,7 @@
             object-fit: cover;
         }
 
-        /* এআই-এর ভাইব্রেন্ট এমারেল্ড/মিন্ট গ্লাস বাবল */
+        /* শুধুমাত্র এআই বাবল: ভাইব্রেন্ট এমারেল্ড/মিন্ট গ্লাস */
         .bubble-ai {
             background: linear-gradient(135deg, var(--emerald-bg-start) 0%, var(--emerald-bg-end) 100%);
             border: 1.5px solid var(--emerald-border);
@@ -392,7 +396,7 @@
             position: relative;
         }
 
-        /* লাইভ কথা বলার সময় এমারেল্ড ব্রিদিং আলো */
+        /* কথা বলার সময় গ্রিন ব্রিদিং পালস */
         .bubble-ai.speaking-now {
             border-color: var(--emerald-core);
             box-shadow: 0 0 38px rgba(16, 185, 129, 0.75), inset 0 0 16px rgba(52, 211, 153, 0.35);
@@ -452,7 +456,7 @@
             display: block;
         }
 
-        /* রিফাইন ও অ্যাকশন বাটন ট্রে */
+        /* অ্যাকশন বাটন ট্রে */
         .msg-action-tray {
             display: flex;
             align-items: center;
@@ -506,7 +510,7 @@
             color: var(--emerald-deep);
         }
 
-        /* ফ্লোটিং ডক */
+        /* ফ্লোটিং ডক: ১০০% পিওর ব্লু থিম */
         .dock-container {
             position: fixed;
             bottom: 0;
@@ -538,12 +542,12 @@
         }
 
         .elastic-capsule:focus-within {
-            border-color: var(--emerald-core);
-            box-shadow: 0 24px 54px -8px var(--emerald-glow), 0 0 0 1px var(--emerald-core);
+            border-color: var(--electric-sky);
+            box-shadow: 0 24px 54px -8px var(--electric-glow), 0 0 0 1px var(--electric-sky);
             transform: translateY(-2px);
         }
 
-        /* প্লাস পপআপ মেনু (ক্যামেরা ও গ্যালারি) */
+        /* প্লাস পপআপ মেনু */
         .attach-popup-menu {
             display: none;
             position: absolute;
@@ -586,8 +590,8 @@
         }
 
         .attach-menu-btn:hover {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--emerald-deep);
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--electric-sky-deep);
             transform: translateX(2px);
         }
 
@@ -641,9 +645,9 @@
             width: 38px;
             height: 38px;
             border-radius: 50%;
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: var(--emerald-deep);
+            background: rgba(14, 165, 233, 0.1);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            color: var(--electric-sky-deep);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -653,10 +657,10 @@
         }
 
         .dock-plus-btn:hover {
-            background: var(--emerald-core);
+            background: var(--electric-sky);
             color: #ffffff;
             transform: rotate(90deg) scale(1.08);
-            box-shadow: 0 4px 14px var(--emerald-glow);
+            box-shadow: 0 4px 14px var(--electric-glow);
         }
 
         .dock-plus-btn.active {
@@ -701,14 +705,14 @@
             width: 38px;
             height: 38px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--emerald-core) 0%, var(--emerald-deep) 100%);
+            background: linear-gradient(135deg, var(--electric-sky) 0%, var(--electric-sky-deep) 100%);
             color: #ffffff;
             border: none;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 14px var(--emerald-glow);
+            box-shadow: 0 4px 14px var(--electric-glow);
             flex-shrink: 0;
             transition: all 0.2s ease;
         }
@@ -741,7 +745,7 @@
 
         .mode-chip.active {
             background: #ffffff;
-            color: var(--emerald-deep);
+            color: var(--electric-sky-deep);
             box-shadow: 0 1px 4px rgba(0,0,0,0.08);
         }
 
@@ -950,28 +954,60 @@
             if (isSoundActive) playPing();
         }
 
+        // ====================================================================
+        // স্মার্ট বাইলিঙ্গুয়াল অডিও ইঞ্জিন: "Hi, I am" ইংলিশ অ্যাকসেন্টে + "ক্যাবলাকান্ত" বাংলা টোনে
+        // ====================================================================
         function speakAiResponse(text, bubbleEl) {
             if (!isVoiceReadoutActive || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
 
-            const cleanText = text
+            let clean = text
                 .replace(/<[^>]*>/g, ' ')
                 .replace(/```[\s\S]*?```/g, ' কোড ব্লক ')
                 .replace(/[`*#_]/g, ' ')
-                .slice(0, 320);
+                .slice(0, 360);
 
-            if (!cleanText.trim()) return;
+            if (!clean.trim()) return;
 
-            const utterance = new SpeechSynthesisUtterance(cleanText);
-            const isBengali = /[\u0980-\u09FF]/.test(cleanText);
-            utterance.lang = isBengali ? 'bn-BD' : 'en-US';
-            utterance.rate = 1.05;
+            // টেক্সটকে স্ক্রিপ্ট অনুয়ায়ী স্প্লিট করা (ইংরেজি অংশ বনাম বাংলা অংশ)
+            const regex = /([\u0980-\u09FF]+|[^\u0980-\u09FF]+)/g;
+            const segments = clean.match(regex) || [clean];
 
             if (bubbleEl) bubbleEl.classList.add('speaking-now');
-            utterance.onend = () => { if (bubbleEl) bubbleEl.classList.remove('speaking-now'); };
-            utterance.onerror = () => { if (bubbleEl) bubbleEl.classList.remove('speaking-now'); };
 
-            window.speechSynthesis.speak(utterance);
+            let currentIdx = 0;
+            function speakNextSegment() {
+                if (currentIdx >= segments.length) {
+                    if (bubbleEl) bubbleEl.classList.remove('speaking-now');
+                    return;
+                }
+
+                const segText = segments[currentIdx].trim();
+                currentIdx++;
+
+                if (!segText) {
+                    speakNextSegment();
+                    return;
+                }
+
+                const utter = new SpeechSynthesisUtterance(segText);
+                const isBengaliChunk = /[\u0980-\u09FF]/.test(segText);
+
+                if (isBengaliChunk) {
+                    utter.lang = 'bn-BD'; // অথবা bn-IN
+                    utter.rate = 1.02;
+                } else {
+                    utter.lang = 'en-US';
+                    utter.rate = 1.05;
+                }
+
+                utter.onend = () => speakNextSegment();
+                utter.onerror = () => speakNextSegment();
+
+                window.speechSynthesis.speak(utter);
+            }
+
+            speakNextSegment();
         }
 
         (function initOceanWaves() {
@@ -998,7 +1034,7 @@
                     ctx.lineTo(x, y);
                 }
                 ctx.lineTo(w, h);
-                ctx.fillStyle = 'rgba(16, 185, 129, 0.045)';
+                ctx.fillStyle = 'rgba(14, 165, 233, 0.05)';
                 ctx.fill();
                 requestAnimationFrame(render);
             }
@@ -1355,40 +1391,44 @@
             speakAiResponse(el.innerText, el);
         }
 
+        // ====================================================================
+        // সরাসরি GOOGLE IMAGEN 3 API (ZERO POLLINATIONS)
+        // ====================================================================
         async function executeGoogleImagen(promptText) {
             const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${GEMINI_API_KEY}`;
             const payload = {
                 instances: [{ prompt: promptText }],
-                parameters: { sampleCount: 1, aspectRatio: "1:1", personGeneration: "ALLOW_ADULT" }
+                parameters: { sampleCount: 1, aspectRatio: "1:1", outputMimeType: "image/jpeg" }
             };
 
-            let success = false;
             try {
                 const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'x-goog-api-key': GEMINI_API_KEY,
-                        'Authorization': `Bearer ${GEMINI_API_KEY}`
+                        'x-goog-api-key': GEMINI_API_KEY
                     },
                     body: JSON.stringify(payload)
                 });
+
                 const data = await response.json();
+
                 if (data.predictions && data.predictions[0]?.bytesBase64Encoded) {
                     const imgDataUrl = `data:image/jpeg;base64,${data.predictions[0].bytesBase64Encoded}`;
                     appendAiMessage(`গুগল Imagen 3 দ্বারা তৈরি দৃশ্য: "${promptText}"`, imgDataUrl);
-                    success = true;
+                } else if (data.error) {
+                    appendAiMessage(`গুগল Imagen 3 API এরর: ${data.error.message || 'ইমেজ রেন্ডার করা সম্ভব হয়নি।'}`);
+                } else {
+                    appendAiMessage("গুগল Imagen 3 এরর: কোনো ইমেজ ডেটা ফেরত আসেনি। প্রম্পট পরিবর্তন করে দেখুন।");
                 }
-            } catch (_) {}
-
-            if (!success) {
-                const seed = Math.floor(Math.random() * 9999999);
-                const promptEnc = encodeURIComponent(`masterpiece, 8k photorealistic, raw cinematic lighting, ${promptText}`);
-                const imgUrl = `https://image.pollinations.ai/prompt/${promptEnc}?model=flux&width=1024&height=1024&nologo=true&seed=${seed}`;
-                appendAiMessage(`গুগল Imagen 3 Studio দৃশ্য: "${promptText}"`, imgUrl);
+            } catch (err) {
+                appendAiMessage(`গুগল Imagen 3 কানেকশন এরর: ${err.message}`);
             }
         }
 
+        // ====================================================================
+        // GOOGLE GEMINI মাল্টিমোডাল চ্যাট ও ভিশন (ভাষা অটো-মিররিং রুলসহ)
+        // ====================================================================
         async function executeGoogleGemini(text, fileBase64, fileMime) {
             const parts = [];
             if (fileBase64) {
@@ -1397,7 +1437,21 @@
                 });
             }
 
-            const promptDirective = `You are Kablakanta (ক্যাবলাকান্ত), an elite AI collaborator powered by Google Gemini. If an image or scanned document is provided, thoroughly analyze it, read handwriting, and solve calculus/math step-by-step. Respond accurately.\n\nUser Question: ${text || 'এই ছবিটি বা পাতার অংকটি বিস্তারিত স্ক্যান করে সমাধান বলো।'}`;
+            const promptDirective = `You are Kablakanta (ক্যাবলাকান্ত), an elite AI collaborator powered by Google Gemini.
+STRICT LANGUAGE MIRRORING RULE:
+- Always respond strictly in the exact language the user communicates with you.
+- If the user asks in Bengali (বাংলা), reply completely in natural Bengali.
+- If the user asks in English, reply in English.
+- If the user asks in Banglish or mixed, match their flow naturally.
+IDENTITY & ACCENT RULE:
+- Your name is "ক্যাবলাকান্ত".
+- When introducing yourself in English, always write: "Hi, I am ক্যাবলাকান্ত" (keeping 'ক্যাবলাকান্ত' in Bengali script so the vocal synthesis engine switches seamlessly to an authentic Bengali native tone for your name).
+- When introducing yourself in Bengali, write: "আমি ক্যাবলাকান্ত".
+MATH & SCAN RULE:
+- If an image or scanned document is provided, thoroughly analyze it, read handwriting, and solve calculus/math step-by-step. Respond accurately.
+
+User Question: ${text || 'এই ছবিটি বা পাতার অংকটি বিস্তারিত স্ক্যান করে সমাধান বলো।'}`;
+
             parts.push({ text: promptDirective });
 
             const payload = { contents: [{ parts: parts }] };
@@ -1426,7 +1480,6 @@
                 } catch (_) {}
             }
 
-            // সাইলেন্ট হ্যান্ডওভার: এপিআই কি ফেইল করলেও ব্যবহারকারীকে কোনো এরর মেসেজ দেখাবে না
             if (!isGeminiSuccess) {
                 try {
                     const fallbackQuery = `${promptDirective}\n\n${text}`;
