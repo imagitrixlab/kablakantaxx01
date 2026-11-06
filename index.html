@@ -19,7 +19,7 @@
             --bg-base: #f4f6fa;
             --silver-metal-border: rgba(203, 213, 225, 0.75);
             
-            /* নিচের ডক ও ইউজারের পিওর স্কাই ব্লু থিম */
+            /* নিচের ডক ও ইউজারের পিওর স্কাই ব্লু থিম (১০০% ব্লু) */
             --electric-sky: #0ea5e9;
             --electric-sky-deep: #0284c7;
             --electric-cyan: #06b6d4;
@@ -541,6 +541,7 @@
             position: relative;
         }
 
+        /* ফোকাস করলে ইলেকট্রিক ব্লু গ্লো */
         .elastic-capsule:focus-within {
             border-color: var(--electric-sky);
             box-shadow: 0 24px 54px -8px var(--electric-glow), 0 0 0 1px var(--electric-sky);
@@ -641,6 +642,7 @@
             width: 100%;
         }
 
+        /* প্লাস বাটন: ইলেকট্রিক ব্লু */
         .dock-plus-btn {
             width: 38px;
             height: 38px;
@@ -701,6 +703,7 @@
             line-height: 1.5;
         }
 
+        /* সেন্ড বাটন: পিওর ইলেকট্রিক স্কাই ব্লু */
         .dock-send-pill {
             width: 38px;
             height: 38px;
@@ -954,9 +957,7 @@
             if (isSoundActive) playPing();
         }
 
-        // ====================================================================
-        // স্মার্ট বাইলিঙ্গুয়াল অডিও ইঞ্জিন: "Hi, I am" ইংলিশ অ্যাকসেন্টে + "ক্যাবলাকান্ত" বাংলা টোনে
-        // ====================================================================
+        // বাইলিঙ্গুয়াল অডিও ইঞ্জিন
         function speakAiResponse(text, bubbleEl) {
             if (!isVoiceReadoutActive || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
@@ -969,7 +970,6 @@
 
             if (!clean.trim()) return;
 
-            // টেক্সটকে স্ক্রিপ্ট অনুয়ায়ী স্প্লিট করা (ইংরেজি অংশ বনাম বাংলা অংশ)
             const regex = /([\u0980-\u09FF]+|[^\u0980-\u09FF]+)/g;
             const segments = clean.match(regex) || [clean];
 
@@ -994,7 +994,7 @@
                 const isBengaliChunk = /[\u0980-\u09FF]/.test(segText);
 
                 if (isBengaliChunk) {
-                    utter.lang = 'bn-BD'; // অথবা bn-IN
+                    utter.lang = 'bn-BD';
                     utter.rate = 1.02;
                 } else {
                     utter.lang = 'en-US';
@@ -1427,7 +1427,7 @@
         }
 
         // ====================================================================
-        // GOOGLE GEMINI মাল্টিমোডাল চ্যাট ও ভিশন (ভাষা অটো-মিররিং রুলসহ)
+        // GOOGLE GEMINI মাল্টিমোডাল চ্যাট ও ভিশন
         // ====================================================================
         async function executeGoogleGemini(text, fileBase64, fileMime) {
             const parts = [];
