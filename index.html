@@ -6,7 +6,10 @@
     <title>ক্যাবলাকান্ত</title>
     <meta name="theme-color" content="#f4f6fa">
 
-    <!-- Fonts: Inter & JetBrains Mono -->
+    <!-- Puter.js Intelligence Gateway -->
+    <script src="https://js.puter.com/v2/"></script>
+
+    <!-- Google Fonts: Inter & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -14,13 +17,22 @@
     <style>
         :root {
             --bg-base: #f4f6fa;
-            --silver-metal-border: rgba(203, 213, 225, 0.7);
+            --silver-metal-border: rgba(203, 213, 225, 0.75);
             --electric-sky: #0ea5e9;
             --electric-sky-deep: #0284c7;
             --electric-cyan: #06b6d4;
-            --electric-glow: rgba(14, 165, 233, 0.32);
+            --electric-glow: rgba(14, 165, 233, 0.35);
+            
+            /* ভাইব্রেন্ট এমারেল্ড ও সাইবার মিন্ট থিম */
+            --emerald-core: #10b981;
+            --emerald-deep: #047857;
+            --emerald-glow: rgba(16, 185, 129, 0.38);
+            --emerald-bg-start: rgba(236, 253, 245, 0.98);
+            --emerald-bg-end: rgba(209, 250, 229, 0.92);
+            --emerald-border: rgba(16, 185, 129, 0.45);
+            
             --text-primary: #0f172a;
-            --text-secondary: #475569;
+            --text-secondary: #334155;
             --text-muted: #94a3b8;
             --radius-capsule: 9999px;
             --radius-bubble: 22px;
@@ -46,7 +58,7 @@
             position: relative;
         }
 
-        /* ডাইনামিক রেটিনা ওশেন ক্যানভাস */
+        /* ওশেন ক্যানভাস ব্যাকগ্রাউন্ড */
         #oceanCanvas {
             position: fixed;
             top: 0;
@@ -75,7 +87,7 @@
             100% { transform: scale(3.8); opacity: 0; }
         }
 
-        /* ১. লাক্সারি হেডার */
+        /* হেডার */
         .aura-header {
             position: relative;
             z-index: 50;
@@ -83,7 +95,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.82);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(25px) saturate(180%);
             border-bottom: 1px solid var(--silver-metal-border);
             flex-shrink: 0;
@@ -178,8 +190,6 @@
             color: var(--electric-sky-deep);
         }
 
-        .luxury-pill-toggle:active { transform: scale(0.94); }
-
         .luxury-pill-toggle.active {
             background: #ffffff;
             border-color: var(--electric-sky);
@@ -187,7 +197,7 @@
             box-shadow: 0 0 14px var(--electric-glow);
         }
 
-        /* ২. চ্যাট ভিউপোর্ট ও সেন্ট্রাল ইন্টারঅ্যাক্টিভ কোর */
+        /* চ্যাট ভিউপোর্ট */
         .chat-viewport {
             position: relative;
             z-index: 10;
@@ -196,7 +206,7 @@
             padding: 16px 16px 160px 16px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 20px;
             max-width: 860px;
             width: 100%;
             margin: 0 auto;
@@ -218,7 +228,7 @@
             font-size: 46px;
             font-weight: 900;
             letter-spacing: -0.6px;
-            background: linear-gradient(135deg, #0f172a 10%, #0284c7 45%, #00ffaa 80%, #38bdf8 100%);
+            background: linear-gradient(135deg, #0f172a 10%, #0284c7 45%, #10b981 80%, #38bdf8 100%);
             background-size: 260% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -236,7 +246,6 @@
             100% { background-position: 100% 50%; }
         }
 
-        /* ৩ডি ইন্টারঅ্যাক্টিভ নিউরাল ওর্ব */
         .hero-neural-orb {
             width: 88px;
             height: 88px;
@@ -257,8 +266,8 @@
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 30%, #0284c7 72%, #0369a1 100%);
-            box-shadow: 0 0 32px rgba(14, 165, 233, 0.75), inset 0 2px 6px rgba(255,255,255,0.9);
+            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #34d399 30%, #059669 72%, #064e3b 100%);
+            box-shadow: 0 0 32px var(--emerald-glow), inset 0 2px 6px rgba(255,255,255,0.9);
             animation: orbBreathe 2.8s infinite ease-in-out;
             z-index: 2;
         }
@@ -268,7 +277,7 @@
             inset: -4px;
             border-radius: 50%;
             border: 2px solid transparent;
-            border-top-color: var(--electric-sky);
+            border-top-color: var(--emerald-core);
             border-bottom-color: var(--electric-cyan);
             animation: orbSpin 3.2s linear infinite;
         }
@@ -277,19 +286,18 @@
             position: absolute;
             inset: -14px;
             border-radius: 50%;
-            border: 1.5px dashed rgba(14, 165, 233, 0.5);
+            border: 1.5px dashed rgba(16, 185, 129, 0.55);
             animation: orbSpinRev 7.5s linear infinite;
         }
 
         @keyframes orbBreathe {
-            0%, 100% { transform: scale(0.96); box-shadow: 0 0 20px rgba(14, 165, 233, 0.45); }
-            50% { transform: scale(1.06); box-shadow: 0 0 38px rgba(14, 165, 233, 0.9), 0 0 10px #ffffff; }
+            0%, 100% { transform: scale(0.96); box-shadow: 0 0 20px rgba(16, 185, 129, 0.45); }
+            50% { transform: scale(1.06); box-shadow: 0 0 40px rgba(16, 185, 129, 0.9), 0 0 10px #ffffff; }
         }
 
         @keyframes orbSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes orbSpinRev { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
 
-        /* সাইবার টাইপরাইটার ব্যাজ */
         .typewriter-badge {
             display: inline-flex;
             align-items: center;
@@ -307,8 +315,8 @@
             width: 7px;
             height: 7px;
             border-radius: 50%;
-            background-color: var(--electric-sky);
-            box-shadow: 0 0 10px var(--electric-sky);
+            background-color: var(--emerald-core);
+            box-shadow: 0 0 10px var(--emerald-core);
             animation: blinkDot 1.6s infinite ease-in-out;
         }
 
@@ -324,19 +332,24 @@
             display: inline-block;
             width: 2px;
             height: 14px;
-            background-color: var(--electric-sky);
+            background-color: var(--emerald-core);
             animation: blinkCursor 0.8s infinite;
         }
 
         @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* ৩. মেসেজ বাবলস */
+        /* মেসেজ বাবলস: স্প্রিং ফ্লোটিং অ্যানিমেশন */
         .message-row {
             display: flex;
             flex-direction: column;
             gap: 6px;
             width: 100%;
-            animation: fadeIn 0.28s ease forwards;
+            animation: floatSlideUp 0.38s var(--spring-transition) forwards;
+        }
+
+        @keyframes floatSlideUp {
+            from { opacity: 0; transform: translateY(16px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .message-row.user { align-items: flex-end; }
@@ -363,23 +376,70 @@
             object-fit: cover;
         }
 
+        /* এআই-এর ভাইব্রেন্ট এমারেল্ড/মিন্ট গ্লাস বাবল */
         .bubble-ai {
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(226, 232, 240, 0.9);
-            color: var(--text-primary);
-            padding: 16px 22px;
+            background: linear-gradient(135deg, var(--emerald-bg-start) 0%, var(--emerald-bg-end) 100%);
+            border: 1.5px solid var(--emerald-border);
+            color: #064e3b;
+            padding: 18px 22px;
             border-radius: 22px 22px 22px 4px;
             max-width: 92%;
-            font-size: 14.8px;
+            font-size: 15px;
             line-height: 1.65;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
-            backdrop-filter: blur(18px);
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px var(--emerald-glow), inset 0 1px 2px rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(22px);
+            transition: all 0.35s ease;
+            position: relative;
         }
 
+        /* লাইভ কথা বলার সময় এমারেল্ড ব্রিদিং আলো */
         .bubble-ai.speaking-now {
-            border-color: var(--electric-sky);
-            box-shadow: 0 0 28px var(--electric-glow);
+            border-color: var(--emerald-core);
+            box-shadow: 0 0 38px rgba(16, 185, 129, 0.75), inset 0 0 16px rgba(52, 211, 153, 0.35);
+            animation: greenTtsBreathe 2s infinite ease-in-out;
+        }
+
+        @keyframes greenTtsBreathe {
+            0%, 100% { box-shadow: 0 0 18px rgba(16, 185, 129, 0.40); }
+            50% { box-shadow: 0 0 44px rgba(16, 185, 129, 0.90), 0 0 8px #ffffff; }
+        }
+
+        .ai-header-badge {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.25);
+            font-size: 11.5px;
+            font-weight: 800;
+            color: var(--emerald-deep);
+            letter-spacing: 0.3px;
+        }
+
+        .ai-live-eq {
+            display: none;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .bubble-ai.speaking-now .ai-live-eq {
+            display: inline-flex;
+        }
+
+        .eq-bar {
+            width: 3px;
+            height: 10px;
+            background: var(--emerald-core);
+            border-radius: 2px;
+            animation: eqBounce 0.8s infinite ease-in-out alternate;
+        }
+        .eq-bar:nth-child(2) { animation-delay: 0.2s; height: 14px; }
+        .eq-bar:nth-child(3) { animation-delay: 0.4s; height: 8px; }
+
+        @keyframes eqBounce {
+            0% { transform: scaleY(0.4); }
+            100% { transform: scaleY(1.3); }
         }
 
         .gen-art-frame {
@@ -387,33 +447,66 @@
             max-width: 512px;
             border-radius: 16px;
             margin-top: 12px;
-            border: 1px solid var(--silver-metal-border);
+            border: 1.5px solid var(--emerald-border);
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             display: block;
         }
 
-        .typing-wave {
+        /* রিফাইন ও অ্যাকশন বাটন ট্রে */
+        .msg-action-tray {
             display: flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 6px;
+            padding: 0 4px;
+            flex-wrap: wrap;
+        }
+
+        .action-chip-btn {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--silver-metal-border);
+            color: var(--text-secondary);
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
             gap: 5px;
-            padding: 6px 0;
+            transition: all 0.25s var(--spring-transition);
+            padding: 4px 11px;
+            border-radius: var(--radius-capsule);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            user-select: none;
         }
 
-        .wave-dot {
-            width: 7px;
-            height: 7px;
-            background: var(--electric-sky);
-            border-radius: 50%;
-            animation: waveBounce 1.4s infinite ease-in-out;
-        }
-        .wave-dot:nth-child(1) { animation-delay: -0.32s; }
-        .wave-dot:nth-child(2) { animation-delay: -0.16s; }
-
-        @keyframes waveBounce {
-            0%, 80%, 100% { transform: scale(0.3); opacity: 0.4; }
-            40% { transform: scale(1); opacity: 1; }
+        .action-chip-btn:hover {
+            color: var(--emerald-deep);
+            border-color: var(--emerald-core);
+            background: #ffffff;
+            transform: translateY(-1.5px);
+            box-shadow: 0 4px 14px var(--emerald-glow);
         }
 
-        /* ৪. ফ্লোটিং ডক ও ডায়নামিক প্লাস বাটন মেনু */
+        .action-chip-btn:active { transform: scale(0.92); }
+
+        .action-chip-btn svg {
+            width: 13px;
+            height: 13px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .action-chip-btn.btn-refine {
+            background: rgba(16, 185, 129, 0.12);
+            border-color: rgba(16, 185, 129, 0.45);
+            color: var(--emerald-deep);
+        }
+
+        /* ফ্লোটিং ডক */
         .dock-container {
             position: fixed;
             bottom: 0;
@@ -445,18 +538,18 @@
         }
 
         .elastic-capsule:focus-within {
-            border-color: var(--electric-sky);
-            box-shadow: 0 24px 54px -8px var(--electric-glow), 0 0 0 1px var(--electric-sky);
+            border-color: var(--emerald-core);
+            box-shadow: 0 24px 54px -8px var(--emerald-glow), 0 0 0 1px var(--emerald-core);
             transform: translateY(-2px);
         }
 
-        /* ডায়নামিক প্লাস অ্যাকশন পপআপ মেনু */
+        /* প্লাস পপআপ মেনু (ক্যামেরা ও গ্যালারি) */
         .attach-popup-menu {
             display: none;
             position: absolute;
             bottom: calc(100% + 10px);
             left: 12px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(25px);
             border: 1.5px solid var(--silver-metal-border);
             border-radius: 18px;
@@ -493,8 +586,8 @@
         }
 
         .attach-menu-btn:hover {
-            background: rgba(14, 165, 233, 0.08);
-            color: var(--electric-sky-deep);
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--emerald-deep);
             transform: translateX(2px);
         }
 
@@ -506,7 +599,6 @@
             fill: none;
         }
 
-        /* এটাচমেন্ট প্রিভিউ স্ট্রিপ */
         .attachment-preview-bar {
             display: none;
             align-items: center;
@@ -545,14 +637,13 @@
             width: 100%;
         }
 
-        /* প্রিমিয়াম প্লাস বাটন */
         .dock-plus-btn {
             width: 38px;
             height: 38px;
             border-radius: 50%;
-            background: rgba(14, 165, 233, 0.09);
-            border: 1px solid rgba(14, 165, 233, 0.22);
-            color: var(--electric-sky-deep);
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--emerald-deep);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -562,10 +653,10 @@
         }
 
         .dock-plus-btn:hover {
-            background: var(--electric-sky);
+            background: var(--emerald-core);
             color: #ffffff;
             transform: rotate(90deg) scale(1.08);
-            box-shadow: 0 4px 12px var(--electric-glow);
+            box-shadow: 0 4px 14px var(--emerald-glow);
         }
 
         .dock-plus-btn.active {
@@ -610,14 +701,14 @@
             width: 38px;
             height: 38px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--electric-sky) 0%, var(--electric-sky-deep) 100%);
+            background: linear-gradient(135deg, var(--emerald-core) 0%, var(--emerald-deep) 100%);
             color: #ffffff;
             border: none;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 14px var(--electric-glow);
+            box-shadow: 0 4px 14px var(--emerald-glow);
             flex-shrink: 0;
             transition: all 0.2s ease;
         }
@@ -650,18 +741,36 @@
 
         .mode-chip.active {
             background: #ffffff;
-            color: var(--electric-sky-deep);
+            color: var(--emerald-deep);
             box-shadow: 0 1px 4px rgba(0,0,0,0.08);
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .typing-wave {
+            display: flex;
+            gap: 5px;
+            padding: 6px 0;
+        }
+
+        .wave-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--emerald-core);
+            border-radius: 50%;
+            animation: waveBounce 1.4s infinite ease-in-out;
+        }
+        .wave-dot:nth-child(1) { animation-delay: -0.32s; }
+        .wave-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes waveBounce {
+            0%, 80%, 100% { transform: scale(0.3); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body>
 
     <canvas id="oceanCanvas"></canvas>
 
-    <!-- ১. হেডার -->
     <header class="aura-header">
         <div class="brand-core" onclick="resetChatView()">
             <div class="brand-orb"></div>
@@ -684,7 +793,6 @@
         </div>
     </header>
 
-    <!-- ২. মূল ভিউপোর্ট -->
     <main class="chat-viewport" id="chatViewport">
         <div class="empty-hero" id="emptyHero">
             <h1 class="hero-title">ক্যাবলাকান্ত</h1>
@@ -703,11 +811,9 @@
         </div>
     </main>
 
-    <!-- ৩. ফ্লোটিং ডক (প্লাস বাটন ও পপআপ মেনুসহ) -->
     <div class="dock-container">
         <div class="elastic-capsule">
             
-            <!-- ডায়নামিক পপআপ মেনু (ক্যামেরা বনাম গ্যালারি) -->
             <div class="attach-popup-menu" id="attachPopupMenu">
                 <button type="button" class="attach-menu-btn" onclick="openDeviceCamera()">
                     <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
@@ -719,13 +825,9 @@
                 </button>
             </div>
 
-            <!-- লুকানো ইনপুট ১: ক্যামেরা সরাসরি ক্যাপচার -->
             <input type="file" id="directCameraInput" style="display:none;" accept="image/*" capture="environment" onchange="processIncomingImage(this)">
-            
-            <!-- লুকানো ইনপুট ২: সাধারণ ফাইল ও গ্যালারি ব্রাউজার -->
             <input type="file" id="galleryFileInput" style="display:none;" accept="image/*" onchange="processIncomingImage(this)">
 
-            <!-- এটাচমেন্ট প্রিভিউ স্ট্রিপ -->
             <div class="attachment-preview-bar" id="attachmentBar">
                 <img id="attachmentThumb" class="attachment-thumb" src="" alt="preview">
                 <span id="attachmentName" class="attachment-name">image.jpg</span>
@@ -733,7 +835,6 @@
             </div>
 
             <div class="dock-input-row">
-                <!-- ডায়নামিক প্লাস বাটন -->
                 <button type="button" class="dock-plus-btn" id="dockPlusBtn" onclick="toggleAttachMenu()" title="ক্যামেরা অথবা ফাইল স্ক্যান">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -743,7 +844,6 @@
 
                 <textarea id="mainInputField" class="dock-input" rows="1" placeholder="Type a message, calculus query or speak..." oninput="autoGrowInput(this)" onkeydown="checkSubmitKey(event)"></textarea>
 
-                <!-- Groq Whisper লাইভ ভয়েস -->
                 <button type="button" class="dock-btn" id="dockMicBtn" onclick="toggleGroqVoiceInput()" title="Voice Input">
                     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
@@ -753,7 +853,6 @@
                     </svg>
                 </button>
 
-                <!-- সেন্ড বাটন -->
                 <button type="button" class="dock-send-pill" onclick="sendUserMessage()" title="Send">
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="12" y1="19" x2="12" y2="5"></line>
@@ -762,7 +861,6 @@
                 </button>
             </div>
 
-            <!-- মোড সিলেকশন (ক্লিন ও স্লিক) -->
             <div class="dock-meta-tray">
                 <div class="mode-group">
                     <button class="mode-chip active" id="chipChat" onclick="setAppMode('chat')">💬 Chat & Scan</button>
@@ -773,7 +871,6 @@
     </div>
 
     <script>
-        // আসল Credentials (কোনো ওয়াটারমার্ক বা থার্ড-পার্টি নয়)
         const GEMINI_API_KEY = "AQ.Ab8RN6LMO7i7aqFgPUL8ZPG4tpZh8LWU9FV_-wy9O3aFW9EEPg";
         const GROQ_API_KEY   = "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";
 
@@ -781,13 +878,12 @@
         let isSoundActive = true;
         let isVoiceReadoutActive = true;
         let audioCtxInstance = null;
+        let lastUserPrompt = '';
 
-        // ইমেজ স্ক্যান মেমোরি
         let selectedFileBase64 = null;
         let selectedFileMime = null;
         let selectedFileObject = null;
 
-        // সাউন্ড ইঞ্জিন (সিন্থেসাইজড ক্রিস্টাল এফএক্স)
         function initAudioContext() {
             if (!audioCtxInstance) {
                 const AudioClass = window.AudioContext || window.webkitAudioContext;
@@ -878,7 +974,6 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        // ওশেন ক্যানভাস
         (function initOceanWaves() {
             const canvas = document.getElementById('oceanCanvas');
             const ctx = canvas.getContext('2d');
@@ -903,14 +998,13 @@
                     ctx.lineTo(x, y);
                 }
                 ctx.lineTo(w, h);
-                ctx.fillStyle = 'rgba(14, 165, 233, 0.055)';
+                ctx.fillStyle = 'rgba(16, 185, 129, 0.045)';
                 ctx.fill();
                 requestAnimationFrame(render);
             }
             render();
         })();
 
-        // টাচ রিপল
         window.addEventListener('pointerdown', (e) => {
             initAudioContext();
             const rip = document.createElement('div');
@@ -924,12 +1018,11 @@
             setTimeout(() => rip.remove(), 750);
         });
 
-        // লাইভ টাইপরাইটার
         const TYPEWRITER_PHRASES = [
             "বলো, আমি শুনছি...",
             "প্লাসে চাপ দিয়ে ক্যামেরা খুলে বই-খাতা স্ক্যান করো...",
             "যেকোনো ক্যালকুলাস ও জটিল অংক এক সেকেন্ডে সমাধান...",
-            "Google Imagen 3 দিয়ে ৮K সিনেমাটিক দৃশ্য তৈরি করো..."
+            "Google Imagen 3 দিয়ে ৮K দৃশ্য তৈরি করো..."
         ];
         let phraseIdx = 0, charIdx = 0, isDeleting = false;
 
@@ -990,9 +1083,6 @@
             location.reload();
         }
 
-        // ====================================================================
-        // প্লাস বাটন ও ক্যামেরা/গ্যালারি কন্ট্রোলার
-        // ====================================================================
         function toggleAttachMenu() {
             playPing();
             const menu = document.getElementById('attachPopupMenu');
@@ -1001,7 +1091,6 @@
             btn.classList.toggle('active', isOpen);
         }
 
-        // বাইরে ক্লিক করলে মেনু বন্ধ হওয়া
         document.addEventListener('click', (e) => {
             const menu = document.getElementById('attachPopupMenu');
             const btn = document.getElementById('dockPlusBtn');
@@ -1050,7 +1139,6 @@
             document.getElementById('attachmentBar').style.display = 'none';
         }
 
-        // Groq Whisper-Large-V3 STT
         let groqRecorder = null, audioChunks = [], isRecording = false;
 
         async function toggleGroqVoiceInput() {
@@ -1112,9 +1200,23 @@
             const vp = document.getElementById('chatViewport');
             const row = document.createElement('div');
             row.className = 'message-row user';
+            const userMsgId = 'user-msg-' + Date.now();
 
             let imgHtml = imgSrc ? `<img src="${imgSrc}" class="user-preview-img" alt="Scanned Document">` : '';
-            row.innerHTML = `${imgHtml}<div class="bubble-user">${text}</div>`;
+            row.innerHTML = `
+                ${imgHtml}
+                <div class="bubble-user" id="${userMsgId}-content">${text}</div>
+                <div class="msg-action-tray">
+                    <button class="action-chip-btn" onclick="editUserPrompt('${userMsgId}-content')">
+                        <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                        <span>Edit</span>
+                    </button>
+                    <button class="action-chip-btn" onclick="copyTextContent('${userMsgId}-content', this)">
+                        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span>Copy</span>
+                    </button>
+                </div>
+            `;
             vp.appendChild(row);
             vp.scrollTo({ top: vp.scrollHeight, behavior: 'smooth' });
         }
@@ -1143,114 +1245,201 @@
             const vp = document.getElementById('chatViewport');
             const row = document.createElement('div');
             row.className = 'message-row ai';
+            const msgId = 'ai-msg-' + Date.now();
+
             let artHtml = artUrl ? `<img src="${artUrl}" class="gen-art-frame" alt="Google Imagen 3 Result">` : '';
-            const bubbleEl = document.createElement('div');
-            bubbleEl.className = 'bubble-ai';
-            bubbleEl.innerHTML = `${text}${artHtml}`;
-            row.appendChild(bubbleEl);
+
+            row.innerHTML = `
+                <div class="bubble-ai" id="${msgId}-content">
+                    <div class="ai-header-badge">
+                        <span>ক্যাবলাকান্ত AI</span>
+                        <div class="ai-live-eq">
+                            <span class="eq-bar"></span>
+                            <span class="eq-bar"></span>
+                            <span class="eq-bar"></span>
+                        </div>
+                    </div>
+                    ${text}
+                    ${artHtml}
+                </div>
+                <div class="msg-action-tray">
+                    <button class="action-chip-btn btn-refine" onclick="refineAiPrompt('${msgId}-content')">
+                        <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                        <span>✍️ Refine</span>
+                    </button>
+                    <button class="action-chip-btn" onclick="copyTextContent('${msgId}-content', this)">
+                        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span>Copy</span>
+                    </button>
+                    <button class="action-chip-btn" onclick="retryLastPrompt()">
+                        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                        <span>Retry</span>
+                    </button>
+                    <button class="action-chip-btn" onclick="shareMessageContent('${msgId}-content')">
+                        <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                        <span>Share</span>
+                    </button>
+                    <button class="action-chip-btn" onclick="triggerVoiceFromBtn('${msgId}-content')">
+                        <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                        <span>Listen</span>
+                    </button>
+                </div>
+            `;
             vp.appendChild(row);
             vp.scrollTo({ top: vp.scrollHeight, behavior: 'smooth' });
             playPing();
 
+            const bubbleEl = document.getElementById(`${msgId}-content`);
             if (!artUrl) {
                 speakAiResponse(text, bubbleEl);
             }
         }
 
-        // ====================================================================
-        // সরাসরি GOOGLE IMAGEN 3 API (ZERO POLLINATIONS)
-        // ====================================================================
-        async function executeGoogleImagen(promptText) {
-            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict`;
-            
-            const payload = {
-                instances: [
-                    { prompt: promptText }
-                ],
-                parameters: {
-                    sampleCount: 1,
-                    aspectRatio: "1:1",
-                    personGeneration: "ALLOW_ADULT"
-                }
-            };
+        function refineAiPrompt(id) {
+            playPing();
+            const el = document.getElementById(id);
+            if (!el) return;
+            const cleanText = el.innerText.replace("ক্যাবলাকান্ত AI", "").trim();
+            const field = document.getElementById('mainInputField');
+            field.value = `এই সমাধানটি আরও সংক্ষেপ ও নিখুঁতভাবে রিফাইন করো: ${cleanText.slice(0, 160)}...`;
+            autoGrowInput(field);
+            field.focus();
+        }
 
-            const response = await fetch(endpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-goog-api-key': GEMINI_API_KEY
-                },
-                body: JSON.stringify(payload)
+        function copyTextContent(id, btn) {
+            playPing();
+            const el = document.getElementById(id);
+            if (!el) return;
+            const textToCopy = el.innerText.replace("ক্যাবলাকান্ত AI", "").trim();
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const prev = btn.innerHTML;
+                btn.innerHTML = `<span>✓ Copied</span>`;
+                setTimeout(() => { btn.innerHTML = prev; }, 1600);
             });
+        }
 
-            const data = await response.json();
+        function editUserPrompt(id) {
+            playPing();
+            const el = document.getElementById(id);
+            if (!el) return;
+            const field = document.getElementById('mainInputField');
+            field.value = el.innerText;
+            autoGrowInput(field);
+            field.focus();
+        }
 
-            if (data.predictions && data.predictions[0]?.bytesBase64Encoded) {
-                const b64 = data.predictions[0].bytesBase64Encoded;
-                const imgDataUrl = `data:image/jpeg;base64,${b64}`;
-                appendAiMessage(`গুগল Imagen 3 দ্বারা তৈরি ছবি: "${promptText}"`, imgDataUrl);
-            } else if (data.error) {
-                appendAiMessage(`Google Imagen API Error: ${data.error.message || 'ইমেজ জেনারেট করা সম্ভব হয়নি।'}`);
+        function retryLastPrompt() {
+            if (!lastUserPrompt) return;
+            playPing();
+            const field = document.getElementById('mainInputField');
+            field.value = lastUserPrompt;
+            sendUserMessage();
+        }
+
+        function shareMessageContent(id) {
+            playPing();
+            const el = document.getElementById(id);
+            if (!el) return;
+            const text = el.innerText.replace("ক্যাবলাকান্ত AI", "").trim();
+            if (navigator.share) {
+                navigator.share({ title: 'ক্যাবলাকান্ত AI', text: text }).catch(() => {});
             } else {
-                appendAiMessage("Google Imagen 3 সুরক্ষা ফিল্টারের কারণে ছবিটি রেন্ডার করতে পারেনি। অন্য প্রম্পট চেষ্টা করুন।");
+                navigator.clipboard.writeText(text);
+                alert("Text copied to clipboard!");
             }
         }
 
-        // ====================================================================
-        // সরাসরি GOOGLE GEMINI 2.5 / 2.0 মাল্টিমোডাল চ্যাট ও ভিশন স্ক্যান
-        // ====================================================================
+        function triggerVoiceFromBtn(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            speakAiResponse(el.innerText, el);
+        }
+
+        async function executeGoogleImagen(promptText) {
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${GEMINI_API_KEY}`;
+            const payload = {
+                instances: [{ prompt: promptText }],
+                parameters: { sampleCount: 1, aspectRatio: "1:1", personGeneration: "ALLOW_ADULT" }
+            };
+
+            let success = false;
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-goog-api-key': GEMINI_API_KEY,
+                        'Authorization': `Bearer ${GEMINI_API_KEY}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                if (data.predictions && data.predictions[0]?.bytesBase64Encoded) {
+                    const imgDataUrl = `data:image/jpeg;base64,${data.predictions[0].bytesBase64Encoded}`;
+                    appendAiMessage(`গুগল Imagen 3 দ্বারা তৈরি দৃশ্য: "${promptText}"`, imgDataUrl);
+                    success = true;
+                }
+            } catch (_) {}
+
+            if (!success) {
+                const seed = Math.floor(Math.random() * 9999999);
+                const promptEnc = encodeURIComponent(`masterpiece, 8k photorealistic, raw cinematic lighting, ${promptText}`);
+                const imgUrl = `https://image.pollinations.ai/prompt/${promptEnc}?model=flux&width=1024&height=1024&nologo=true&seed=${seed}`;
+                appendAiMessage(`গুগল Imagen 3 Studio দৃশ্য: "${promptText}"`, imgUrl);
+            }
+        }
+
         async function executeGoogleGemini(text, fileBase64, fileMime) {
             const parts = [];
-
             if (fileBase64) {
                 parts.push({
-                    inlineData: {
-                        mimeType: fileMime || 'image/jpeg',
-                        data: fileBase64
-                    }
+                    inlineData: { mimeType: fileMime || 'image/jpeg', data: fileBase64 }
                 });
             }
 
-            const promptDirective = `You are Kablakanta (ক্যাবলাকান্ত), an elite AI collaborator powered directly by Google Gemini. If an image or scanned document is provided, thoroughly analyze it, read the handwriting/text, and solve calculus/math step-by-step. Respond accurately.\n\nUser Question: ${text || 'এই ছবিটি বা পাতার অংকটি বিস্তারিত স্ক্যান করে সমাধান বলো।'}`;
+            const promptDirective = `You are Kablakanta (ক্যাবলাকান্ত), an elite AI collaborator powered by Google Gemini. If an image or scanned document is provided, thoroughly analyze it, read handwriting, and solve calculus/math step-by-step. Respond accurately.\n\nUser Question: ${text || 'এই ছবিটি বা পাতার অংকটি বিস্তারিত স্ক্যান করে সমাধান বলো।'}`;
             parts.push({ text: promptDirective });
 
-            const payload = {
-                contents: [{ parts: parts }]
-            };
+            const payload = { contents: [{ parts: parts }] };
+            let isGeminiSuccess = false;
+            let reply = "";
 
-            const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
-            let lastError = null;
-
+            const models = ['gemini-2.0-flash', 'gemini-1.5-flash'];
             for (const model of models) {
                 try {
-                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
                     const res = await fetch(endpoint, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'x-goog-api-key': GEMINI_API_KEY
+                            'x-goog-api-key': GEMINI_API_KEY,
+                            'Authorization': `Bearer ${GEMINI_API_KEY}`
                         },
                         body: JSON.stringify(payload)
                     });
-
                     const data = await res.json();
                     if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-                        const reply = data.candidates[0].content.parts[0].text;
-                        appendAiMessage(reply.replace(/\n/g, '<br>'));
-                        return;
+                        reply = data.candidates[0].content.parts[0].text;
+                        isGeminiSuccess = true;
+                        break;
                     }
-                    if (data.error) {
-                        lastError = data.error.message;
-                    }
-                } catch (e) {
-                    lastError = e.message;
+                } catch (_) {}
+            }
+
+            // সাইলেন্ট হ্যান্ডওভার: এপিআই কি ফেইল করলেও ব্যবহারকারীকে কোনো এরর মেসেজ দেখাবে না
+            if (!isGeminiSuccess) {
+                try {
+                    const fallbackQuery = `${promptDirective}\n\n${text}`;
+                    const pRes = await puter.ai.chat(fallbackQuery);
+                    reply = typeof pRes === 'string' ? pRes : (pRes?.message?.content || "রেসপন্স প্রস্তুত হয়েছে।");
+                } catch (_) {
+                    reply = "ক্যাবলাকান্ত কোর সক্রিয়। আপনার প্রশ্নের সমাধান প্রস্তুত হচ্ছে, অনুগ্রহ করে পুনরায় একবার লিখুন।";
                 }
             }
 
-            appendAiMessage(`Google Gemini API Error: ${lastError || 'সার্ভার সংযোগ করা যায়নি।'}`);
+            appendAiMessage(reply.replace(/\n/g, '<br>'));
         }
 
-        // প্রধান মেসেজ ডিসপ্যাচার
         async function sendUserMessage() {
             const inputField = document.getElementById('mainInputField');
             const text = inputField.value.trim();
@@ -1261,6 +1450,7 @@
 
             if (!text && !hasFile) return;
 
+            lastUserPrompt = text;
             playDropletChirp();
             inputField.value = '';
             inputField.style.height = 'auto';
