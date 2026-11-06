@@ -6,10 +6,7 @@
     <title>ক্যাবলাকান্ত</title>
     <meta name="theme-color" content="#f4f6fa">
 
-    <!-- Puter.js Fallback Engine -->
-    <script src="https://js.puter.com/v2/"></script>
-
-    <!-- Google Fonts -->
+    <!-- Fonts: Inter & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -17,16 +14,16 @@
     <style>
         :root {
             --bg-base: #f4f6fa;
-            --silver-metal-border: #dbe2ea;
+            --silver-metal-border: rgba(203, 213, 225, 0.7);
             --electric-sky: #0ea5e9;
             --electric-sky-deep: #0284c7;
             --electric-cyan: #06b6d4;
-            --electric-glow: rgba(14, 165, 233, 0.30);
+            --electric-glow: rgba(14, 165, 233, 0.32);
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
             --radius-capsule: 9999px;
-            --radius-bubble: 20px;
+            --radius-bubble: 22px;
             --spring-transition: cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
@@ -34,7 +31,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -49,6 +46,7 @@
             position: relative;
         }
 
+        /* ডাইনামিক রেটিনা ওশেন ক্যানভাস */
         #oceanCanvas {
             position: fixed;
             top: 0;
@@ -57,14 +55,15 @@
             height: 100vh;
             z-index: 1;
             pointer-events: none;
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
+        /* ওয়াটার টাচ রিপল */
         .water-ripple {
             position: fixed;
             border-radius: 50%;
-            border: 2px solid rgba(56, 189, 248, 0.75);
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.28) 0%, transparent 70%);
+            border: 2px solid rgba(56, 189, 248, 0.85);
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.35) 0%, transparent 70%);
             transform: scale(0);
             pointer-events: none;
             z-index: 9999;
@@ -73,22 +72,22 @@
 
         @keyframes rippleAnim {
             0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(3.5); opacity: 0; }
+            100% { transform: scale(3.8); opacity: 0; }
         }
 
-        /* 1. হেডার ডিজাইন: সাউন্ড ও ভয়েস অটো বাটনসহ মিনিমালিস্ট লুক */
+        /* ১. লাক্সারি হেডার */
         .aura-header {
             position: relative;
             z-index: 50;
-            padding: 12px 20px;
+            padding: 12px 22px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(25px) saturate(180%);
             border-bottom: 1px solid var(--silver-metal-border);
             flex-shrink: 0;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         }
 
         .brand-core {
@@ -100,17 +99,22 @@
         }
 
         .brand-orb {
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 40%, var(--electric-sky) 100%);
+            background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 45%, var(--electric-sky) 100%);
             border: 2px solid #ffffff;
-            box-shadow: 0 2px 14px var(--electric-glow);
+            box-shadow: 0 2px 16px var(--electric-glow);
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.35s var(--spring-transition);
             flex-shrink: 0;
+        }
+
+        .brand-core:hover .brand-orb {
+            transform: scale(1.12) rotate(15deg);
         }
 
         .brand-orb::after {
@@ -119,7 +123,7 @@
             height: 10px;
             background: #ffffff;
             border-radius: 50%;
-            box-shadow: 0 0 8px #ffffff;
+            box-shadow: 0 0 10px #ffffff;
         }
 
         .brand-text-block {
@@ -129,8 +133,8 @@
         }
 
         .brand-title {
-            font-size: 17px;
-            font-weight: 800;
+            font-size: 18px;
+            font-weight: 900;
             letter-spacing: -0.4px;
             background: linear-gradient(135deg, var(--text-primary) 20%, var(--electric-sky-deep) 100%);
             -webkit-background-clip: text;
@@ -141,6 +145,7 @@
             font-size: 11px;
             font-weight: 600;
             color: var(--electric-sky-deep);
+            letter-spacing: 0.2px;
         }
 
         .header-actions {
@@ -150,20 +155,20 @@
         }
 
         .luxury-pill-toggle {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(14px);
             border: 1px solid var(--silver-metal-border);
             color: var(--text-secondary);
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: var(--radius-capsule);
             font-size: 11.5px;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             cursor: pointer;
             transition: all 0.25s var(--spring-transition);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
             user-select: none;
         }
 
@@ -173,28 +178,26 @@
             color: var(--electric-sky-deep);
         }
 
-        .luxury-pill-toggle:active {
-            transform: scale(0.94);
-        }
+        .luxury-pill-toggle:active { transform: scale(0.94); }
 
         .luxury-pill-toggle.active {
             background: #ffffff;
             border-color: var(--electric-sky);
             color: var(--electric-sky-deep);
-            box-shadow: 0 0 12px var(--electric-glow);
+            box-shadow: 0 0 14px var(--electric-glow);
         }
 
-        /* 2. চ্যাট ভিউপোর্ট ও সেন্ট্রাল হিরো সেকশন */
+        /* ২. চ্যাট ভিউপোর্ট ও সেন্ট্রাল ইন্টারঅ্যাক্টিভ কোর */
         .chat-viewport {
             position: relative;
             z-index: 10;
             flex: 1;
             overflow-y: auto;
-            padding: 16px 16px 150px 16px;
+            padding: 16px 16px 160px 16px;
             display: flex;
             flex-direction: column;
             gap: 18px;
-            max-width: 840px;
+            max-width: 860px;
             width: 100%;
             margin: 0 auto;
             scroll-behavior: smooth;
@@ -207,32 +210,36 @@
             justify-content: center;
             height: 100%;
             text-align: center;
-            gap: 14px;
+            gap: 16px;
             padding: 24px 12px;
         }
 
         .hero-title {
-            font-size: 42px;
+            font-size: 46px;
             font-weight: 900;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #0f172a 15%, #0284c7 48%, #00ffaa 82%, #38bdf8 100%);
-            background-size: 250% auto;
+            letter-spacing: -0.6px;
+            background: linear-gradient(135deg, #0f172a 10%, #0284c7 45%, #00ffaa 80%, #38bdf8 100%);
+            background-size: 260% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: textShimmer 4.5s ease-in-out infinite alternate;
-            filter: drop-shadow(0 4px 14px rgba(14, 165, 233, 0.2));
+            filter: drop-shadow(0 4px 18px rgba(14, 165, 233, 0.24));
             user-select: none;
+            cursor: pointer;
+            transition: transform 0.3s var(--spring-transition);
         }
+
+        .hero-title:hover { transform: scale(1.04); }
 
         @keyframes textShimmer {
             0% { background-position: 0% 50%; }
             100% { background-position: 100% 50%; }
         }
 
-        /* ৩ডি নিউরাল ওর্ব */
+        /* ৩ডি ইন্টারঅ্যাক্টিভ নিউরাল ওর্ব */
         .hero-neural-orb {
-            width: 82px;
-            height: 82px;
+            width: 88px;
+            height: 88px;
             border-radius: 50%;
             position: relative;
             display: flex;
@@ -243,15 +250,15 @@
             transition: transform 0.4s var(--spring-transition);
         }
 
-        .hero-neural-orb:hover { transform: scale(1.15) rotate(10deg); }
-        .hero-neural-orb:active { transform: scale(0.95); }
+        .hero-neural-orb:hover { transform: scale(1.18) rotate(12deg); }
+        .hero-neural-orb:active { transform: scale(0.92); }
 
         .orb-core-sphere {
-            width: 52px;
-            height: 52px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 30%, #0284c7 72%, #0369a1 100%);
-            box-shadow: 0 0 28px rgba(14, 165, 233, 0.65);
+            box-shadow: 0 0 32px rgba(14, 165, 233, 0.75), inset 0 2px 6px rgba(255,255,255,0.9);
             animation: orbBreathe 2.8s infinite ease-in-out;
             z-index: 2;
         }
@@ -268,31 +275,32 @@
 
         .orb-ring-outer {
             position: absolute;
-            inset: -12px;
+            inset: -14px;
             border-radius: 50%;
-            border: 1px dashed rgba(14, 165, 233, 0.45);
+            border: 1.5px dashed rgba(14, 165, 233, 0.5);
             animation: orbSpinRev 7.5s linear infinite;
         }
 
         @keyframes orbBreathe {
-            0%, 100% { transform: scale(0.96); box-shadow: 0 0 18px rgba(14, 165, 233, 0.45); }
-            50% { transform: scale(1.05); box-shadow: 0 0 34px rgba(14, 165, 233, 0.85); }
+            0%, 100% { transform: scale(0.96); box-shadow: 0 0 20px rgba(14, 165, 233, 0.45); }
+            50% { transform: scale(1.06); box-shadow: 0 0 38px rgba(14, 165, 233, 0.9), 0 0 10px #ffffff; }
         }
 
         @keyframes orbSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes orbSpinRev { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
 
-        /* লাইভ সাইবার টাইপরাইটার */
+        /* সাইবার টাইপরাইটার ব্যাজ */
         .typewriter-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--silver-metal-border);
-            padding: 9px 20px;
+            padding: 9px 22px;
             border-radius: var(--radius-capsule);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-            min-height: 40px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+            min-height: 42px;
         }
 
         .typewriter-status-dot {
@@ -300,14 +308,11 @@
             height: 7px;
             border-radius: 50%;
             background-color: var(--electric-sky);
-            box-shadow: 0 0 8px var(--electric-sky);
+            box-shadow: 0 0 10px var(--electric-sky);
             animation: blinkDot 1.6s infinite ease-in-out;
         }
 
-        @keyframes blinkDot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
+        @keyframes blinkDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
         .typewriter-text {
             font-size: 13.8px;
@@ -325,13 +330,13 @@
 
         @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* ৩. মেসেজ বাবলস ও অ্যাকশনস */
+        /* ৩. মেসেজ বাবলস */
         .message-row {
             display: flex;
             flex-direction: column;
             gap: 6px;
             width: 100%;
-            animation: fadeIn 0.25s ease forwards;
+            animation: fadeIn 0.28s ease forwards;
         }
 
         .message-row.user { align-items: flex-end; }
@@ -340,39 +345,50 @@
         .bubble-user {
             background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
             color: #ffffff;
-            padding: 12px 18px;
-            border-radius: 20px 20px 4px 20px;
+            padding: 13px 20px;
+            border-radius: 22px 22px 4px 22px;
             max-width: 85%;
-            font-size: 14.5px;
-            line-height: 1.5;
-            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
+            font-size: 14.8px;
+            line-height: 1.55;
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.28);
+        }
+
+        .user-preview-img {
+            max-width: 220px;
+            max-height: 200px;
+            border-radius: 14px;
+            margin-bottom: 6px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            object-fit: cover;
         }
 
         .bubble-ai {
             background: rgba(255, 255, 255, 0.95);
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(226, 232, 240, 0.9);
             color: var(--text-primary);
-            padding: 15px 18px;
-            border-radius: 20px 20px 20px 4px;
+            padding: 16px 22px;
+            border-radius: 22px 22px 22px 4px;
             max-width: 92%;
-            font-size: 14.5px;
-            line-height: 1.6;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            font-size: 14.8px;
+            line-height: 1.65;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+            backdrop-filter: blur(18px);
             transition: all 0.3s ease;
         }
 
         .bubble-ai.speaking-now {
             border-color: var(--electric-sky);
-            box-shadow: 0 0 24px var(--electric-glow);
+            box-shadow: 0 0 28px var(--electric-glow);
         }
 
         .gen-art-frame {
             width: 100%;
-            max-width: 500px;
-            border-radius: 14px;
-            margin-top: 10px;
+            max-width: 512px;
+            border-radius: 16px;
+            margin-top: 12px;
             border: 1px solid var(--silver-metal-border);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             display: block;
         }
 
@@ -397,13 +413,13 @@
             40% { transform: scale(1); opacity: 1; }
         }
 
-        /* ৪. ফ্লোটিং ডক (নিচের কোনো অতিরিক্ত টেক্সট নেই) */
+        /* ৪. ফ্লোটিং ডক ও ডায়নামিক প্লাস বাটন মেনু */
         .dock-container {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 0 14px calc(12px + env(safe-area-inset-bottom)) 14px;
+            padding: 0 14px calc(14px + env(safe-area-inset-bottom)) 14px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -413,23 +429,113 @@
 
         .elastic-capsule {
             width: 100%;
-            max-width: 760px;
+            max-width: 780px;
             background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(25px);
-            border-radius: 28px;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-            padding: 8px 12px;
+            backdrop-filter: blur(30px);
+            border-radius: 30px;
+            box-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.02);
+            padding: 8px 14px;
             display: flex;
             flex-direction: column;
             gap: 6px;
             pointer-events: auto;
             border: 1.5px solid var(--silver-metal-border);
-            transition: all 0.25s ease;
+            transition: all 0.28s var(--spring-transition);
+            position: relative;
         }
 
         .elastic-capsule:focus-within {
             border-color: var(--electric-sky);
-            box-shadow: 0 20px 48px var(--electric-glow);
+            box-shadow: 0 24px 54px -8px var(--electric-glow), 0 0 0 1px var(--electric-sky);
+            transform: translateY(-2px);
+        }
+
+        /* ডায়নামিক প্লাস অ্যাকশন পপআপ মেনু */
+        .attach-popup-menu {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(25px);
+            border: 1.5px solid var(--silver-metal-border);
+            border-radius: 18px;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+            padding: 8px;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 200;
+            min-width: 200px;
+            animation: popupSlide 0.22s var(--spring-transition) forwards;
+        }
+
+        .attach-popup-menu.show { display: flex; }
+
+        @keyframes popupSlide {
+            from { opacity: 0; transform: translateY(8px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .attach-menu-btn {
+            background: none;
+            border: none;
+            padding: 9px 14px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .attach-menu-btn:hover {
+            background: rgba(14, 165, 233, 0.08);
+            color: var(--electric-sky-deep);
+            transform: translateX(2px);
+        }
+
+        .attach-menu-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* এটাচমেন্ট প্রিভিউ স্ট্রিপ */
+        .attachment-preview-bar {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 10px;
+            background: #f1f5f9;
+            border-radius: 14px;
+            width: fit-content;
+        }
+
+        .attachment-thumb {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .attachment-name {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .attachment-remove {
+            cursor: pointer;
+            color: #ef4444;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 0 4px;
         }
 
         .dock-input-row {
@@ -437,6 +543,36 @@
             align-items: center;
             gap: 8px;
             width: 100%;
+        }
+
+        /* প্রিমিয়াম প্লাস বাটন */
+        .dock-plus-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(14, 165, 233, 0.09);
+            border: 1px solid rgba(14, 165, 233, 0.22);
+            color: var(--electric-sky-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s var(--spring-transition);
+            flex-shrink: 0;
+        }
+
+        .dock-plus-btn:hover {
+            background: var(--electric-sky);
+            color: #ffffff;
+            transform: rotate(90deg) scale(1.08);
+            box-shadow: 0 4px 12px var(--electric-glow);
+        }
+
+        .dock-plus-btn.active {
+            transform: rotate(45deg);
+            background: #ef4444;
+            color: #ffffff;
+            border-color: #ef4444;
         }
 
         .dock-btn {
@@ -525,7 +661,7 @@
 
     <canvas id="oceanCanvas"></canvas>
 
-    <!-- হেডার -->
+    <!-- ১. হেডার -->
     <header class="aura-header">
         <div class="brand-core" onclick="resetChatView()">
             <div class="brand-orb"></div>
@@ -548,7 +684,7 @@
         </div>
     </header>
 
-    <!-- সেন্ট্রাল স্ক্রিন (মাঝের ৩টি প্রম্পট পিন সম্পূর্ণ বাদ) -->
+    <!-- ২. মূল ভিউপোর্ট -->
     <main class="chat-viewport" id="chatViewport">
         <div class="empty-hero" id="emptyHero">
             <h1 class="hero-title">ক্যাবলাকান্ত</h1>
@@ -567,13 +703,48 @@
         </div>
     </main>
 
-    <!-- ইনপুট ডক -->
+    <!-- ৩. ফ্লোটিং ডক (প্লাস বাটন ও পপআপ মেনুসহ) -->
     <div class="dock-container">
         <div class="elastic-capsule">
+            
+            <!-- ডায়নামিক পপআপ মেনু (ক্যামেরা বনাম গ্যালারি) -->
+            <div class="attach-popup-menu" id="attachPopupMenu">
+                <button type="button" class="attach-menu-btn" onclick="openDeviceCamera()">
+                    <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    <span>ক্যামেরা দিয়ে স্ক্যান</span>
+                </button>
+                <button type="button" class="attach-menu-btn" onclick="openFileGallery()">
+                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    <span>গ্যালারি / ফাইল আপলোড</span>
+                </button>
+            </div>
+
+            <!-- লুকানো ইনপুট ১: ক্যামেরা সরাসরি ক্যাপচার -->
+            <input type="file" id="directCameraInput" style="display:none;" accept="image/*" capture="environment" onchange="processIncomingImage(this)">
+            
+            <!-- লুকানো ইনপুট ২: সাধারণ ফাইল ও গ্যালারি ব্রাউজার -->
+            <input type="file" id="galleryFileInput" style="display:none;" accept="image/*" onchange="processIncomingImage(this)">
+
+            <!-- এটাচমেন্ট প্রিভিউ স্ট্রিপ -->
+            <div class="attachment-preview-bar" id="attachmentBar">
+                <img id="attachmentThumb" class="attachment-thumb" src="" alt="preview">
+                <span id="attachmentName" class="attachment-name">image.jpg</span>
+                <span class="attachment-remove" onclick="clearAttachment()" title="Remove">✕</span>
+            </div>
+
             <div class="dock-input-row">
+                <!-- ডায়নামিক প্লাস বাটন -->
+                <button type="button" class="dock-plus-btn" id="dockPlusBtn" onclick="toggleAttachMenu()" title="ক্যামেরা অথবা ফাইল স্ক্যান">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+
                 <textarea id="mainInputField" class="dock-input" rows="1" placeholder="Type a message, calculus query or speak..." oninput="autoGrowInput(this)" onkeydown="checkSubmitKey(event)"></textarea>
 
-                <button type="button" class="dock-btn" id="dockMicBtn" onclick="toggleGroqVoiceInput()" title="Groq Voice Input">
+                <!-- Groq Whisper লাইভ ভয়েস -->
+                <button type="button" class="dock-btn" id="dockMicBtn" onclick="toggleGroqVoiceInput()" title="Voice Input">
                     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
                         <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
@@ -582,6 +753,7 @@
                     </svg>
                 </button>
 
+                <!-- সেন্ড বাটন -->
                 <button type="button" class="dock-send-pill" onclick="sendUserMessage()" title="Send">
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="12" y1="19" x2="12" y2="5"></line>
@@ -590,6 +762,7 @@
                 </button>
             </div>
 
+            <!-- মোড সিলেকশন (ক্লিন ও স্লিক) -->
             <div class="dock-meta-tray">
                 <div class="mode-group">
                     <button class="mode-chip active" id="chipChat" onclick="setAppMode('chat')">💬 Chat & Scan</button>
@@ -600,7 +773,7 @@
     </div>
 
     <script>
-        // Google AI Studio Key & Groq Key কনফিগারেশন
+        // আসল Credentials (কোনো ওয়াটারমার্ক বা থার্ড-পার্টি নয়)
         const GEMINI_API_KEY = "AQ.Ab8RN6LMO7i7aqFgPUL8ZPG4tpZh8LWU9FV_-wy9O3aFW9EEPg";
         const GROQ_API_KEY   = "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";
 
@@ -609,7 +782,12 @@
         let isVoiceReadoutActive = true;
         let audioCtxInstance = null;
 
-        // সাউন্ড ইঞ্জিন
+        // ইমেজ স্ক্যান মেমোরি
+        let selectedFileBase64 = null;
+        let selectedFileMime = null;
+        let selectedFileObject = null;
+
+        // সাউন্ড ইঞ্জিন (সিন্থেসাইজড ক্রিস্টাল এফএক্স)
         function initAudioContext() {
             if (!audioCtxInstance) {
                 const AudioClass = window.AudioContext || window.webkitAudioContext;
@@ -700,7 +878,7 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        // ওশেন ব্যাকগ্রাউন্ড
+        // ওশেন ক্যানভাস
         (function initOceanWaves() {
             const canvas = document.getElementById('oceanCanvas');
             const ctx = canvas.getContext('2d');
@@ -725,19 +903,19 @@
                     ctx.lineTo(x, y);
                 }
                 ctx.lineTo(w, h);
-                ctx.fillStyle = 'rgba(14, 165, 233, 0.05)';
+                ctx.fillStyle = 'rgba(14, 165, 233, 0.055)';
                 ctx.fill();
                 requestAnimationFrame(render);
             }
             render();
         })();
 
-        // ওয়াটার রিপল
+        // টাচ রিপল
         window.addEventListener('pointerdown', (e) => {
             initAudioContext();
             const rip = document.createElement('div');
             rip.className = 'water-ripple';
-            const size = 60;
+            const size = 64;
             rip.style.width = size + 'px';
             rip.style.height = size + 'px';
             rip.style.left = (e.clientX - size / 2) + 'px';
@@ -749,9 +927,9 @@
         // লাইভ টাইপরাইটার
         const TYPEWRITER_PHRASES = [
             "বলো, আমি শুনছি...",
-            "যেকোনো জটিল ক্যালকুলাস এক সেকেন্ডে সমাধান...",
-            "মাইকে বাংলায় কথা বলো, সাথে সাথে লিখছি...",
-            "৮K সিনেমাটিক দৃশ্য আঁকতে বলো..."
+            "প্লাসে চাপ দিয়ে ক্যামেরা খুলে বই-খাতা স্ক্যান করো...",
+            "যেকোনো ক্যালকুলাস ও জটিল অংক এক সেকেন্ডে সমাধান...",
+            "Google Imagen 3 দিয়ে ৮K সিনেমাটিক দৃশ্য তৈরি করো..."
         ];
         let phraseIdx = 0, charIdx = 0, isDeleting = false;
 
@@ -796,8 +974,9 @@
             document.getElementById('chipImage').classList.toggle('active', mode === 'image');
             const field = document.getElementById('mainInputField');
             field.placeholder = mode === 'image' 
-                ? "Describe 8K photorealistic visual in detail..." 
+                ? "Describe visual for Google Imagen 3..." 
                 : "Type a message, calculus query or speak...";
+            playPing();
         }
 
         function checkSubmitKey(e) {
@@ -811,7 +990,67 @@
             location.reload();
         }
 
-        // Groq Whisper ভয়েস ইনপুট
+        // ====================================================================
+        // প্লাস বাটন ও ক্যামেরা/গ্যালারি কন্ট্রোলার
+        // ====================================================================
+        function toggleAttachMenu() {
+            playPing();
+            const menu = document.getElementById('attachPopupMenu');
+            const btn = document.getElementById('dockPlusBtn');
+            const isOpen = menu.classList.toggle('show');
+            btn.classList.toggle('active', isOpen);
+        }
+
+        // বাইরে ক্লিক করলে মেনু বন্ধ হওয়া
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('attachPopupMenu');
+            const btn = document.getElementById('dockPlusBtn');
+            if (!menu.contains(e.target) && !btn.contains(e.target) && menu.classList.contains('show')) {
+                menu.classList.remove('show');
+                btn.classList.remove('active');
+            }
+        });
+
+        function openDeviceCamera() {
+            toggleAttachMenu();
+            document.getElementById('directCameraInput').click();
+        }
+
+        function openFileGallery() {
+            toggleAttachMenu();
+            document.getElementById('galleryFileInput').click();
+        }
+
+        function processIncomingImage(input) {
+            const file = input.files && input.files[0];
+            if (!file) return;
+
+            selectedFileObject = file;
+            selectedFileMime = file.type || 'image/jpeg';
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const fullBase64 = e.target.result;
+                selectedFileBase64 = fullBase64.split(',')[1];
+                
+                document.getElementById('attachmentThumb').src = fullBase64;
+                document.getElementById('attachmentName').innerText = file.name.slice(0, 18);
+                document.getElementById('attachmentBar').style.display = 'inline-flex';
+                playPing();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearAttachment() {
+            selectedFileBase64 = null;
+            selectedFileMime = null;
+            selectedFileObject = null;
+            document.getElementById('directCameraInput').value = '';
+            document.getElementById('galleryFileInput').value = '';
+            document.getElementById('attachmentBar').style.display = 'none';
+        }
+
+        // Groq Whisper-Large-V3 STT
         let groqRecorder = null, audioChunks = [], isRecording = false;
 
         async function toggleGroqVoiceInput() {
@@ -867,13 +1106,15 @@
             }
         }
 
-        function appendUserMessage(text) {
+        function appendUserMessage(text, imgSrc = null) {
             const hero = document.getElementById('emptyHero');
             if (hero) hero.remove();
             const vp = document.getElementById('chatViewport');
             const row = document.createElement('div');
             row.className = 'message-row user';
-            row.innerHTML = `<div class="bubble-user">${text}</div>`;
+
+            let imgHtml = imgSrc ? `<img src="${imgSrc}" class="user-preview-img" alt="Scanned Document">` : '';
+            row.innerHTML = `${imgHtml}<div class="bubble-user">${text}</div>`;
             vp.appendChild(row);
             vp.scrollTo({ top: vp.scrollHeight, behavior: 'smooth' });
         }
@@ -902,7 +1143,7 @@
             const vp = document.getElementById('chatViewport');
             const row = document.createElement('div');
             row.className = 'message-row ai';
-            let artHtml = artUrl ? `<img src="${artUrl}" class="gen-art-frame" alt="Generated Visual">` : '';
+            let artHtml = artUrl ? `<img src="${artUrl}" class="gen-art-frame" alt="Google Imagen 3 Result">` : '';
             const bubbleEl = document.createElement('div');
             bubbleEl.className = 'bubble-ai';
             bubbleEl.innerHTML = `${text}${artHtml}`;
@@ -916,78 +1157,126 @@
             }
         }
 
-        // প্রধান মেসেজ হ্যান্ডলার (x-goog-api-key হেডার দ্বারা সুরক্ষিত)
+        // ====================================================================
+        // সরাসরি GOOGLE IMAGEN 3 API (ZERO POLLINATIONS)
+        // ====================================================================
+        async function executeGoogleImagen(promptText) {
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict`;
+            
+            const payload = {
+                instances: [
+                    { prompt: promptText }
+                ],
+                parameters: {
+                    sampleCount: 1,
+                    aspectRatio: "1:1",
+                    personGeneration: "ALLOW_ADULT"
+                }
+            };
+
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-goog-api-key': GEMINI_API_KEY
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+
+            if (data.predictions && data.predictions[0]?.bytesBase64Encoded) {
+                const b64 = data.predictions[0].bytesBase64Encoded;
+                const imgDataUrl = `data:image/jpeg;base64,${b64}`;
+                appendAiMessage(`গুগল Imagen 3 দ্বারা তৈরি ছবি: "${promptText}"`, imgDataUrl);
+            } else if (data.error) {
+                appendAiMessage(`Google Imagen API Error: ${data.error.message || 'ইমেজ জেনারেট করা সম্ভব হয়নি।'}`);
+            } else {
+                appendAiMessage("Google Imagen 3 সুরক্ষা ফিল্টারের কারণে ছবিটি রেন্ডার করতে পারেনি। অন্য প্রম্পট চেষ্টা করুন।");
+            }
+        }
+
+        // ====================================================================
+        // সরাসরি GOOGLE GEMINI 2.5 / 2.0 মাল্টিমোডাল চ্যাট ও ভিশন স্ক্যান
+        // ====================================================================
+        async function executeGoogleGemini(text, fileBase64, fileMime) {
+            const parts = [];
+
+            if (fileBase64) {
+                parts.push({
+                    inlineData: {
+                        mimeType: fileMime || 'image/jpeg',
+                        data: fileBase64
+                    }
+                });
+            }
+
+            const promptDirective = `You are Kablakanta (ক্যাবলাকান্ত), an elite AI collaborator powered directly by Google Gemini. If an image or scanned document is provided, thoroughly analyze it, read the handwriting/text, and solve calculus/math step-by-step. Respond accurately.\n\nUser Question: ${text || 'এই ছবিটি বা পাতার অংকটি বিস্তারিত স্ক্যান করে সমাধান বলো।'}`;
+            parts.push({ text: promptDirective });
+
+            const payload = {
+                contents: [{ parts: parts }]
+            };
+
+            const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+            let lastError = null;
+
+            for (const model of models) {
+                try {
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-goog-api-key': GEMINI_API_KEY
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const data = await res.json();
+                    if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+                        const reply = data.candidates[0].content.parts[0].text;
+                        appendAiMessage(reply.replace(/\n/g, '<br>'));
+                        return;
+                    }
+                    if (data.error) {
+                        lastError = data.error.message;
+                    }
+                } catch (e) {
+                    lastError = e.message;
+                }
+            }
+
+            appendAiMessage(`Google Gemini API Error: ${lastError || 'সার্ভার সংযোগ করা যায়নি।'}`);
+        }
+
+        // প্রধান মেসেজ ডিসপ্যাচার
         async function sendUserMessage() {
             const inputField = document.getElementById('mainInputField');
             const text = inputField.value.trim();
-            if (!text) return;
+            const hasFile = !!selectedFileBase64;
+            const currentFileBase64 = selectedFileBase64;
+            const currentFileMime = selectedFileMime;
+            const previewSrc = selectedFileObject ? URL.createObjectURL(selectedFileObject) : null;
+
+            if (!text && !hasFile) return;
 
             playDropletChirp();
             inputField.value = '';
             inputField.style.height = 'auto';
+            clearAttachment();
 
-            appendUserMessage(text);
+            appendUserMessage(text || "স্ক্যান করা ছবিটি বিশ্লেষণ করুন...", previewSrc);
             appendLoadingSkeleton();
 
             try {
                 if (currentAppMode === 'image') {
-                    // ৮K ভিজ্যুয়াল জেনারেশন
-                    const seed = Math.floor(Math.random() * 9999999);
-                    const promptEnc = encodeURIComponent(`masterpiece, photorealistic 8k, raw cinematic lighting, ${text}`);
-                    const imgUrl = `https://image.pollinations.ai/prompt/${promptEnc}?model=flux&width=1024&height=1024&nologo=true&seed=${seed}`;
-
-                    const testImg = new Image();
-                    testImg.src = imgUrl;
-                    testImg.onload = () => appendAiMessage(`Generated 8K Visual for: "${text}"`, imgUrl);
-                    testImg.onerror = () => appendAiMessage(`Generated 8K Visual for: "${text}"`, imgUrl);
+                    await executeGoogleImagen(text);
                 } else {
-                    // Google AI Studio রিকোয়েস্ট (x-goog-api-key হেডার যুক্ত)
-                    const payload = {
-                        contents: [{
-                            parts: [{
-                                text: `You are Kablakanta (ক্যাবলাকান্ত), an elite, highly intelligent AI. Solve calculus equations clearly step-by-step. Respond accurately.\n\nUser Question: ${text}`
-                            }]
-                        }]
-                    };
-
-                    let reply = "";
-                    let isGeminiSuccess = false;
-
-                    const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
-                    for (const model of models) {
-                        try {
-                            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'x-goog-api-key': GEMINI_API_KEY
-                                },
-                                body: JSON.stringify(payload)
-                            });
-
-                            const data = await res.json();
-                            if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-                                reply = data.candidates[0].content.parts[0].text;
-                                isGeminiSuccess = true;
-                                break;
-                            }
-                        } catch (_) {}
-                    }
-
-                    // ব্যাকআপ ফলব্যাক ইঞ্জিন
-                    if (!isGeminiSuccess) {
-                        try {
-                            const pRes = await puter.ai.chat(text);
-                            reply = typeof pRes === 'string' ? pRes : (pRes?.message?.content || "রেসপন্স তৈরি হয়েছে।");
-                        } catch (_) {
-                            reply = "সার্ভার সংযোগ সমস্যা। পুনরায় চেষ্টা করুন।";
-                        }
-                    }
-
-                    appendAiMessage(reply.replace(/\n/g, '<br>'));
+                    await executeGoogleGemini(text, currentFileBase64, currentFileMime);
                 }
             } catch (err) {
-                appendAiMessage("রেসপন্স প্রসেসিং এরর। ক্লাউড গেটওয়ে পুনরায় চেষ্টা করছে...");
+                appendAiMessage(`সিস্টেম এরর: ${err.message}`);
             }
         }
     </script>
