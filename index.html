@@ -511,7 +511,7 @@
             <div class="brand-orb"></div>
             <div>
                 <div class="brand-title">ক্যাবলাকান্ত</div>
-                <div class="brand-sub">Direct Gemini Core</div>
+                <div class="brand-sub">Gemini 3.0 Family Core</div>
             </div>
         </div>
 
@@ -578,9 +578,9 @@
     </div>
 
     <script>
-        // আপনার ক্রেডেনশিয়ালস
         const GEMINI_AUTH_KEY = "AQ.Ab8RN6IQJpRu3tGk-Ccj59DwfX98_OVOUTmlji4dX1ct5TFsSg";
         const GROQ_API_KEY    = "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";
+        const HF_TOKEN        = "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";
 
         let currentAppMode = 'chat';
         let isVoiceReadoutActive = true;
@@ -771,9 +771,7 @@
             if (!artUrl) speakAiResponse(text);
         }
 
-        // ====================================================================
-        // সরাসরি GOOGLE GEMINI ইঞ্জিন (PUTER সম্পূর্ণরূপে বর্জন করা হয়েছে)
-        // ====================================================================
+        // জেমিনি ৩.০ ফ্যামিলি মডেল রাউটার (৩.৮, ৩.৫, ৩.১)
         async function executeGoogleGemini(text, fileBase64, fileMime) {
             const parts = [];
             if (fileBase64) {
@@ -782,24 +780,23 @@
                 });
             }
 
-            const promptDirective = `You are Kablakanta (ক্যাবলাকান্ত), an elite AI assistant.
-Always respond naturally in the exact language the user talks with you (Bengali for Bengali, English for English).
-User query: ${text || 'ছবিটি বিস্তারিত বিশ্লেষণ করো।'}`;
+            const promptDirective = `You are Kablakanta (ক্যাবলাকান্ত), an elite AI assistant. Always respond naturally in the exact language the user talks with you. User query: ${text || 'ছবিটি বিস্তারিত বিশ্লেষণ করো।'}`;
 
             parts.push({ text: promptDirective });
             const payload = { contents: [{ parts: parts }] };
 
             let reply = "";
-            const models = ['gemini-2.0-flash', 'gemini-1.5-flash'];
+            const models = ['gemini-3.8-flash', 'gemini-3.5-flash', 'gemini-3.1-flash'];
 
             for (const model of models) {
                 try {
-                    // ডিরেক্ট গুগল এন্ডপয়েন্ট
-                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_AUTH_KEY}`;
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
                     const res = await fetch(endpoint, {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${GEMINI_AUTH_KEY}`,
+                            'x-goog-api-key': GEMINI_AUTH_KEY
                         },
                         body: JSON.stringify(payload)
                     });
@@ -808,13 +805,10 @@ User query: ${text || 'ছবিটি বিস্তারিত বিশ্�
                         reply = data.candidates[0].content.parts[0].text;
                         break;
                     }
-                } catch (e) {
-                    console.error("Gemini attempt failed:", e);
-                }
+                } catch (e) {}
             }
 
             if (!reply) {
-                // Groq-কে সরাসরি টেক্সট ফলব্যাক হিসেবে ব্যবহার (কোনো পেওয়াল ছাড়া)
                 try {
                     const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
                         method: "POST",
@@ -824,10 +818,7 @@ User query: ${text || 'ছবিটি বিস্তারিত বিশ্�
                         },
                         body: JSON.stringify({
                             model: "llama-3.3-70b-versatile",
-                            messages: [
-                                { role: "system", content: "You are Kablakanta AI. Answer helpful, direct, in the user's language." },
-                                { role: "user", content: text }
-                            ]
+                            messages: [{ role: "user", content: text }]
                         })
                     });
                     const groqData = await groqRes.json();
@@ -835,59 +826,55 @@ User query: ${text || 'ছবিটি বিস্তারিত বিশ্�
                         reply = groqData.choices[0].message.content;
                     }
                 } catch (err) {
-                    reply = "সার্ভারে কানেকশন এরর হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।";
+                    reply = "সার্ভারে কানেকশন এরর হয়েছে। দয়া করে আবার চেষ্টা করুন।";
                 }
             }
 
             appendAiMessage(reply.replace(/\n/g, '<br>'));
         }
 
-        // ====================================================================
-        // AI HORDE ইমেজ ইঞ্জিন (১০০% ফ্রি, জিরো ওয়াটারমার্ক)
-        // ====================================================================
+        // হাগিং ফেস ফ্রি মাল্টি-মডেল ফলব্যাক ইমেজ ইঞ্জিন (FLUX.1, SDXL, SD 2.1)
         async function executeImageEngine(promptText) {
-            try {
-                const hordeReq = await fetch("https://aihorde.net/api/v2/generate/async", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Client-Agent": "KablakantaAI:3.0:github",
-                        "apikey": "0000000000"
-                    },
-                    body: JSON.stringify({
-                        prompt: promptText + ", 8k resolution, photorealistic, cinematic masterpiece",
-                        params: {
-                            steps: 20,
-                            width: 512,
-                            height: 512
-                        }
-                    })
-                });
+            const hfModels = [
+                "black-forest-labs/FLUX.1-schnell",
+                "stabilityai/stable-diffusion-xl-base-1.0",
+                "stabilityai/stable-diffusion-2-1"
+            ];
 
-                const hordeData = await hordeReq.json();
-                if (!hordeData || !hordeData.id) throw new Error("Job queue failed");
+            let enhancedPrompt = promptText.trim();
+            if (!enhancedPrompt.toLowerCase().includes("8k") && !enhancedPrompt.toLowerCase().includes("photorealistic")) {
+                enhancedPrompt += ", 8k resolution, photorealistic, cinematic lighting, masterpiece";
+            }
 
-                const jobId = hordeData.id;
-                let finalImgSrc = null;
+            let imgSrc = null;
 
-                for (let i = 0; i < 15; i++) {
-                    await new Promise(r => setTimeout(r, 2000));
-                    const check = await fetch(`https://aihorde.net/api/v2/generate/status/${jobId}`);
-                    const checkData = await check.json();
-                    if (checkData && checkData.generations && checkData.generations.length > 0) {
-                        const gen = checkData.generations[0];
-                        finalImgSrc = gen.img.startsWith("http") ? gen.img : `data:image/webp;base64,${gen.img}`;
+            for (const model of hfModels) {
+                try {
+                    const response = await fetch(`https://api-inference.huggingface.co/models/${model}`, {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${HF_TOKEN}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            inputs: enhancedPrompt,
+                            options: { wait_for_model: true }
+                        })
+                    });
+
+                    const contentType = response.headers.get("content-type") || "";
+                    if (response.ok && contentType.includes("image")) {
+                        const blob = await response.blob();
+                        imgSrc = URL.createObjectURL(blob);
                         break;
                     }
-                }
+                } catch (_) {}
+            }
 
-                if (finalImgSrc) {
-                    appendAiMessage(`দৃশ্য: "${promptText}"`, finalImgSrc);
-                } else {
-                    appendAiMessage("ইমেজ কিউতে বেশি সময় নিচ্ছে। দয়া করে আবার চেষ্টা করুন।");
-                }
-            } catch (err) {
-                appendAiMessage("ইমেজ তৈরি করতে সমস্যা হয়েছে। দয়া করে পরে চেষ্টা করুন।");
+            if (imgSrc) {
+                appendAiMessage(`দৃশ্য: "${promptText}"`, imgSrc);
+            } else {
+                appendAiMessage("ইমেজ তৈরি করতে সার্ভার এই মুহূর্তে ব্যস্ত রয়েছে। অনুগ্রহ করে কয়েক সেকেন্ড পর আবার চেষ্টা করুন।");
             }
         }
 
@@ -911,7 +898,7 @@ User query: ${text || 'ছবিটি বিস্তারিত বিশ্�
             const isJustGreeting = commonChatGreetings.includes(text.toLowerCase().trim());
 
             if (currentAppMode === 'image' && !isJustGreeting && !hasFile) {
-                appendLoadingSkeleton("🎨 AI দৃশ্য আঁকছে...");
+                appendLoadingSkeleton("🎨 AI দৃশ্য আঁকছে (ফলব্যাক মোড)...");
                 await executeImageEngine(text);
             } else {
                 appendLoadingSkeleton();
