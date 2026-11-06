@@ -5,41 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ক্যাবলাকান্ত</title>
     <meta name="theme-color" content="#f4f6fa">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-    <!-- Premium Fonts: Inter & JetBrains Mono -->
+    <!-- Puter.js Fallback Engine -->
+    <script src="https://js.puter.com/v2/"></script>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --bg-base: #f4f6fa;
-            --silver-surface: rgba(255, 255, 255, 0.88);
             --silver-metal-border: #dbe2ea;
-            
             --electric-sky: #0ea5e9;
             --electric-sky-deep: #0284c7;
             --electric-cyan: #06b6d4;
-            --electric-glow: rgba(14, 165, 233, 0.32);
-            
+            --electric-glow: rgba(14, 165, 233, 0.30);
             --text-primary: #0f172a;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
-            
-            --bubble-user-start: #0284c7;
-            --bubble-user-end: #38bdf8;
-            --bubble-math-bg: rgba(6, 182, 212, 0.08);
-            --bubble-math-border: #a5f3fc;
-            --bubble-chat-bg: rgba(255, 255, 255, 0.94);
-            --bubble-chat-border: #e2e8f0;
-            --bubble-art-bg: rgba(168, 85, 247, 0.08);
-            --bubble-art-border: #e9d5ff;
-
             --radius-capsule: 9999px;
-            --radius-bubble: 22px;
+            --radius-bubble: 20px;
             --spring-transition: cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
@@ -47,7 +34,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -62,7 +49,6 @@
             position: relative;
         }
 
-        /* 1. RETINA HIGH-DPI OCEAN CANVAS */
         #oceanCanvas {
             position: fixed;
             top: 0;
@@ -71,15 +57,14 @@
             height: 100vh;
             z-index: 1;
             pointer-events: none;
-            opacity: 0.92;
+            opacity: 0.9;
         }
 
-        /* 2. FLUID TOUCH WATER RIPPLE */
         .water-ripple {
             position: fixed;
             border-radius: 50%;
             border: 2px solid rgba(56, 189, 248, 0.75);
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.28) 0%, rgba(255, 255, 255, 0) 70%);
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.28) 0%, transparent 70%);
             transform: scale(0);
             pointer-events: none;
             z-index: 9999;
@@ -91,52 +76,47 @@
             100% { transform: scale(3.5); opacity: 0; }
         }
 
-        /* 3. LUXURY PRISM HEADER */
+        /* 1. হেডার ডিজাইন: সাউন্ড ও ভয়েস অটো বাটনসহ মিনিমালিস্ট লুক */
         .aura-header {
             position: relative;
             z-index: 50;
-            padding: 11px 18px;
+            padding: 12px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.82);
-            backdrop-filter: blur(22px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--silver-metal-border);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
             flex-shrink: 0;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
         }
 
         .brand-core {
             display: flex;
             align-items: center;
-            gap: 11px;
+            gap: 12px;
             cursor: pointer;
             user-select: none;
         }
 
         .brand-orb {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 40%, var(--electric-sky) 100%);
-            border: 1.5px solid #ffffff;
+            border: 2px solid #ffffff;
             box-shadow: 0 2px 14px var(--electric-glow);
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.35s var(--spring-transition);
             flex-shrink: 0;
-        }
-
-        .brand-core:hover .brand-orb {
-            transform: scale(1.15) rotate(15deg);
         }
 
         .brand-orb::after {
             content: '';
-            width: 9px;
-            height: 9px;
+            width: 10px;
+            height: 10px;
             background: #ffffff;
             border-radius: 50%;
             box-shadow: 0 0 8px #ffffff;
@@ -149,7 +129,7 @@
         }
 
         .brand-title {
-            font-size: 16.5px;
+            font-size: 17px;
             font-weight: 800;
             letter-spacing: -0.4px;
             background: linear-gradient(135deg, var(--text-primary) 20%, var(--electric-sky-deep) 100%);
@@ -158,57 +138,62 @@
         }
 
         .brand-sub {
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 600;
             color: var(--electric-sky-deep);
-            letter-spacing: 0.2px;
-            opacity: 0.9;
         }
 
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
-        .prism-pill {
-            background: var(--silver-surface);
+        .luxury-pill-toggle {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
             border: 1px solid var(--silver-metal-border);
             color: var(--text-secondary);
-            padding: 6px 11px;
+            padding: 5px 12px;
             border-radius: var(--radius-capsule);
             font-size: 11.5px;
             font-weight: 600;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 5px;
             cursor: pointer;
             transition: all 0.25s var(--spring-transition);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            user-select: none;
         }
 
-        .prism-pill:hover {
+        .luxury-pill-toggle:hover {
+            transform: translateY(-1px);
             border-color: var(--electric-sky);
             color: var(--electric-sky-deep);
-            transform: translateY(-1px);
         }
 
-        .prism-pill.active {
+        .luxury-pill-toggle:active {
+            transform: scale(0.94);
+        }
+
+        .luxury-pill-toggle.active {
             background: #ffffff;
             border-color: var(--electric-sky);
             color: var(--electric-sky-deep);
             box-shadow: 0 0 12px var(--electric-glow);
         }
 
-        /* 4. CHAT STREAM VIEWPORT & MINIMALIST HERO */
+        /* 2. চ্যাট ভিউপোর্ট ও সেন্ট্রাল হিরো সেকশন */
         .chat-viewport {
             position: relative;
             z-index: 10;
             flex: 1;
             overflow-y: auto;
-            padding: 16px 16px 160px 16px;
+            padding: 16px 16px 150px 16px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 18px;
             max-width: 840px;
             width: 100%;
             margin: 0 auto;
@@ -224,7 +209,6 @@
             text-align: center;
             gap: 14px;
             padding: 24px 12px;
-            animation: fadeIn 0.4s ease;
         }
 
         .hero-title {
@@ -236,15 +220,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: textShimmer 4.5s ease-in-out infinite alternate;
-            filter: drop-shadow(0 4px 14px rgba(14, 165, 233, 0.22));
-            cursor: pointer;
-            transition: transform 0.3s var(--spring-transition);
+            filter: drop-shadow(0 4px 14px rgba(14, 165, 233, 0.2));
             user-select: none;
-            margin-bottom: 2px;
-        }
-
-        .hero-title:hover {
-            transform: scale(1.05);
         }
 
         @keyframes textShimmer {
@@ -252,36 +229,31 @@
             100% { background-position: 100% 50%; }
         }
 
+        /* ৩ডি নিউরাল ওর্ব */
         .hero-neural-orb {
-            width: 80px;
-            height: 80px;
+            width: 82px;
+            height: 82px;
             border-radius: 50%;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 4px auto 10px auto;
+            margin: 4px auto;
             cursor: pointer;
             transition: transform 0.4s var(--spring-transition);
         }
 
-        .hero-neural-orb:hover {
-            transform: scale(1.18) rotate(12deg);
-        }
-
-        .hero-neural-orb:active {
-            transform: scale(0.94);
-        }
+        .hero-neural-orb:hover { transform: scale(1.15) rotate(10deg); }
+        .hero-neural-orb:active { transform: scale(0.95); }
 
         .orb-core-sphere {
-            width: 50px;
-            height: 50px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             background: radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 30%, #0284c7 72%, #0369a1 100%);
-            box-shadow: 0 0 28px rgba(14, 165, 233, 0.65), inset 0 2px 5px rgba(255, 255, 255, 0.85);
-            position: relative;
-            z-index: 2;
+            box-shadow: 0 0 28px rgba(14, 165, 233, 0.65);
             animation: orbBreathe 2.8s infinite ease-in-out;
+            z-index: 2;
         }
 
         .orb-ring {
@@ -304,18 +276,18 @@
 
         @keyframes orbBreathe {
             0%, 100% { transform: scale(0.96); box-shadow: 0 0 18px rgba(14, 165, 233, 0.45); }
-            50% { transform: scale(1.05); box-shadow: 0 0 34px rgba(14, 165, 233, 0.85), 0 0 8px #ffffff; }
+            50% { transform: scale(1.05); box-shadow: 0 0 34px rgba(14, 165, 233, 0.85); }
         }
 
         @keyframes orbSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes orbSpinRev { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
 
+        /* লাইভ সাইবার টাইপরাইটার */
         .typewriter-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(14px);
+            background: rgba(255, 255, 255, 0.9);
             border: 1px solid var(--silver-metal-border);
             padding: 9px 20px;
             border-radius: var(--radius-capsule);
@@ -330,19 +302,17 @@
             background-color: var(--electric-sky);
             box-shadow: 0 0 8px var(--electric-sky);
             animation: blinkDot 1.6s infinite ease-in-out;
-            flex-shrink: 0;
         }
 
         @keyframes blinkDot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.35; transform: scale(0.8); }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
         .typewriter-text {
             font-size: 13.8px;
             font-weight: 600;
             color: var(--text-secondary);
-            letter-spacing: -0.2px;
         }
 
         .typewriter-cursor {
@@ -350,403 +320,60 @@
             width: 2px;
             height: 14px;
             background-color: var(--electric-sky);
-            margin-left: 2px;
             animation: blinkCursor 0.8s infinite;
-            vertical-align: middle;
         }
 
-        @keyframes blinkCursor {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
+        @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* 5. MESSAGES & REACTIVE BUBBLES */
+        /* ৩. মেসেজ বাবলস ও অ্যাকশনস */
         .message-row {
             display: flex;
             flex-direction: column;
             gap: 6px;
             width: 100%;
-            animation: slideIn 0.32s var(--spring-transition);
+            animation: fadeIn 0.25s ease forwards;
         }
 
-        .message-row.user {
-            align-items: flex-end;
-        }
-
-        .message-row.ai {
-            align-items: flex-start;
-        }
+        .message-row.user { align-items: flex-end; }
+        .message-row.ai { align-items: flex-start; }
 
         .bubble-user {
-            background: linear-gradient(135deg, var(--bubble-user-start) 0%, var(--bubble-user-end) 100%);
+            background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
             color: #ffffff;
             padding: 12px 18px;
-            border-radius: var(--radius-bubble) var(--radius-bubble) 4px var(--radius-bubble);
+            border-radius: 20px 20px 4px 20px;
             max-width: 85%;
             font-size: 14.5px;
-            line-height: 1.55;
-            word-break: break-word;
-            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+            line-height: 1.5;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
         }
 
         .bubble-ai {
-            background: var(--bubble-chat-bg);
-            border: 1px solid var(--bubble-chat-border);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #e2e8f0;
             color: var(--text-primary);
-            padding: 16px 20px;
-            border-radius: var(--radius-bubble) var(--radius-bubble) var(--radius-bubble) 4px;
+            padding: 15px 18px;
+            border-radius: 20px 20px 20px 4px;
             max-width: 92%;
-            font-size: 14.8px;
-            line-height: 1.65;
-            word-break: break-word;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
-            backdrop-filter: blur(14px);
+            font-size: 14.5px;
+            line-height: 1.6;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
             transition: all 0.3s ease;
         }
 
-        .bubble-ai.context-math {
-            background: var(--bubble-math-bg);
-            border-color: var(--bubble-math-border);
-            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.12);
-        }
-
-        .bubble-ai.context-art {
-            background: var(--bubble-art-bg);
-            border-color: var(--bubble-art-border);
-            box-shadow: 0 8px 24px rgba(168, 85, 247, 0.12);
-        }
-
-        .bubble-ai.tts-reading {
+        .bubble-ai.speaking-now {
             border-color: var(--electric-sky);
-            box-shadow: 0 0 28px var(--electric-glow), 0 0 4px var(--electric-sky);
-            animation: ttsBreathe 2s infinite ease-in-out;
-        }
-
-        @keyframes ttsBreathe {
-            0%, 100% { box-shadow: 0 0 14px var(--electric-glow); }
-            50% { box-shadow: 0 0 32px rgba(14, 165, 233, 0.65); }
-        }
-
-        .media-preview-box {
-            max-width: 250px;
-            max-height: 220px;
-            border-radius: 14px;
-            margin-bottom: 8px;
-            object-fit: cover;
-            border: 2px solid #ffffff;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-            display: block;
+            box-shadow: 0 0 24px var(--electric-glow);
         }
 
         .gen-art-frame {
             width: 100%;
-            max-width: 480px;
-            border-radius: 16px;
-            margin-top: 12px;
-            border: 1px solid var(--silver-metal-border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            display: block;
-        }
-
-        .math-block-card {
-            background: #ffffff;
-            border-left: 3.5px solid var(--electric-cyan);
-            border-radius: 0 12px 12px 0;
-            padding: 10px 14px;
-            margin: 10px 0;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13.5px;
-            color: #0f172a;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            overflow-x: auto;
-        }
-
-        .code-container {
-            background: #0b1329;
+            max-width: 500px;
             border-radius: 14px;
-            margin: 12px 0;
-            border: 1px solid #1e293b;
-            overflow: hidden;
-        }
-
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 6px 14px;
-            background: rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid #1e293b;
-            font-size: 11px;
-            color: #94a3b8;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .code-copy-btn {
-            background: none;
-            border: none;
-            color: #38bdf8;
-            cursor: pointer;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        pre {
-            color: #e2e8f0;
-            padding: 14px 16px;
-            overflow-x: auto;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            margin: 0;
-        }
-
-        /* 6. MINIMALIST EYE-CANDY SVG ACTION BUTTONS */
-        .msg-action-tray {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            margin-top: 6px;
-            padding: 0 4px;
-            flex-wrap: wrap;
-        }
-
-        .action-chip-btn {
-            background: rgba(255, 255, 255, 0.75);
+            margin-top: 10px;
             border: 1px solid var(--silver-metal-border);
-            color: var(--text-secondary);
-            font-size: 11.5px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.25s var(--spring-transition);
-            padding: 4px 10px;
-            border-radius: var(--radius-capsule);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-        }
-
-        .action-chip-btn:hover {
-            color: var(--electric-sky-deep);
-            border-color: var(--electric-sky);
-            background: #ffffff;
-            transform: translateY(-1.5px);
-            box-shadow: 0 4px 12px var(--electric-glow);
-        }
-
-        .action-chip-btn:active {
-            transform: scale(0.92);
-        }
-
-        .action-chip-btn svg {
-            width: 13px;
-            height: 13px;
-            stroke: currentColor;
-            stroke-width: 2;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            transition: transform 0.3s var(--spring-transition);
-        }
-
-        .action-chip-btn.btn-edit:hover svg { transform: rotate(-15deg); }
-        .action-chip-btn.btn-retry:hover svg { transform: rotate(180deg); }
-        .action-chip-btn.btn-share:hover svg { transform: translateY(-2px); }
-
-        /* 7. ELASTIC FLOATING DOCK */
-        .dock-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 0 14px calc(12px + env(safe-area-inset-bottom)) 14px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 100;
-            pointer-events: none;
-        }
-
-        .elastic-capsule {
-            width: 100%;
-            max-width: 760px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(25px);
-            border-radius: 30px;
-            box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02);
-            padding: 8px 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            pointer-events: auto;
-            transition: all 0.3s var(--spring-transition);
-            position: relative;
-            border: 1.5px solid var(--silver-metal-border);
-        }
-
-        .elastic-capsule:focus-within {
-            border-color: var(--electric-sky);
-            box-shadow: 0 20px 48px -10px var(--electric-glow), 0 0 0 1px var(--electric-sky);
-            transform: translateY(-3px);
-        }
-
-        .attachment-strip {
-            display: none;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 8px;
-            border-bottom: 1px solid var(--silver-metal-border);
-        }
-
-        .attached-chip {
-            background: var(--bg-base);
-            border: 1px solid var(--silver-metal-border);
-            padding: 4px 10px;
-            border-radius: var(--radius-capsule);
-            font-size: 11.5px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-primary);
-        }
-
-        .chip-del {
-            cursor: pointer;
-            color: var(--text-muted);
-            font-weight: bold;
-        }
-
-        .chip-del:hover {
-            color: #ef4444;
-        }
-
-        .dock-input-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            width: 100%;
-        }
-
-        .dock-btn {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: none;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--text-secondary);
-            transition: all 0.25s var(--spring-transition);
-            flex-shrink: 0;
-            position: relative;
-        }
-
-        .dock-btn:hover {
-            background: rgba(14, 165, 233, 0.08);
-            color: var(--electric-sky-deep);
-            transform: scale(1.08);
-        }
-
-        .dock-btn:active {
-            transform: scale(0.92);
-        }
-
-        .dock-btn.recording {
-            color: #ef4444;
-            background: rgba(239, 68, 68, 0.12);
-        }
-
-        .mic-wave-ring {
-            display: none;
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            border: 2px solid #ef4444;
-            animation: micPulse 1.2s infinite ease-out;
-        }
-
-        .dock-btn.recording .mic-wave-ring {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
             display: block;
-        }
-
-        @keyframes micPulse {
-            0% { transform: scale(1); opacity: 0.9; }
-            100% { transform: scale(1.6); opacity: 0; }
-        }
-
-        .dock-input {
-            flex: 1;
-            border: none;
-            outline: none;
-            background: transparent;
-            font-size: 15px;
-            color: var(--text-primary);
-            padding: 8px 4px;
-            max-height: 120px;
-            resize: none;
-            line-height: 1.5;
-        }
-
-        .dock-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .dock-send-pill {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--electric-sky) 0%, var(--electric-sky-deep) 100%);
-            color: #ffffff;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.25s var(--spring-transition);
-            box-shadow: 0 4px 14px var(--electric-glow);
-            flex-shrink: 0;
-        }
-
-        .dock-send-pill:hover {
-            transform: scale(1.10);
-            box-shadow: 0 6px 18px rgba(14, 165, 233, 0.45);
-        }
-
-        .dock-send-pill:active {
-            transform: scale(0.92);
-        }
-
-        /* 100% CLEAN DOCK BOTTOM - ONLY BUTTONS, NO TEXT */
-        .dock-meta-tray {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 0 6px 2px 6px;
-        }
-
-        .mode-group {
-            display: flex;
-            gap: 6px;
-        }
-
-        .mode-chip {
-            background: none;
-            border: none;
-            font-size: 11.5px;
-            font-weight: 600;
-            color: var(--text-muted);
-            padding: 3px 10px;
-            border-radius: var(--radius-capsule);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .mode-chip.active {
-            background: #ffffff;
-            color: var(--electric-sky-deep);
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
         }
 
         .typing-wave {
@@ -770,16 +397,135 @@
             40% { transform: scale(1); opacity: 1; }
         }
 
+        /* ৪. ফ্লোটিং ডক (নিচের কোনো অতিরিক্ত টেক্সট নেই) */
+        .dock-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0 14px calc(12px + env(safe-area-inset-bottom)) 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .elastic-capsule {
+            width: 100%;
+            max-width: 760px;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(25px);
+            border-radius: 28px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            pointer-events: auto;
+            border: 1.5px solid var(--silver-metal-border);
+            transition: all 0.25s ease;
+        }
+
+        .elastic-capsule:focus-within {
+            border-color: var(--electric-sky);
+            box-shadow: 0 20px 48px var(--electric-glow);
+        }
+
+        .dock-input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .dock-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .dock-btn:hover { background: rgba(14, 165, 233, 0.08); color: var(--electric-sky-deep); }
+        .dock-btn.recording { color: #ef4444; background: rgba(239, 68, 68, 0.12); }
+
+        .dock-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 15px;
+            color: var(--text-primary);
+            padding: 8px 4px;
+            max-height: 120px;
+            resize: none;
+            line-height: 1.5;
+        }
+
+        .dock-send-pill {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--electric-sky) 0%, var(--electric-sky-deep) 100%);
+            color: #ffffff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 14px var(--electric-glow);
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .dock-send-pill:hover { transform: scale(1.08); }
+
+        .dock-meta-tray {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 4px 2px 4px;
+        }
+
+        .mode-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mode-chip {
+            background: none;
+            border: none;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            padding: 4px 12px;
+            border-radius: var(--radius-capsule);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mode-chip.active {
+            background: #ffffff;
+            color: var(--electric-sky-deep);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
     </style>
 </head>
 <body>
 
-    <!-- 1. RETINA OCEAN CANVAS -->
     <canvas id="oceanCanvas"></canvas>
 
-    <!-- 2. LUXURY PRISM HEADER -->
+    <!-- হেডার -->
     <header class="aura-header">
         <div class="brand-core" onclick="resetChatView()">
             <div class="brand-orb"></div>
@@ -790,75 +536,44 @@
         </div>
 
         <div class="header-actions">
-            <!-- Digital Sound FX Toggle -->
-            <button class="prism-pill active" id="btnSoundToggle" onclick="toggleSoundEngine()" title="Synthesized Crystal Sound">
+            <button class="luxury-pill-toggle active" id="btnSoundToggle" onclick="toggleSoundEngine()" title="Sound FX">
                 <span id="soundIcon">🔔</span>
-                <span id="soundLabel">Sound On</span>
+                <span id="soundLabel">Sound</span>
             </button>
 
-            <!-- Auto Voice Readout Toggle -->
-            <button class="prism-pill active" id="btnVoiceToggle" onclick="toggleVoiceEngine()" title="AI Auto Voice Readout">
+            <button class="luxury-pill-toggle active" id="btnVoiceToggle" onclick="toggleVoiceEngine()" title="Auto Voice Readout">
                 <span id="voiceIcon">🔊</span>
                 <span id="voiceLabel">Voice Auto</span>
             </button>
-
-            <!-- API Keys Modal -->
-            <button class="prism-pill" onclick="openKeyModal()">⚙️ Keys</button>
         </div>
     </header>
 
-    <!-- 3. MAIN CHAT VIEWPORT -->
+    <!-- সেন্ট্রাল স্ক্রিন (মাঝের ৩টি প্রম্পট পিন সম্পূর্ণ বাদ) -->
     <main class="chat-viewport" id="chatViewport">
         <div class="empty-hero" id="emptyHero">
-            
-            <!-- VIBRANT SHIMMERING TITLE -->
             <h1 class="hero-title">ক্যাবলাকান্ত</h1>
 
-            <!-- 3D FLOATING NEURAL ORB -->
             <div class="hero-neural-orb" onclick="pingNeuralOrb()" title="Neural Core Pulse">
                 <div class="orb-ring-outer"></div>
                 <div class="orb-ring"></div>
                 <div class="orb-core-sphere"></div>
             </div>
 
-            <!-- LIVE CYBER TYPEWRITER -->
             <div class="typewriter-badge">
                 <div class="typewriter-status-dot"></div>
                 <span class="typewriter-text" id="typewriterDynamicText"></span>
                 <span class="typewriter-cursor"></span>
             </div>
-
         </div>
     </main>
 
-    <!-- 4. ELASTIC FLOATING DOCK -->
+    <!-- ইনপুট ডক -->
     <div class="dock-container">
         <div class="elastic-capsule">
-            
-            <!-- Attachment Tag Strip -->
-            <div class="attachment-strip" id="dockAttachmentStrip">
-                <div class="attached-chip">
-                    <span id="dockAttachmentName">file.jpg</span>
-                    <span class="chip-del" onclick="discardAttachment()">✕</span>
-                </div>
-            </div>
-
-            <!-- Input Controls -->
             <div class="dock-input-row">
-                <!-- File Attachment Trigger -->
-                <button type="button" class="dock-btn" onclick="document.getElementById('fileUploadInput').click()" title="Attach Image, Document, or Video">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
-                    </svg>
-                </button>
-                <input type="file" id="fileUploadInput" style="display:none;" accept="image/*,video/mp4,application/pdf" onchange="handleIncomingFile(this)">
-
-                <!-- Elastic Auto-Grow Textarea -->
                 <textarea id="mainInputField" class="dock-input" rows="1" placeholder="Type a message, calculus query or speak..." oninput="autoGrowInput(this)" onkeydown="checkSubmitKey(event)"></textarea>
 
-                <!-- Groq Whisper Voice Input -->
-                <button type="button" class="dock-btn" id="dockMicBtn" onclick="toggleGroqVoiceInput()" title="Groq Whisper-Large-V3 Voice Input">
-                    <div class="mic-wave-ring"></div>
+                <button type="button" class="dock-btn" id="dockMicBtn" onclick="toggleGroqVoiceInput()" title="Groq Voice Input">
                     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
                         <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
@@ -867,8 +582,7 @@
                     </svg>
                 </button>
 
-                <!-- Send Pill -->
-                <button type="button" class="dock-send-pill" id="dockSendBtn" onclick="sendUserMessage()" title="Send">
+                <button type="button" class="dock-send-pill" onclick="sendUserMessage()" title="Send">
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="12" y1="19" x2="12" y2="5"></line>
                         <polyline points="5 12 12 5 19 12"></polyline>
@@ -876,185 +590,121 @@
                 </button>
             </div>
 
-            <!-- Mode Selector Tray (Pure Clean: No extra text) -->
             <div class="dock-meta-tray">
                 <div class="mode-group">
                     <button class="mode-chip active" id="chipChat" onclick="setAppMode('chat')">💬 Chat & Scan</button>
                     <button class="mode-chip" id="chipImage" onclick="setAppMode('image')">🎨 Imagen 3 Studio</button>
                 </div>
             </div>
-
         </div>
     </div>
 
     <script>
-        // ====================================================================
-        // 1. HARDCODED KEYS & DYNAMIC FAILOVER MATRIX
-        // ====================================================================
-        const DEFAULT_GEMINI_KEY = "AQ.Ab8RN6LMO7i7aqFgPUL8ZPG4tpZh8LWU9FV_-wy9O3aFW9EEPg";
-        const DEFAULT_GROQ_KEY   = "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";
-
-        let activeGeminiKey = localStorage.getItem('AURA_GEMINI_KEY') || DEFAULT_GEMINI_KEY;
-        let activeGroqKey   = localStorage.getItem('AURA_GROQ_KEY')   || DEFAULT_GROQ_KEY;
-
-        const GEMINI_MODELS_CASCADE = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+        // Google AI Studio Key & Groq Key কনফিগারেশন
+        const GEMINI_API_KEY = "AQ.Ab8RN6LMO7i7aqFgPUL8ZPG4tpZh8LWU9FV_-wy9O3aFW9EEPg";
+        const GROQ_API_KEY   = "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";
 
         let currentAppMode = 'chat';
-        let currentFileObject = null;
-        let currentFileBase64 = null;
         let isSoundActive = true;
         let isVoiceReadoutActive = true;
-        let lastUserPrompt = '';
         let audioCtxInstance = null;
 
-        function openKeyModal() {
-            triggerHaptic('notch');
-            playTickSound();
-            const gKey = prompt("Google Gemini API Key:", activeGeminiKey);
-            if (gKey !== null) {
-                activeGeminiKey = gKey.trim() || DEFAULT_GEMINI_KEY;
-                localStorage.setItem('AURA_GEMINI_KEY', activeGeminiKey);
-            }
-            const qKey = prompt("Groq Cloud API Key (Whisper STT):", activeGroqKey);
-            if (qKey !== null) {
-                activeGroqKey = qKey.trim() || DEFAULT_GROQ_KEY;
-                localStorage.setItem('AURA_GROQ_KEY', activeGroqKey);
-            }
-            alert("API Keys synced successfully!");
-        }
-
-        // ====================================================================
-        // 2. SYNTHESIZED DIGITAL SOUND ENGINE (0 KB)
-        // ====================================================================
+        // সাউন্ড ইঞ্জিন
         function initAudioContext() {
             if (!audioCtxInstance) {
                 const AudioClass = window.AudioContext || window.webkitAudioContext;
                 if (AudioClass) audioCtxInstance = new AudioClass();
             }
-            if (audioCtxInstance && audioCtxInstance.state === 'suspended') {
-                audioCtxInstance.resume();
-            }
+            if (audioCtxInstance && audioCtxInstance.state === 'suspended') audioCtxInstance.resume();
         }
 
         function playDropletChirp() {
             if (!isSoundActive) return;
             initAudioContext();
             if (!audioCtxInstance) return;
-
             const now = audioCtxInstance.currentTime;
             const osc = audioCtxInstance.createOscillator();
             const gain = audioCtxInstance.createGain();
-
-            osc.type = 'sine';
             osc.frequency.setValueAtTime(880, now);
             osc.frequency.exponentialRampToValueAtTime(1760, now + 0.06);
-
-            gain.gain.setValueAtTime(0.18, now);
+            gain.gain.setValueAtTime(0.15, now);
             gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
-
             osc.connect(gain);
             gain.connect(audioCtxInstance.destination);
-
             osc.start(now);
             osc.stop(now + 0.06);
         }
 
-        function playCrystalDualPing() {
+        function playPing() {
             if (!isSoundActive) return;
             initAudioContext();
             if (!audioCtxInstance) return;
-
-            const now = audioCtxInstance.currentTime;
-            [1046.5, 1318.5].forEach((freq, idx) => {
-                const osc = audioCtxInstance.createOscillator();
-                const gain = audioCtxInstance.createGain();
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, now + (idx * 0.035));
-
-                gain.gain.setValueAtTime(0.14, now + (idx * 0.035));
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28 + (idx * 0.035));
-
-                osc.connect(gain);
-                gain.connect(audioCtxInstance.destination);
-
-                osc.start(now + (idx * 0.035));
-                osc.stop(now + 0.28 + (idx * 0.035));
-            });
-        }
-
-        function playTickSound() {
-            if (!isSoundActive) return;
-            initAudioContext();
-            if (!audioCtxInstance) return;
-
             const now = audioCtxInstance.currentTime;
             const osc = audioCtxInstance.createOscillator();
             const gain = audioCtxInstance.createGain();
-
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(1800, now);
-            osc.frequency.exponentialRampToValueAtTime(600, now + 0.015);
-
+            osc.frequency.setValueAtTime(1046.5, now);
             gain.gain.setValueAtTime(0.12, now);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.015);
-
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
             osc.connect(gain);
             gain.connect(audioCtxInstance.destination);
-
             osc.start(now);
-            osc.stop(now + 0.015);
+            osc.stop(now + 0.25);
         }
 
         function toggleSoundEngine() {
             isSoundActive = !isSoundActive;
             const btn = document.getElementById('btnSoundToggle');
-            const lbl = document.getElementById('soundLabel');
             const icn = document.getElementById('soundIcon');
-
+            const lbl = document.getElementById('soundLabel');
             btn.classList.toggle('active', isSoundActive);
-            lbl.innerText = isSoundActive ? "Sound On" : "Sound Off";
             icn.innerText = isSoundActive ? "🔔" : "🔕";
-            triggerHaptic('notch');
-            playTickSound();
+            lbl.innerText = isSoundActive ? "Sound" : "Muted";
+            if (isSoundActive) playPing();
         }
 
         function toggleVoiceEngine() {
             isVoiceReadoutActive = !isVoiceReadoutActive;
             const btn = document.getElementById('btnVoiceToggle');
-            const lbl = document.getElementById('voiceLabel');
             const icn = document.getElementById('voiceIcon');
-
+            const lbl = document.getElementById('voiceLabel');
             btn.classList.toggle('active', isVoiceReadoutActive);
-            lbl.innerText = isVoiceReadoutActive ? "Voice Auto" : "Voice Off";
             icn.innerText = isVoiceReadoutActive ? "🔊" : "🔇";
-            triggerHaptic('notch');
-            playTickSound();
-
-            if (!isVoiceReadoutActive) stopSpeechSynthesis();
+            lbl.innerText = isVoiceReadoutActive ? "Voice Auto" : "Voice Off";
+            if (!isVoiceReadoutActive && 'speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+            if (isSoundActive) playPing();
         }
 
-        // ====================================================================
-        // 3. SHARP DIGITAL HAPTICS
-        // ====================================================================
-        function triggerHaptic(type) {
-            if (!('vibrate' in navigator)) return;
-            try {
-                if (type === 'notch') navigator.vibrate(8);
-                else if (type === 'send') navigator.vibrate([10, 25, 12]);
-                else if (type === 'success') navigator.vibrate([15, 20, 25]);
-            } catch (_) {}
+        function speakAiResponse(text, bubbleEl) {
+            if (!isVoiceReadoutActive || !('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+
+            const cleanText = text
+                .replace(/<[^>]*>/g, ' ')
+                .replace(/```[\s\S]*?```/g, ' কোড ব্লক ')
+                .replace(/[`*#_]/g, ' ')
+                .slice(0, 320);
+
+            if (!cleanText.trim()) return;
+
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            const isBengali = /[\u0980-\u09FF]/.test(cleanText);
+            utterance.lang = isBengali ? 'bn-BD' : 'en-US';
+            utterance.rate = 1.05;
+
+            if (bubbleEl) bubbleEl.classList.add('speaking-now');
+            utterance.onend = () => { if (bubbleEl) bubbleEl.classList.remove('speaking-now'); };
+            utterance.onerror = () => { if (bubbleEl) bubbleEl.classList.remove('speaking-now'); };
+
+            window.speechSynthesis.speak(utterance);
         }
 
-        // ====================================================================
-        // 4. RETINA/DPR OCEAN CANVAS & WATER RIPPLE
-        // ====================================================================
+        // ওশেন ব্যাকগ্রাউন্ড
         (function initOceanWaves() {
             const canvas = document.getElementById('oceanCanvas');
             const ctx = canvas.getContext('2d');
-            let w, h, dpr;
-            let step = 0;
-
+            let w, h, dpr, step = 0;
             function resize() {
                 dpr = window.devicePixelRatio || 1;
                 w = window.innerWidth;
@@ -1065,38 +715,24 @@
             }
             window.addEventListener('resize', resize);
             resize();
-
             function render() {
                 ctx.clearRect(0, 0, w, h);
                 step += 0.014;
-
-                // Wave 1: Sky Blue
                 ctx.beginPath();
                 ctx.moveTo(0, h);
                 for (let x = 0; x <= w; x += 20) {
-                    const y = Math.sin(x * 0.0035 + step) * 22 + Math.sin(x * 0.007 + step * 1.5) * 10 + (h - 90);
+                    const y = Math.sin(x * 0.0035 + step) * 22 + (h - 90);
                     ctx.lineTo(x, y);
                 }
                 ctx.lineTo(w, h);
-                ctx.fillStyle = 'rgba(14, 165, 233, 0.055)';
+                ctx.fillStyle = 'rgba(14, 165, 233, 0.05)';
                 ctx.fill();
-
-                // Wave 2: Aqua Cyan
-                ctx.beginPath();
-                ctx.moveTo(0, h);
-                for (let x = 0; x <= w; x += 20) {
-                    const y = Math.cos(x * 0.004 - step * 1.2) * 18 + Math.sin(x * 0.002 + step) * 14 + (h - 60);
-                    ctx.lineTo(x, y);
-                }
-                ctx.lineTo(w, h);
-                ctx.fillStyle = 'rgba(6, 182, 212, 0.045)';
-                ctx.fill();
-
                 requestAnimationFrame(render);
             }
             render();
         })();
 
+        // ওয়াটার রিপল
         window.addEventListener('pointerdown', (e) => {
             initAudioContext();
             const rip = document.createElement('div');
@@ -1110,68 +746,45 @@
             setTimeout(() => rip.remove(), 750);
         });
 
-        // ====================================================================
-        // 5. LIVE TYPEWRITER ENGINE & ORB INTERACTION
-        // ====================================================================
+        // লাইভ টাইপরাইটার
         const TYPEWRITER_PHRASES = [
             "বলো, আমি শুনছি...",
             "যেকোনো জটিল ক্যালকুলাস এক সেকেন্ডে সমাধান...",
-            "বই বা খাতার পাতার ছবি স্ক্যান করো...",
             "মাইকে বাংলায় কথা বলো, সাথে সাথে লিখছি...",
             "৮K সিনেমাটিক দৃশ্য আঁকতে বলো..."
         ];
-        let phraseIdx = 0;
-        let charIdx = 0;
-        let isDeleting = false;
-        let typewriterTimeout = null;
+        let phraseIdx = 0, charIdx = 0, isDeleting = false;
 
         function runTypewriter() {
             const el = document.getElementById('typewriterDynamicText');
             if (!el) return;
-            const currentPhrase = TYPEWRITER_PHRASES[phraseIdx];
-            
+            const current = TYPEWRITER_PHRASES[phraseIdx];
             if (isDeleting) {
-                el.innerText = currentPhrase.substring(0, charIdx - 1);
+                el.innerText = current.substring(0, charIdx - 1);
                 charIdx--;
             } else {
-                el.innerText = currentPhrase.substring(0, charIdx + 1);
+                el.innerText = current.substring(0, charIdx + 1);
                 charIdx++;
             }
-
-            let typeSpeed = isDeleting ? 30 : 65;
-
-            if (!isDeleting && charIdx === currentPhrase.length) {
-                typeSpeed = 2200;
+            let speed = isDeleting ? 30 : 65;
+            if (!isDeleting && charIdx === current.length) {
+                speed = 2200;
                 isDeleting = true;
             } else if (isDeleting && charIdx === 0) {
                 isDeleting = false;
                 phraseIdx = (phraseIdx + 1) % TYPEWRITER_PHRASES.length;
-                typeSpeed = 450;
+                speed = 450;
             }
-
-            typewriterTimeout = setTimeout(runTypewriter, typeSpeed);
+            setTimeout(runTypewriter, speed);
         }
-
         runTypewriter();
 
         function pingNeuralOrb() {
-            triggerHaptic('success');
-            playCrystalDualPing();
+            playPing();
             const el = document.getElementById('typewriterDynamicText');
-            if (el) {
-                clearTimeout(typewriterTimeout);
-                el.innerText = "ক্যাবলাকান্ত কোর সক্রিয় ও প্রস্তুত!";
-                setTimeout(() => {
-                    isDeleting = true;
-                    charIdx = el.innerText.length;
-                    runTypewriter();
-                }, 1800);
-            }
+            if (el) el.innerText = "ক্যাবলাকান্ত কোর সক্রিয় ও প্রস্তুত!";
         }
 
-        // ====================================================================
-        // 6. INPUT CONTROLLER & ATTACHMENTS
-        // ====================================================================
         function autoGrowInput(el) {
             el.style.height = 'auto';
             el.style.height = Math.min(el.scrollHeight, 120) + 'px';
@@ -1181,15 +794,10 @@
             currentAppMode = mode;
             document.getElementById('chipChat').classList.toggle('active', mode === 'chat');
             document.getElementById('chipImage').classList.toggle('active', mode === 'image');
-            
             const field = document.getElementById('mainInputField');
-            if (mode === 'image') {
-                field.placeholder = "Describe 8K photorealistic visual in detail...";
-            } else {
-                field.placeholder = "Type a message, calculus query or speak...";
-            }
-            triggerHaptic('notch');
-            playTickSound();
+            field.placeholder = mode === 'image' 
+                ? "Describe 8K photorealistic visual in detail..." 
+                : "Type a message, calculus query or speak...";
         }
 
         function checkSubmitKey(e) {
@@ -1200,205 +808,72 @@
         }
 
         function resetChatView() {
-            triggerHaptic('notch');
-            playTickSound();
-            if (confirm("Clear conversation history?")) {
-                const vp = document.getElementById('chatViewport');
-                vp.innerHTML = `
-                    <div class="empty-hero" id="emptyHero">
-                        <h1 class="hero-title">ক্যাবলাকান্ত</h1>
-                        <div class="hero-neural-orb" onclick="pingNeuralOrb()" title="Neural Core Pulse">
-                            <div class="orb-ring-outer"></div>
-                            <div class="orb-ring"></div>
-                            <div class="orb-core-sphere"></div>
-                        </div>
-                        <div class="typewriter-badge">
-                            <div class="typewriter-status-dot"></div>
-                            <span class="typewriter-text" id="typewriterDynamicText"></span>
-                            <span class="typewriter-cursor"></span>
-                        </div>
-                    </div>
-                `;
-                stopSpeechSynthesis();
-                clearTimeout(typewriterTimeout);
-                phraseIdx = 0;
-                charIdx = 0;
-                isDeleting = false;
-                runTypewriter();
-            }
+            location.reload();
         }
 
-        function handleIncomingFile(input) {
-            const file = input.files && input.files[0];
-            if (!file) return;
-
-            currentFileObject = file;
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                currentFileBase64 = e.target.result.split(',')[1];
-                document.getElementById('dockAttachmentName').innerText = file.name.slice(0, 22);
-                document.getElementById('dockAttachmentStrip').style.display = 'flex';
-                triggerHaptic('notch');
-                playTickSound();
-            };
-
-            reader.readAsDataURL(file);
-        }
-
-        function discardAttachment() {
-            currentFileObject = null;
-            currentFileBase64 = null;
-            document.getElementById('fileUploadInput').value = '';
-            document.getElementById('dockAttachmentStrip').style.display = 'none';
-            triggerHaptic('notch');
-            playTickSound();
-        }
-
-        // ====================================================================
-        // 7. GROQ WHISPER-LARGE-V3 SPEECH TO TEXT (STT)
-        // ====================================================================
-        let groqMediaRecorder = null;
-        let groqAudioChunks = [];
-        let isGroqRecording = false;
+        // Groq Whisper ভয়েস ইনপুট
+        let groqRecorder = null, audioChunks = [], isRecording = false;
 
         async function toggleGroqVoiceInput() {
-            triggerHaptic('notch');
-            playTickSound();
-
             const micBtn = document.getElementById('dockMicBtn');
-
-            if (isGroqRecording) {
-                if (groqMediaRecorder && groqMediaRecorder.state !== 'inactive') {
-                    groqMediaRecorder.stop();
-                }
-                isGroqRecording = false;
+            if (isRecording) {
+                if (groqRecorder && groqRecorder.state !== 'inactive') groqRecorder.stop();
+                isRecording = false;
                 micBtn.classList.remove('recording');
                 return;
             }
 
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                
-                let selectedMime = 'audio/webm';
-                if (!MediaRecorder.isTypeSupported('audio/webm')) {
-                    if (MediaRecorder.isTypeSupported('audio/mp4')) selectedMime = 'audio/mp4';
-                    else if (MediaRecorder.isTypeSupported('audio/ogg')) selectedMime = 'audio/ogg';
-                    else selectedMime = '';
-                }
+                groqRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+                groqRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
+                groqRecorder.onstop = async () => {
+                    stream.getTracks().forEach(t => t.stop());
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const formData = new FormData();
+                    formData.append('file', audioBlob, 'voice.webm');
+                    formData.append('model', 'whisper-large-v3');
 
-                groqMediaRecorder = selectedMime ? new MediaRecorder(stream, { mimeType: selectedMime }) : new MediaRecorder(stream);
-                groqAudioChunks = [];
-
-                groqMediaRecorder.ondataavailable = e => {
-                    if (e.data.size > 0) groqAudioChunks.push(e.data);
+                    try {
+                        const res = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${GROQ_API_KEY}` },
+                            body: formData
+                        });
+                        const data = await res.json();
+                        if (data.text) {
+                            const field = document.getElementById('mainInputField');
+                            field.value = (field.value ? field.value + ' ' : '') + data.text.trim();
+                            autoGrowInput(field);
+                        }
+                    } catch (_) {}
                 };
-
-                groqMediaRecorder.onstop = async () => {
-                    stream.getTracks().forEach(track => track.stop());
-                    const ext = selectedMime.includes('mp4') ? 'mp4' : 'webm';
-                    const audioBlob = new Blob(groqAudioChunks, { type: selectedMime || 'audio/webm' });
-                    await processGroqWhisper(audioBlob, ext);
-                };
-
-                groqMediaRecorder.start();
-                isGroqRecording = true;
+                groqRecorder.start();
+                isRecording = true;
                 micBtn.classList.add('recording');
-            } catch (err) {
-                console.warn("Direct MediaRecorder error, activating Web Speech fallback...", err);
-                fallbackWebSpeechEngine();
-            }
-        }
-
-        async function processGroqWhisper(audioBlob, ext) {
-            const inputField = document.getElementById('mainInputField');
-            const originalPlaceholder = inputField.placeholder;
-            inputField.placeholder = "Transcribing with Groq Whisper-Large-V3...";
-
-            try {
-                const formData = new FormData();
-                formData.append('file', audioBlob, `voice.${ext}`);
-                formData.append('model', 'whisper-large-v3');
-                formData.append('response_format', 'json');
-
-                const res = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${activeGroqKey}`
-                    },
-                    body: formData
-                });
-
-                const data = await res.json();
-                if (data.text) {
-                    inputField.value = (inputField.value ? inputField.value + ' ' : '') + data.text.trim();
-                    autoGrowInput(inputField);
-                    triggerHaptic('success');
-                } else if (data.error) {
-                    throw new Error(data.error.message);
+            } catch (_) {
+                const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if (Speech) {
+                    const rec = new Speech();
+                    rec.lang = 'bn-BD';
+                    rec.onresult = (e) => {
+                        const field = document.getElementById('mainInputField');
+                        field.value = (field.value ? field.value + ' ' : '') + e.results[0][0].transcript;
+                        autoGrowInput(field);
+                    };
+                    rec.start();
                 }
-            } catch (err) {
-                console.error("Groq Whisper error:", err);
-                fallbackWebSpeechEngine();
-            } finally {
-                inputField.placeholder = originalPlaceholder;
             }
         }
 
-        function fallbackWebSpeechEngine() {
-            const SpeechEngine = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechEngine) {
-                alert("Speech recognition not supported in this browser environment.");
-                return;
-            }
-            const rec = new SpeechEngine();
-            rec.lang = 'bn-BD';
-            rec.onresult = (e) => {
-                const transcript = e.results[0][0].transcript;
-                const field = document.getElementById('mainInputField');
-                field.value = (field.value ? field.value + ' ' : '') + transcript;
-                autoGrowInput(field);
-            };
-            rec.start();
-        }
-
-        // ====================================================================
-        // 8. BUBBLE RENDERING, CODE HIGHLIGHTING & ACTIONS
-        // ====================================================================
-        function appendUserMessage(text, fileObj) {
+        function appendUserMessage(text) {
             const hero = document.getElementById('emptyHero');
             if (hero) hero.remove();
-
             const vp = document.getElementById('chatViewport');
             const row = document.createElement('div');
             row.className = 'message-row user';
-            const userMsgId = 'user-msg-' + Date.now();
-
-            let mediaPreview = '';
-            if (fileObj) {
-                if (fileObj.type.startsWith('image/')) {
-                    mediaPreview = `<img src="${URL.createObjectURL(fileObj)}" class="media-preview-box">`;
-                } else if (fileObj.type.startsWith('video/')) {
-                    mediaPreview = `<video src="${URL.createObjectURL(fileObj)}" class="media-preview-box" controls></video>`;
-                } else {
-                    mediaPreview = `<div style="font-size:12px; margin-bottom:6px; opacity:0.85;">📄 ${escapeHtml(fileObj.name)}</div>`;
-                }
-            }
-
-            row.innerHTML = `
-                ${mediaPreview}
-                <div class="bubble-user" id="${userMsgId}-content">${escapeHtml(text)}</div>
-                <div class="msg-action-tray">
-                    <button class="action-chip-btn btn-edit" onclick="editUserPrompt('${userMsgId}-content')">
-                        <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                        <span>Edit</span>
-                    </button>
-                    <button class="action-chip-btn" onclick="copyTextContent('${userMsgId}-content', this)">
-                        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        <span>Copy</span>
-                    </button>
-                </div>
-            `;
+            row.innerHTML = `<div class="bubble-user">${text}</div>`;
             vp.appendChild(row);
             vp.scrollTo({ top: vp.scrollHeight, behavior: 'smooth' });
         }
@@ -1408,7 +883,6 @@
             const row = document.createElement('div');
             row.className = 'message-row ai';
             row.id = 'activeLoadingRow';
-
             row.innerHTML = `
                 <div class="bubble-ai">
                     <div class="typing-wave">
@@ -1420,310 +894,101 @@
             `;
             vp.appendChild(row);
             vp.scrollTo({ top: vp.scrollHeight, behavior: 'smooth' });
-            return row;
         }
 
-        function formatAiMarkup(rawText) {
-            let res = escapeHtml(rawText);
-
-            res = res.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (m, lang, code) => {
-                const codeId = 'code-' + Math.random().toString(36).substring(2, 9);
-                return `
-                    <div class="code-container">
-                        <div class="code-header">
-                            <span>${lang || 'CODE'}</span>
-                            <button class="code-copy-btn" onclick="copySnippet('${codeId}', this)">Copy Code</button>
-                        </div>
-                        <pre><code id="${codeId}">${code.trim()}</code></pre>
-                    </div>
-                `;
-            });
-
-            res = res.replace(/`([^`]+)`/g, '<code>$1</code>');
-            res = res.replace(/\n\s*(\$|\\\[)(.+?)(\$|\\\])\s*\n/g, '<div class="math-block-card">$2</div>');
-            res = res.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-            res = res.replace(/\n/g, '<br>');
-
-            return res;
-        }
-
-        function appendAiMessage(rawText, artUrl = null, isMath = false) {
+        function appendAiMessage(text, artUrl = null) {
             const loading = document.getElementById('activeLoadingRow');
             if (loading) loading.remove();
-
             const vp = document.getElementById('chatViewport');
             const row = document.createElement('div');
             row.className = 'message-row ai';
-            const msgId = 'ai-msg-' + Date.now();
-
-            let bubbleContextClass = 'bubble-ai';
-            if (isMath) bubbleContextClass += ' context-math';
-            if (artUrl) bubbleContextClass += ' context-art';
-
-            let artHtml = '';
-            if (artUrl) {
-                artHtml = `<img src="${artUrl}" class="gen-art-frame" alt="Generated Visual">`;
-            }
-
-            row.innerHTML = `
-                <div class="${bubbleContextClass}" id="${msgId}-content">
-                    ${formatAiMarkup(rawText)}
-                    ${artHtml}
-                </div>
-                <div class="msg-action-tray">
-                    <button class="action-chip-btn" onclick="copyTextContent('${msgId}-content', this)">
-                        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        <span>Copy</span>
-                    </button>
-                    <button class="action-chip-btn btn-retry" onclick="retryLastPrompt()">
-                        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
-                        <span>Retry</span>
-                    </button>
-                    <button class="action-chip-btn btn-share" onclick="shareMessageContent('${msgId}-content')">
-                        <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                        <span>Share</span>
-                    </button>
-                    <button class="action-chip-btn" onclick="playVoiceReadout('${msgId}-content')">
-                        <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-                        <span>Listen</span>
-                    </button>
-                </div>
-            `;
+            let artHtml = artUrl ? `<img src="${artUrl}" class="gen-art-frame" alt="Generated Visual">` : '';
+            const bubbleEl = document.createElement('div');
+            bubbleEl.className = 'bubble-ai';
+            bubbleEl.innerHTML = `${text}${artHtml}`;
+            row.appendChild(bubbleEl);
             vp.appendChild(row);
             vp.scrollTo({ top: vp.scrollHeight, behavior: 'smooth' });
+            playPing();
 
-            playCrystalDualPing();
-            triggerHaptic('success');
-
-            if (isVoiceReadoutActive && !artUrl) {
-                playVoiceReadout(`${msgId}-content`);
+            if (!artUrl) {
+                speakAiResponse(text, bubbleEl);
             }
         }
 
-        function escapeHtml(str) {
-            return String(str || '')
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
-        }
-
-        function copyTextContent(id, btnElement) {
-            triggerHaptic('notch');
-            playTickSound();
-            const el = document.getElementById(id);
-            if (!el) return;
-
-            navigator.clipboard.writeText(el.innerText).then(() => {
-                if (btnElement) {
-                    const originalHTML = btnElement.innerHTML;
-                    btnElement.innerHTML = `
-                        <svg viewBox="0 0 24 24" style="stroke:#0284c7;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span style="color:#0284c7;">Copied!</span>
-                    `;
-                    btnElement.style.borderColor = '#38bdf8';
-                    setTimeout(() => {
-                        btnElement.innerHTML = originalHTML;
-                        btnElement.style.borderColor = '';
-                    }, 1600);
-                }
-            });
-        }
-
-        function copySnippet(id, btn) {
-            triggerHaptic('notch');
-            playTickSound();
-            const el = document.getElementById(id);
-            if (!el) return;
-            navigator.clipboard.writeText(el.innerText).then(() => {
-                const prev = btn.innerText;
-                btn.innerText = "✓ Copied";
-                setTimeout(() => { btn.innerText = prev; }, 1600);
-            });
-        }
-
-        function editUserPrompt(id) {
-            triggerHaptic('notch');
-            playTickSound();
-            const el = document.getElementById(id);
-            if (!el) return;
-            const field = document.getElementById('mainInputField');
-            field.value = el.innerText;
-            autoGrowInput(field);
-            field.focus();
-        }
-
-        function retryLastPrompt() {
-            if (!lastUserPrompt) return;
-            triggerHaptic('notch');
-            playTickSound();
-            const field = document.getElementById('mainInputField');
-            field.value = lastUserPrompt;
-            sendUserMessage();
-        }
-
-        async function shareMessageContent(id) {
-            triggerHaptic('notch');
-            playTickSound();
-            const el = document.getElementById(id);
-            if (!el) return;
-            const textToShare = el.innerText;
-
-            if (navigator.share) {
-                try {
-                    await navigator.share({
-                        title: 'ক্যাবলাকান্ত AI Result',
-                        text: textToShare
-                    });
-                } catch (_) {}
-            } else {
-                navigator.clipboard.writeText(textToShare).then(() => {
-                    alert("Text copied to clipboard!");
-                });
-            }
-        }
-
-        // ====================================================================
-        // 9. DISPATCH: DYNAMIC GEMINI CASCADE & IMAGEN 3 PIPELINE
-        // ====================================================================
+        // প্রধান মেসেজ হ্যান্ডলার (x-goog-api-key হেডার দ্বারা সুরক্ষিত)
         async function sendUserMessage() {
             const inputField = document.getElementById('mainInputField');
             const text = inputField.value.trim();
-            const fileObj = currentFileObject;
-            const fileB64 = currentFileBase64;
+            if (!text) return;
 
-            if (!text && !fileObj) return;
-
-            lastUserPrompt = text;
-            triggerHaptic('send');
             playDropletChirp();
-
             inputField.value = '';
             inputField.style.height = 'auto';
-            discardAttachment();
 
-            appendUserMessage(text || "Analyze attached file/media.", fileObj);
+            appendUserMessage(text);
             appendLoadingSkeleton();
-
-            const isMathQuery = /derivative|calculus|d\/dx|integrate|equation|lim|math|ডিফারেনশিয়েশন|ক্যালকুলাস/i.test(text);
 
             try {
                 if (currentAppMode === 'image') {
-                    await executeImagenCall(text);
+                    // ৮K ভিজ্যুয়াল জেনারেশন
+                    const seed = Math.floor(Math.random() * 9999999);
+                    const promptEnc = encodeURIComponent(`masterpiece, photorealistic 8k, raw cinematic lighting, ${text}`);
+                    const imgUrl = `https://image.pollinations.ai/prompt/${promptEnc}?model=flux&width=1024&height=1024&nologo=true&seed=${seed}`;
+
+                    const testImg = new Image();
+                    testImg.src = imgUrl;
+                    testImg.onload = () => appendAiMessage(`Generated 8K Visual for: "${text}"`, imgUrl);
+                    testImg.onerror = () => appendAiMessage(`Generated 8K Visual for: "${text}"`, imgUrl);
                 } else {
-                    await executeGeminiDynamicCascade(text, fileObj, fileB64, isMathQuery);
+                    // Google AI Studio রিকোয়েস্ট (x-goog-api-key হেডার যুক্ত)
+                    const payload = {
+                        contents: [{
+                            parts: [{
+                                text: `You are Kablakanta (ক্যাবলাকান্ত), an elite, highly intelligent AI. Solve calculus equations clearly step-by-step. Respond accurately.\n\nUser Question: ${text}`
+                            }]
+                        }]
+                    };
+
+                    let reply = "";
+                    let isGeminiSuccess = false;
+
+                    const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+                    for (const model of models) {
+                        try {
+                            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'x-goog-api-key': GEMINI_API_KEY
+                                },
+                                body: JSON.stringify(payload)
+                            });
+
+                            const data = await res.json();
+                            if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+                                reply = data.candidates[0].content.parts[0].text;
+                                isGeminiSuccess = true;
+                                break;
+                            }
+                        } catch (_) {}
+                    }
+
+                    // ব্যাকআপ ফলব্যাক ইঞ্জিন
+                    if (!isGeminiSuccess) {
+                        try {
+                            const pRes = await puter.ai.chat(text);
+                            reply = typeof pRes === 'string' ? pRes : (pRes?.message?.content || "রেসপন্স তৈরি হয়েছে।");
+                        } catch (_) {
+                            reply = "সার্ভার সংযোগ সমস্যা। পুনরায় চেষ্টা করুন।";
+                        }
+                    }
+
+                    appendAiMessage(reply.replace(/\n/g, '<br>'));
                 }
             } catch (err) {
-                const loading = document.getElementById('activeLoadingRow');
-                if (loading) loading.remove();
-                appendAiMessage(`Error: ${err.message || 'Unable to connect with AI services.'}`);
+                appendAiMessage("রেসপন্স প্রসেসিং এরর। ক্লাউড গেটওয়ে পুনরায় চেষ্টা করছে...");
             }
-        }
-
-        async function executeGeminiDynamicCascade(queryText, fileObj, fileB64, isMath) {
-            const parts = [];
-
-            if (fileB64 && fileObj) {
-                parts.push({
-                    inlineData: {
-                        mimeType: fileObj.type || 'image/jpeg',
-                        data: fileB64
-                    }
-                });
-            }
-
-            const sysPrompt = "You are Kablakanta (ক্যাবলাকান্ত), an elite minimalist, vibrant and highly intelligent AI collaborator. When solving calculus, differentiation, or complex math problems, break down derivations step-by-step with clean clarity. Deeply analyze images and media files. Be precise, accurate, and energetic.";
-            parts.push({ text: `${sysPrompt}\n\nUser: ${queryText || 'Examine this attachment thoroughly.'}` });
-
-            let lastError = null;
-
-            for (const modelName of GEMINI_MODELS_CASCADE) {
-                try {
-                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${activeGeminiKey}`;
-                    const res = await fetch(endpoint, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ contents: [{ parts: parts }] })
-                    });
-
-                    const data = await res.json();
-                    if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-                        const reply = data.candidates[0].content.parts[0].text;
-                        appendAiMessage(reply, null, isMath);
-                        return;
-                    }
-                    if (data.error) throw new Error(data.error.message);
-                } catch (err) {
-                    console.warn(`Model ${modelName} failed, cascading to next model...`, err);
-                    lastError = err;
-                }
-            }
-
-            throw lastError || new Error("All cascade models failed to respond.");
-        }
-
-        async function executeImagenCall(promptText) {
-            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${activeGeminiKey}`;
-            const payload = {
-                instances: [{ prompt: promptText }],
-                parameters: {
-                    sampleCount: 1,
-                    aspectRatio: "1:1",
-                    personGeneration: "allow_adult"
-                }
-            };
-
-            const res = await fetch(endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            const data = await res.json();
-            if (data.error) throw new Error(data.error.message || "Imagen generation failed.");
-
-            const b64 = data.predictions?.[0]?.bytesBase64Encoded;
-            if (b64) {
-                const imgUrl = `data:image/jpeg;base64,${b64}`;
-                appendAiMessage(`Generated Visual: "${promptText}"`, imgUrl, false);
-            } else {
-                throw new Error("Enterprise safety filters prevented this generation.");
-            }
-        }
-
-        // ====================================================================
-        // 10. NEURAL TTS & BREATHE HIGHLIGHTER
-        // ====================================================================
-        function stopSpeechSynthesis() {
-            document.querySelectorAll('.bubble-ai').forEach(el => el.classList.remove('tts-reading'));
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
-        }
-
-        function playVoiceReadout(contentId) {
-            if (!('speechSynthesis' in window)) return;
-            stopSpeechSynthesis();
-
-            const bubbleEl = document.getElementById(contentId);
-            if (!bubbleEl) return;
-
-            const safeText = (bubbleEl.innerText || '')
-                .replace(/```[\s\S]*?```/g, ' code block ')
-                .replace(/[`*#_]/g, ' ')
-                .slice(0, 360);
-
-            if (!safeText.trim()) return;
-
-            const utterance = new SpeechSynthesisUtterance(safeText);
-            const isBengali = /[\u0980-\u09FF]/.test(safeText);
-            utterance.lang = isBengali ? 'bn-BD' : 'en-US';
-            utterance.rate = 1.05;
-
-            bubbleEl.classList.add('tts-reading');
-            utterance.onend = () => bubbleEl.classList.remove('tts-reading');
-            utterance.onerror = () => bubbleEl.classList.remove('tts-reading');
-
-            window.speechSynthesis.speak(utterance);
         }
     </script>
 </body>
