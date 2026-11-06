@@ -6,9 +6,6 @@
     <title>ক্যাবলাকান্ত</title>
     <meta name="theme-color" content="#f4f6fa">
 
-    <!-- Puter.js Intelligence Gateway (Text Fallback Only) -->
-    <script src="https://js.puter.com/v2/"></script>
-
     <!-- Google Fonts: Inter & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,21 +15,16 @@
         :root {
             --bg-base: #f4f6fa;
             --silver-metal-border: rgba(203, 213, 225, 0.75);
-            
-            /* ডক ও ইউজারের পিওর ডিপ স্কাই ব্লু থিম */
             --electric-sky: #0ea5e9;
             --electric-sky-deep: #0284c7;
             --electric-cyan: #06b6d4;
             --electric-glow: rgba(14, 165, 233, 0.35);
-            
-            /* এআই বাবল: ভাইব্রেন্ট এমারেল্ড/মিন্ট গ্লাস থিম */
             --emerald-core: #10b981;
             --emerald-deep: #047857;
             --emerald-glow: rgba(16, 185, 129, 0.38);
             --emerald-bg-start: rgba(236, 253, 245, 0.98);
             --emerald-bg-end: rgba(209, 250, 229, 0.92);
             --emerald-border: rgba(16, 185, 129, 0.45);
-            
             --text-primary: #0f172a;
             --text-secondary: #334155;
             --text-muted: #94a3b8;
@@ -69,22 +61,6 @@
             z-index: 1;
             pointer-events: none;
             opacity: 0.95;
-        }
-
-        .water-ripple {
-            position: fixed;
-            border-radius: 50%;
-            border: 2px solid rgba(56, 189, 248, 0.85);
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.35) 0%, transparent 70%);
-            transform: scale(0);
-            pointer-events: none;
-            z-index: 9999;
-            animation: rippleAnim 0.75s ease-out forwards;
-        }
-
-        @keyframes rippleAnim {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(3.8); opacity: 0; }
         }
 
         .aura-header {
@@ -124,10 +100,6 @@
             flex-shrink: 0;
         }
 
-        .brand-core:hover .brand-orb {
-            transform: scale(1.12) rotate(15deg);
-        }
-
         .brand-orb::after {
             content: '';
             width: 10px;
@@ -135,12 +107,6 @@
             background: #ffffff;
             border-radius: 50%;
             box-shadow: 0 0 10px #ffffff;
-        }
-
-        .brand-text-block {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
         }
 
         .brand-title {
@@ -156,7 +122,6 @@
             font-size: 11px;
             font-weight: 600;
             color: var(--electric-sky-deep);
-            letter-spacing: 0.2px;
         }
 
         .header-actions {
@@ -178,15 +143,7 @@
             align-items: center;
             gap: 6px;
             cursor: pointer;
-            transition: all 0.25s var(--spring-transition);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
             user-select: none;
-        }
-
-        .luxury-pill-toggle:hover {
-            transform: translateY(-1px);
-            border-color: var(--electric-sky);
-            color: var(--electric-sky-deep);
         }
 
         .luxury-pill-toggle.active {
@@ -225,88 +182,20 @@
         .hero-title {
             font-size: 46px;
             font-weight: 900;
-            letter-spacing: -0.6px;
             background: linear-gradient(135deg, #0f172a 10%, #0284c7 45%, #0ea5e9 80%, #38bdf8 100%);
-            background-size: 260% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: textShimmer 4.5s ease-in-out infinite alternate;
-            filter: drop-shadow(0 4px 18px rgba(14, 165, 233, 0.24));
             user-select: none;
-            cursor: pointer;
-            transition: transform 0.3s var(--spring-transition);
         }
-
-        .hero-title:hover { transform: scale(1.04); }
-
-        @keyframes textShimmer {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        .hero-neural-orb {
-            width: 88px;
-            height: 88px;
-            border-radius: 50%;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 4px auto;
-            cursor: pointer;
-            transition: transform 0.4s var(--spring-transition);
-        }
-
-        .hero-neural-orb:hover { transform: scale(1.18) rotate(12deg); }
-        .hero-neural-orb:active { transform: scale(0.92); }
-
-        .orb-core-sphere {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 30%, #0284c7 72%, #0369a1 100%);
-            box-shadow: 0 0 32px var(--electric-glow), inset 0 2px 6px rgba(255,255,255,0.9);
-            animation: orbBreathe 2.8s infinite ease-in-out;
-            z-index: 2;
-        }
-
-        .orb-ring {
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            border-top-color: var(--electric-sky);
-            border-bottom-color: var(--electric-cyan);
-            animation: orbSpin 3.2s linear infinite;
-        }
-
-        .orb-ring-outer {
-            position: absolute;
-            inset: -14px;
-            border-radius: 50%;
-            border: 1.5px dashed rgba(14, 165, 233, 0.5);
-            animation: orbSpinRev 7.5s linear infinite;
-        }
-
-        @keyframes orbBreathe {
-            0%, 100% { transform: scale(0.96); box-shadow: 0 0 20px rgba(14, 165, 233, 0.45); }
-            50% { transform: scale(1.06); box-shadow: 0 0 40px rgba(14, 165, 233, 0.9), 0 0 10px #ffffff; }
-        }
-
-        @keyframes orbSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes orbSpinRev { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
 
         .typewriter-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(16px);
             border: 1px solid var(--silver-metal-border);
             padding: 9px 22px;
             border-radius: var(--radius-capsule);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
-            min-height: 42px;
         }
 
         .typewriter-status-dot {
@@ -314,27 +203,13 @@
             height: 7px;
             border-radius: 50%;
             background-color: var(--electric-sky);
-            box-shadow: 0 0 10px var(--electric-sky);
-            animation: blinkDot 1.6s infinite ease-in-out;
         }
-
-        @keyframes blinkDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
         .typewriter-text {
             font-size: 13.8px;
             font-weight: 600;
             color: var(--text-secondary);
         }
-
-        .typewriter-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 14px;
-            background-color: var(--electric-sky);
-            animation: blinkCursor 0.8s infinite;
-        }
-
-        @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
         .message-row {
             display: flex;
@@ -345,8 +220,8 @@
         }
 
         @keyframes floatSlideUp {
-            from { opacity: 0; transform: translateY(16px) scale(0.96); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .message-row.user { align-items: flex-end; }
@@ -369,7 +244,6 @@
             border-radius: 14px;
             margin-bottom: 6px;
             border: 2px solid #ffffff;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
             object-fit: cover;
         }
 
@@ -382,21 +256,8 @@
             max-width: 92%;
             font-size: 15px;
             line-height: 1.65;
-            box-shadow: 0 8px 32px var(--emerald-glow), inset 0 1px 2px rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 32px var(--emerald-glow);
             backdrop-filter: blur(22px);
-            transition: all 0.35s ease;
-            position: relative;
-        }
-
-        .bubble-ai.speaking-now {
-            border-color: var(--emerald-core);
-            box-shadow: 0 0 38px rgba(16, 185, 129, 0.75), inset 0 0 16px rgba(52, 211, 153, 0.35);
-            animation: greenTtsBreathe 2s infinite ease-in-out;
-        }
-
-        @keyframes greenTtsBreathe {
-            0%, 100% { box-shadow: 0 0 18px rgba(16, 185, 129, 0.40); }
-            50% { box-shadow: 0 0 44px rgba(16, 185, 129, 0.90), 0 0 8px #ffffff; }
         }
 
         .ai-header-badge {
@@ -409,32 +270,6 @@
             font-size: 11.5px;
             font-weight: 800;
             color: var(--emerald-deep);
-            letter-spacing: 0.3px;
-        }
-
-        .ai-live-eq {
-            display: none;
-            align-items: center;
-            gap: 3px;
-        }
-
-        .bubble-ai.speaking-now .ai-live-eq {
-            display: inline-flex;
-        }
-
-        .eq-bar {
-            width: 3px;
-            height: 10px;
-            background: var(--emerald-core);
-            border-radius: 2px;
-            animation: eqBounce 0.8s infinite ease-in-out alternate;
-        }
-        .eq-bar:nth-child(2) { animation-delay: 0.2s; height: 14px; }
-        .eq-bar:nth-child(3) { animation-delay: 0.4s; height: 8px; }
-
-        @keyframes eqBounce {
-            0% { transform: scaleY(0.4); }
-            100% { transform: scaleY(1.3); }
         }
 
         .gen-art-frame {
@@ -443,7 +278,6 @@
             border-radius: 16px;
             margin-top: 12px;
             border: 1.5px solid var(--emerald-border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             display: block;
         }
 
@@ -453,51 +287,17 @@
             gap: 7px;
             margin-top: 6px;
             padding: 0 4px;
-            flex-wrap: wrap;
         }
 
         .action-chip-btn {
             background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(12px);
             border: 1px solid var(--silver-metal-border);
             color: var(--text-secondary);
             font-size: 11.5px;
             font-weight: 600;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.25s var(--spring-transition);
             padding: 4px 11px;
             border-radius: var(--radius-capsule);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-            user-select: none;
-        }
-
-        .action-chip-btn:hover {
-            color: var(--emerald-deep);
-            border-color: var(--emerald-core);
-            background: #ffffff;
-            transform: translateY(-1.5px);
-            box-shadow: 0 4px 14px var(--emerald-glow);
-        }
-
-        .action-chip-btn:active { transform: scale(0.92); }
-
-        .action-chip-btn svg {
-            width: 13px;
-            height: 13px;
-            stroke: currentColor;
-            stroke-width: 2;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .action-chip-btn.btn-refine {
-            background: rgba(16, 185, 129, 0.12);
-            border-color: rgba(16, 185, 129, 0.45);
-            color: var(--emerald-deep);
         }
 
         .dock-container {
@@ -519,21 +319,14 @@
             background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(30px);
             border-radius: 30px;
-            box-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.1);
             padding: 8px 14px;
             display: flex;
             flex-direction: column;
             gap: 6px;
             pointer-events: auto;
             border: 1.5px solid var(--silver-metal-border);
-            transition: all 0.28s var(--spring-transition);
             position: relative;
-        }
-
-        .elastic-capsule:focus-within {
-            border-color: var(--electric-sky);
-            box-shadow: 0 24px 54px -8px var(--electric-glow), 0 0 0 1px var(--electric-sky);
-            transform: translateY(-2px);
         }
 
         .attach-popup-menu {
@@ -542,7 +335,6 @@
             bottom: calc(100% + 10px);
             left: 12px;
             background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(25px);
             border: 1.5px solid var(--silver-metal-border);
             border-radius: 18px;
             box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
@@ -551,15 +343,9 @@
             gap: 6px;
             z-index: 200;
             min-width: 200px;
-            animation: popupSlide 0.22s var(--spring-transition) forwards;
         }
 
         .attach-popup-menu.show { display: flex; }
-
-        @keyframes popupSlide {
-            from { opacity: 0; transform: translateY(8px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
 
         .attach-menu-btn {
             background: none;
@@ -573,22 +359,6 @@
             font-weight: 600;
             color: var(--text-primary);
             cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: left;
-        }
-
-        .attach-menu-btn:hover {
-            background: rgba(14, 165, 233, 0.1);
-            color: var(--electric-sky-deep);
-            transform: translateX(2px);
-        }
-
-        .attach-menu-btn svg {
-            width: 18px;
-            height: 18px;
-            stroke: currentColor;
-            stroke-width: 2;
-            fill: none;
         }
 
         .attachment-preview-bar {
@@ -618,7 +388,6 @@
             cursor: pointer;
             color: #ef4444;
             font-weight: bold;
-            font-size: 14px;
             padding: 0 4px;
         }
 
@@ -640,22 +409,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.25s var(--spring-transition);
             flex-shrink: 0;
-        }
-
-        .dock-plus-btn:hover {
-            background: var(--electric-sky);
-            color: #ffffff;
-            transform: rotate(90deg) scale(1.08);
-            box-shadow: 0 4px 14px var(--electric-glow);
-        }
-
-        .dock-plus-btn.active {
-            transform: rotate(45deg);
-            background: #ef4444;
-            color: #ffffff;
-            border-color: #ef4444;
         }
 
         .dock-btn {
@@ -670,10 +424,8 @@
             cursor: pointer;
             color: var(--text-secondary);
             flex-shrink: 0;
-            transition: all 0.2s ease;
         }
 
-        .dock-btn:hover { background: rgba(14, 165, 233, 0.08); color: var(--electric-sky-deep); }
         .dock-btn.recording { color: #ef4444; background: rgba(239, 68, 68, 0.12); }
 
         .dock-input {
@@ -702,21 +454,13 @@
             cursor: pointer;
             box-shadow: 0 4px 14px var(--electric-glow);
             flex-shrink: 0;
-            transition: all 0.2s ease;
         }
-
-        .dock-send-pill:hover { transform: scale(1.08); }
 
         .dock-meta-tray {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            padding: 0 4px 2px 4px;
-        }
-
-        .mode-group {
-            display: flex;
             gap: 6px;
+            padding: 0 4px 2px 4px;
         }
 
         .mode-chip {
@@ -728,7 +472,6 @@
             padding: 4px 12px;
             border-radius: var(--radius-capsule);
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
         .mode-chip.active {
@@ -764,21 +507,16 @@
     <canvas id="oceanCanvas"></canvas>
 
     <header class="aura-header">
-        <div class="brand-core" onclick="resetChatView()">
+        <div class="brand-core" onclick="location.reload()">
             <div class="brand-orb"></div>
-            <div class="brand-text-block">
+            <div>
                 <div class="brand-title">ক্যাবলাকান্ত</div>
-                <div class="brand-sub">Fluid Intelligence Core</div>
+                <div class="brand-sub">Direct Gemini Core</div>
             </div>
         </div>
 
         <div class="header-actions">
-            <button class="luxury-pill-toggle active" id="btnSoundToggle" onclick="toggleSoundEngine()" title="Sound FX">
-                <span id="soundIcon">🔔</span>
-                <span id="soundLabel">Sound</span>
-            </button>
-
-            <button class="luxury-pill-toggle active" id="btnVoiceToggle" onclick="toggleVoiceEngine()" title="Auto Voice Readout">
+            <button class="luxury-pill-toggle active" id="btnVoiceToggle" onclick="toggleVoiceEngine()">
                 <span id="voiceIcon">🔊</span>
                 <span id="voiceLabel">Voice Auto</span>
             </button>
@@ -788,17 +526,9 @@
     <main class="chat-viewport" id="chatViewport">
         <div class="empty-hero" id="emptyHero">
             <h1 class="hero-title">ক্যাবলাকান্ত</h1>
-
-            <div class="hero-neural-orb" onclick="pingNeuralOrb()" title="Neural Core Pulse">
-                <div class="orb-ring-outer"></div>
-                <div class="orb-ring"></div>
-                <div class="orb-core-sphere"></div>
-            </div>
-
             <div class="typewriter-badge">
                 <div class="typewriter-status-dot"></div>
-                <span class="typewriter-text" id="typewriterDynamicText"></span>
-                <span class="typewriter-cursor"></span>
+                <span class="typewriter-text">বলো, আমি শুনছি...</span>
             </div>
         </div>
     </main>
@@ -808,12 +538,10 @@
             
             <div class="attach-popup-menu" id="attachPopupMenu">
                 <button type="button" class="attach-menu-btn" onclick="openDeviceCamera()">
-                    <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                    <span>ক্যামেরা দিয়ে স্ক্যান</span>
+                    <span>📷 ক্যামেরা দিয়ে স্ক্যান</span>
                 </button>
                 <button type="button" class="attach-menu-btn" onclick="openFileGallery()">
-                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                    <span>গ্যালারি / ফাইল আপলোড</span>
+                    <span>🖼️ গ্যালারি / ফাইল আপলোড</span>
                 </button>
             </div>
 
@@ -823,273 +551,76 @@
             <div class="attachment-preview-bar" id="attachmentBar">
                 <img id="attachmentThumb" class="attachment-thumb" src="" alt="preview">
                 <span id="attachmentName" class="attachment-name">image.jpg</span>
-                <span class="attachment-remove" onclick="clearAttachment()" title="Remove">✕</span>
+                <span class="attachment-remove" onclick="clearAttachment()">✕</span>
             </div>
 
             <div class="dock-input-row">
-                <button type="button" class="dock-plus-btn" id="dockPlusBtn" onclick="toggleAttachMenu()" title="ক্যামেরা অথবা ফাইল স্ক্যান">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
+                <button type="button" class="dock-plus-btn" id="dockPlusBtn" onclick="toggleAttachMenu()">
+                    ＋
                 </button>
 
-                <textarea id="mainInputField" class="dock-input" rows="1" placeholder="Type a message, calculus query or speak..." oninput="autoGrowInput(this)" onkeydown="checkSubmitKey(event)"></textarea>
+                <textarea id="mainInputField" class="dock-input" rows="1" placeholder="Type a message or speak..." oninput="autoGrowInput(this)" onkeydown="checkSubmitKey(event)"></textarea>
 
-                <button type="button" class="dock-btn" id="dockMicBtn" onclick="toggleGroqVoiceInput()" title="Voice Input">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
-                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                        <line x1="12" y1="19" x2="12" y2="23"></line>
-                        <line x1="8" y1="23" x2="16" y2="23"></line>
-                    </svg>
+                <button type="button" class="dock-btn" id="dockMicBtn" onclick="toggleGroqVoiceInput()">
+                    🎤
                 </button>
 
-                <button type="button" class="dock-send-pill" onclick="sendUserMessage()" title="Send">
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="19" x2="12" y2="5"></line>
-                        <polyline points="5 12 12 5 19 12"></polyline>
-                    </svg>
+                <button type="button" class="dock-send-pill" onclick="sendUserMessage()">
+                    ▲
                 </button>
             </div>
 
             <div class="dock-meta-tray">
-                <div class="mode-group">
-                    <button class="mode-chip active" id="chipChat" onclick="setAppMode('chat')">💬 Chat & Scan</button>
-                    <button class="mode-chip" id="chipImage" onclick="setAppMode('image')">🎨 Imagen Studio (HD)</button>
-                </div>
+                <button class="mode-chip active" id="chipChat" onclick="setAppMode('chat')">💬 Chat & Scan</button>
+                <button class="mode-chip" id="chipImage" onclick="setAppMode('image')">🎨 Imagen Studio</button>
             </div>
         </div>
     </div>
 
     <script>
+        // আপনার ক্রেডেনশিয়ালস
         const GEMINI_AUTH_KEY = "AQ.Ab8RN6IQJpRu3tGk-Ccj59DwfX98_OVOUTmlji4dX1ct5TFsSg";
         const GROQ_API_KEY    = "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";
 
         let currentAppMode = 'chat';
-        let isSoundActive = true;
         let isVoiceReadoutActive = true;
-        let audioCtxInstance = null;
-        let lastUserPrompt = '';
-
         let selectedFileBase64 = null;
         let selectedFileMime = null;
         let selectedFileObject = null;
 
-        function initAudioContext() {
-            if (!audioCtxInstance) {
-                const AudioClass = window.AudioContext || window.webkitAudioContext;
-                if (AudioClass) audioCtxInstance = new AudioClass();
-            }
-            if (audioCtxInstance && audioCtxInstance.state === 'suspended') audioCtxInstance.resume();
-        }
-
-        function playDropletChirp() {
-            if (!isSoundActive) return;
-            initAudioContext();
-            if (!audioCtxInstance) return;
-            const now = audioCtxInstance.currentTime;
-            const osc = audioCtxInstance.createOscillator();
-            const gain = audioCtxInstance.createGain();
-            osc.frequency.setValueAtTime(880, now);
-            osc.frequency.exponentialRampToValueAtTime(1760, now + 0.06);
-            gain.gain.setValueAtTime(0.15, now);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
-            osc.connect(gain);
-            gain.connect(audioCtxInstance.destination);
-            osc.start(now);
-            osc.stop(now + 0.06);
-        }
-
-        function playPing() {
-            if (!isSoundActive) return;
-            initAudioContext();
-            if (!audioCtxInstance) return;
-            const now = audioCtxInstance.currentTime;
-            const osc = audioCtxInstance.createOscillator();
-            const gain = audioCtxInstance.createGain();
-            osc.frequency.setValueAtTime(1046.5, now);
-            gain.gain.setValueAtTime(0.12, now);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
-            osc.connect(gain);
-            gain.connect(audioCtxInstance.destination);
-            osc.start(now);
-            osc.stop(now + 0.25);
-        }
-
-        function toggleSoundEngine() {
-            isSoundActive = !isSoundActive;
-            const btn = document.getElementById('btnSoundToggle');
-            const icn = document.getElementById('soundIcon');
-            const lbl = document.getElementById('soundLabel');
-            btn.classList.toggle('active', isSoundActive);
-            icn.innerText = isSoundActive ? "🔔" : "🔕";
-            lbl.innerText = isSoundActive ? "Sound" : "Muted";
-            if (isSoundActive) playPing();
-        }
-
         function toggleVoiceEngine() {
             isVoiceReadoutActive = !isVoiceReadoutActive;
             const btn = document.getElementById('btnVoiceToggle');
-            const icn = document.getElementById('voiceIcon');
-            const lbl = document.getElementById('voiceLabel');
             btn.classList.toggle('active', isVoiceReadoutActive);
-            icn.innerText = isVoiceReadoutActive ? "🔊" : "🔇";
-            lbl.innerText = isVoiceReadoutActive ? "Voice Auto" : "Voice Off";
-            if (!isVoiceReadoutActive && 'speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
-            if (isSoundActive) playPing();
+            document.getElementById('voiceIcon').innerText = isVoiceReadoutActive ? "🔊" : "🔇";
+            document.getElementById('voiceLabel').innerText = isVoiceReadoutActive ? "Voice Auto" : "Voice Off";
+            if (!isVoiceReadoutActive && 'speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
-        function speakAiResponse(text, bubbleEl) {
+        function speakAiResponse(text) {
             if (!isVoiceReadoutActive || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
 
-            let clean = text
-                .replace(/<[^>]*>/g, ' ')
-                .replace(/```[\s\S]*?```/g, ' কোড ব্লক ')
-                .replace(/[`*#_]/g, ' ')
-                .slice(0, 360);
-
+            let clean = text.replace(/<[^>]*>/g, ' ').replace(/```[\s\S]*?```/g, ' ').replace(/[`*#_]/g, ' ').slice(0, 320);
             if (!clean.trim()) return;
 
-            const regex = /([\u0980-\u09FF]+|[^\u0980-\u09FF]+)/g;
-            const segments = clean.match(regex) || [clean];
-
-            if (bubbleEl) bubbleEl.classList.add('speaking-now');
-
-            let currentIdx = 0;
-            function speakNextSegment() {
-                if (currentIdx >= segments.length) {
-                    if (bubbleEl) bubbleEl.classList.remove('speaking-now');
-                    return;
-                }
-
-                const segText = segments[currentIdx].trim();
-                currentIdx++;
-
-                if (!segText) {
-                    speakNextSegment();
-                    return;
-                }
-
-                const utter = new SpeechSynthesisUtterance(segText);
-                const isBengaliChunk = /[\u0980-\u09FF]/.test(segText);
-
-                if (isBengaliChunk) {
-                    utter.lang = 'bn-BD';
-                    utter.rate = 1.02;
-                } else {
-                    utter.lang = 'en-US';
-                    utter.rate = 1.05;
-                }
-
-                utter.onend = () => speakNextSegment();
-                utter.onerror = () => speakNextSegment();
-
-                window.speechSynthesis.speak(utter);
-            }
-
-            speakNextSegment();
-        }
-
-        (function initOceanWaves() {
-            const canvas = document.getElementById('oceanCanvas');
-            const ctx = canvas.getContext('2d');
-            let w, h, dpr, step = 0;
-            function resize() {
-                dpr = window.devicePixelRatio || 1;
-                w = window.innerWidth;
-                h = window.innerHeight;
-                canvas.width = w * dpr;
-                canvas.height = h * dpr;
-                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-            }
-            window.addEventListener('resize', resize);
-            resize();
-            function render() {
-                ctx.clearRect(0, 0, w, h);
-                step += 0.014;
-                ctx.beginPath();
-                ctx.moveTo(0, h);
-                for (let x = 0; x <= w; x += 20) {
-                    const y = Math.sin(x * 0.0035 + step) * 22 + (h - 90);
-                    ctx.lineTo(x, y);
-                }
-                ctx.lineTo(w, h);
-                ctx.fillStyle = 'rgba(14, 165, 233, 0.05)';
-                ctx.fill();
-                requestAnimationFrame(render);
-            }
-            render();
-        })();
-
-        window.addEventListener('pointerdown', (e) => {
-            initAudioContext();
-            const rip = document.createElement('div');
-            rip.className = 'water-ripple';
-            const size = 64;
-            rip.style.width = size + 'px';
-            rip.style.height = size + 'px';
-            rip.style.left = (e.clientX - size / 2) + 'px';
-            rip.style.top = (e.clientY - size / 2) + 'px';
-            document.body.appendChild(rip);
-            setTimeout(() => rip.remove(), 750);
-        });
-
-        const TYPEWRITER_PHRASES = [
-            "বলো, আমি শুনছি...",
-            "প্লাসে চাপ দিয়ে ক্যামেরা খুলে বই-খাতা স্ক্যান করো...",
-            "যেকোনো ক্যালকুলাস ও জটিল অংক এক সেকেন্ডে সমাধান...",
-            "হাই-কোয়ালিটি সিনেমাটিক দৃশ্য তৈরি করো..."
-        ];
-        let phraseIdx = 0, charIdx = 0, isDeleting = false;
-
-        function runTypewriter() {
-            const el = document.getElementById('typewriterDynamicText');
-            if (!el) return;
-            const current = TYPEWRITER_PHRASES[phraseIdx];
-            if (isDeleting) {
-                el.innerText = current.substring(0, charIdx - 1);
-                charIdx--;
-            } else {
-                el.innerText = current.substring(0, charIdx + 1);
-                charIdx++;
-            }
-            let speed = isDeleting ? 30 : 65;
-            if (!isDeleting && charIdx === current.length) {
-                speed = 2200;
-                isDeleting = true;
-            } else if (isDeleting && charIdx === 0) {
-                isDeleting = false;
-                phraseIdx = (phraseIdx + 1) % TYPEWRITER_PHRASES.length;
-                speed = 450;
-            }
-            setTimeout(runTypewriter, speed);
-        }
-        runTypewriter();
-
-        function pingNeuralOrb() {
-            playPing();
-            const el = document.getElementById('typewriterDynamicText');
-            if (el) el.innerText = "ক্যাবলাকান্ত কোর সক্রিয় ও প্রস্তুত!";
-        }
-
-        function autoGrowInput(el) {
-            el.style.height = 'auto';
-            el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+            const utter = new SpeechSynthesisUtterance(clean);
+            utter.lang = /[\u0980-\u09FF]/.test(clean) ? 'bn-BD' : 'en-US';
+            window.speechSynthesis.speak(utter);
         }
 
         function setAppMode(mode) {
             currentAppMode = mode;
             document.getElementById('chipChat').classList.toggle('active', mode === 'chat');
             document.getElementById('chipImage').classList.toggle('active', mode === 'image');
-            const field = document.getElementById('mainInputField');
-            field.placeholder = mode === 'image' 
-                ? "Describe visual in English (e.g. football in stadium)..." 
+            document.getElementById('mainInputField').placeholder = mode === 'image' 
+                ? "Describe detailed visual in English..." 
                 : "Type a message, calculus query or speak...";
-            playPing();
+        }
+
+        function autoGrowInput(el) {
+            el.style.height = 'auto';
+            el.style.height = Math.min(el.scrollHeight, 120) + 'px';
         }
 
         function checkSubmitKey(e) {
@@ -1099,26 +630,10 @@
             }
         }
 
-        function resetChatView() {
-            location.reload();
-        }
-
         function toggleAttachMenu() {
-            playPing();
             const menu = document.getElementById('attachPopupMenu');
-            const btn = document.getElementById('dockPlusBtn');
-            const isOpen = menu.classList.toggle('show');
-            btn.classList.toggle('active', isOpen);
+            menu.classList.toggle('show');
         }
-
-        document.addEventListener('click', (e) => {
-            const menu = document.getElementById('attachPopupMenu');
-            const btn = document.getElementById('dockPlusBtn');
-            if (!menu.contains(e.target) && !btn.contains(e.target) && menu.classList.contains('show')) {
-                menu.classList.remove('show');
-                btn.classList.remove('active');
-            }
-        });
 
         function openDeviceCamera() {
             toggleAttachMenu();
@@ -1141,11 +656,9 @@
             reader.onload = function(e) {
                 const fullBase64 = e.target.result;
                 selectedFileBase64 = fullBase64.split(',')[1];
-                
                 document.getElementById('attachmentThumb').src = fullBase64;
-                document.getElementById('attachmentName').innerText = file.name.slice(0, 18);
+                document.getElementById('attachmentName').innerText = file.name.slice(0, 16);
                 document.getElementById('attachmentBar').style.display = 'inline-flex';
-                playPing();
             };
             reader.readAsDataURL(file);
         }
@@ -1199,19 +712,7 @@
                 groqRecorder.start();
                 isRecording = true;
                 micBtn.classList.add('recording');
-            } catch (_) {
-                const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
-                if (Speech) {
-                    const rec = new Speech();
-                    rec.lang = 'bn-BD';
-                    rec.onresult = (e) => {
-                        const field = document.getElementById('mainInputField');
-                        field.value = (field.value ? field.value + ' ' : '') + e.results[0][0].transcript;
-                        autoGrowInput(field);
-                    };
-                    rec.start();
-                }
-            }
+            } catch (_) {}
         }
 
         function appendUserMessage(text, imgSrc = null) {
@@ -1220,28 +721,17 @@
             const vp = document.getElementById('chatViewport');
             const row = document.createElement('div');
             row.className = 'message-row user';
-            const userMsgId = 'user-msg-' + Date.now();
 
-            let imgHtml = imgSrc ? `<img src="${imgSrc}" class="user-preview-img" alt="Scanned Document">` : '';
+            let imgHtml = imgSrc ? `<img src="${imgSrc}" class="user-preview-img" alt="Scan">` : '';
             row.innerHTML = `
                 ${imgHtml}
-                <div class="bubble-user" id="${userMsgId}-content">${text}</div>
-                <div class="msg-action-tray">
-                    <button class="action-chip-btn" onclick="editUserPrompt('${userMsgId}-content')">
-                        <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                        <span>Edit</span>
-                    </button>
-                    <button class="action-chip-btn" onclick="copyTextContent('${userMsgId}-content', this)">
-                        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        <span>Copy</span>
-                    </button>
-                </div>
+                <div class="bubble-user">${text}</div>
             `;
             vp.appendChild(row);
             vp.scrollTo({ top: vp.scrollHeight, behavior: 'smooth' });
         }
 
-        function appendLoadingSkeleton(customText = null) {
+        function appendLoadingSkeleton(text = null) {
             const vp = document.getElementById('chatViewport');
             const row = document.createElement('div');
             row.className = 'message-row ai';
@@ -1253,7 +743,7 @@
                         <div class="wave-dot"></div>
                         <div class="wave-dot"></div>
                     </div>
-                    ${customText ? `<span style="font-size:12px; font-weight:600; color:var(--emerald-deep); margin-top:4px; display:inline-block;">${customText}</span>` : ''}
+                    ${text ? `<div style="font-size:12px; margin-top:4px;">${text}</div>` : ''}
                 </div>
             `;
             vp.appendChild(row);
@@ -1266,181 +756,23 @@
             const vp = document.getElementById('chatViewport');
             const row = document.createElement('div');
             row.className = 'message-row ai';
-            const msgId = 'ai-msg-' + Date.now();
 
-            let artHtml = artUrl ? `<img src="${artUrl}" class="gen-art-frame" alt="Generated Image">` : '';
-
+            let artHtml = artUrl ? `<img src="${artUrl}" class="gen-art-frame" alt="AI Generated">` : '';
             row.innerHTML = `
-                <div class="bubble-ai" id="${msgId}-content">
-                    <div class="ai-header-badge">
-                        <span>ক্যাবলাকান্ত AI</span>
-                        <div class="ai-live-eq">
-                            <span class="eq-bar"></span>
-                            <span class="eq-bar"></span>
-                            <span class="eq-bar"></span>
-                        </div>
-                    </div>
-                    ${text}
+                <div class="bubble-ai">
+                    <div class="ai-header-badge"><span>ক্যাবলাকান্ত AI</span></div>
+                    <div>${text}</div>
                     ${artHtml}
-                </div>
-                <div class="msg-action-tray">
-                    <button class="action-chip-btn btn-refine" onclick="refineAiPrompt('${msgId}-content')">
-                        <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                        <span>✍️ Refine</span>
-                    </button>
-                    <button class="action-chip-btn" onclick="copyTextContent('${msgId}-content', this)">
-                        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        <span>Copy</span>
-                    </button>
-                    <button class="action-chip-btn" onclick="retryLastPrompt()">
-                        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
-                        <span>Retry</span>
-                    </button>
-                    <button class="action-chip-btn" onclick="shareMessageContent('${msgId}-content')">
-                        <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                        <span>Share</span>
-                    </button>
-                    <button class="action-chip-btn" onclick="triggerVoiceFromBtn('${msgId}-content')">
-                        <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-                        <span>Listen</span>
-                    </button>
                 </div>
             `;
             vp.appendChild(row);
             vp.scrollTo({ top: vp.scrollHeight, behavior: 'smooth' });
-            playPing();
 
-            const bubbleEl = document.getElementById(`${msgId}-content`);
-            if (!artUrl) {
-                speakAiResponse(text, bubbleEl);
-            }
-        }
-
-        function refineAiPrompt(id) {
-            playPing();
-            const el = document.getElementById(id);
-            if (!el) return;
-            const cleanText = el.innerText.replace("ক্যাবলাকান্ত AI", "").trim();
-            const field = document.getElementById('mainInputField');
-            field.value = `এই সমাধানটি আরও সংক্ষেপ ও নিখুঁতভাবে রিফাইন করো: ${cleanText.slice(0, 160)}...`;
-            autoGrowInput(field);
-            field.focus();
-        }
-
-        function copyTextContent(id, btn) {
-            playPing();
-            const el = document.getElementById(id);
-            if (!el) return;
-            const textToCopy = el.innerText.replace("ক্যাবলাকান্ত AI", "").trim();
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                const prev = btn.innerHTML;
-                btn.innerHTML = `<span>✓ Copied</span>`;
-                setTimeout(() => { btn.innerHTML = prev; }, 1600);
-            });
-        }
-
-        function editUserPrompt(id) {
-            playPing();
-            const el = document.getElementById(id);
-            if (!el) return;
-            const field = document.getElementById('mainInputField');
-            field.value = el.innerText;
-            autoGrowInput(field);
-            field.focus();
-        }
-
-        function retryLastPrompt() {
-            if (!lastUserPrompt) return;
-            playPing();
-            const field = document.getElementById('mainInputField');
-            field.value = lastUserPrompt;
-            sendUserMessage();
-        }
-
-        function shareMessageContent(id) {
-            playPing();
-            const el = document.getElementById(id);
-            if (!el) return;
-            const text = el.innerText.replace("ক্যাবলাকান্ত AI", "").trim();
-            if (navigator.share) {
-                navigator.share({ title: 'ক্যাবলাকান্ত AI', text: text }).catch(() => {});
-            } else {
-                navigator.clipboard.writeText(text);
-                alert("Text copied to clipboard!");
-            }
-        }
-
-        function triggerVoiceFromBtn(id) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            speakAiResponse(el.innerText, el);
+            if (!artUrl) speakAiResponse(text);
         }
 
         // ====================================================================
-        // সরাসরি AI HORDE ডিসেন্ট্রালাইজড ইঞ্জিন (১০০% ফ্রি, নো ওয়াটারমার্ক, নো পলিনেশন)
-        // ====================================================================
-        async function executeImageEngine(promptText) {
-            let enhanced = promptText.trim();
-            if (!enhanced.toLowerCase().includes("8k") && !enhanced.toLowerCase().includes("photorealistic")) {
-                enhanced += ", 8k resolution, cinematic composition, photorealistic, highly detailed masterpiece";
-            }
-
-            try {
-                const hordeReq = await fetch("https://aihorde.net/api/v2/generate/async", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Client-Agent": "KablakantaAI:2.1:github",
-                        "apikey": "0000000000"
-                    },
-                    body: JSON.stringify({
-                        prompt: enhanced,
-                        params: {
-                            steps: 20,
-                            width: 512,
-                            height: 512,
-                            cfg_scale: 7.5,
-                            sampler_name: "k_euler"
-                        },
-                        nsfw: false,
-                        censor_nsfw: false
-                    })
-                });
-
-                const hordeData = await hordeReq.json();
-                if (!hordeData || !hordeData.id) {
-                    throw new Error("ইমেজ প্রসেসিং শুরু করা যায়নি।");
-                }
-
-                const jobId = hordeData.id;
-                let finalImgSrc = null;
-
-                for (let step = 0; step < 15; step++) {
-                    await new Promise(r => setTimeout(r, 2000));
-                    const check = await fetch(`https://aihorde.net/api/v2/generate/status/${jobId}`);
-                    const checkData = await check.json();
-
-                    if (checkData && checkData.generations && checkData.generations.length > 0) {
-                        const gen = checkData.generations[0];
-                        if (gen.img) {
-                            finalImgSrc = gen.img.startsWith("http") ? gen.img : `data:image/webp;base64,${gen.img}`;
-                            break;
-                        }
-                    }
-                }
-
-                if (finalImgSrc) {
-                    appendAiMessage(`ক্যাবলাকান্ত AI দ্বারা তৈরি দৃশ্য: "${promptText}"`, finalImgSrc);
-                } else {
-                    appendAiMessage(`সার্ভার এই মুহূর্তে কিউ প্রসেস করছে, অনুগ্রহ করে আরেকবার প্রম্পটটি পাঠান।`);
-                }
-            } catch (err) {
-                appendAiMessage(`ইমেজ ক্লাস্টার সংযোগ ব্যর্থ (${err.message})। অনুগ্রহ করে পুনরায় চেষ্টা করুন।`);
-            }
-        }
-
-        // ====================================================================
-        // GOOGLE GEMINI চ্যাট ও ভিশন
+        // সরাসরি GOOGLE GEMINI ইঞ্জিন (PUTER সম্পূর্ণরূপে বর্জন করা হয়েছে)
         // ====================================================================
         async function executeGoogleGemini(text, fileBase64, fileMime) {
             const parts = [];
@@ -1450,56 +782,60 @@
                 });
             }
 
-            const promptDirective = `You are Kablakanta (ক্যাবলাকান্ত), an elite AI collaborator powered by Google Gemini.
-STRICT LANGUAGE MIRRORING RULE:
-- Always respond strictly in the exact language the user communicates with you.
-- If the user asks in Bengali (বাংলা), reply completely in natural Bengali.
-- If the user asks in English, reply in English.
-- If the user asks in Banglish or mixed, match their flow naturally.
-IDENTITY & ACCENT RULE:
-- Your name is "ক্যাবলাকান্ত".
-- When introducing yourself in English, always write: "Hi, I am ক্যাবলাকান্ত" (keeping 'ক্যাবলাকান্ত' in Bengali script so the vocal synthesis engine switches seamlessly to an authentic Bengali native tone for your name).
-- When introducing yourself in Bengali, write: "আমি ক্যাবলাকান্ত".
-MATH & SCAN RULE:
-- If an image or scanned document is provided, thoroughly analyze it, read handwriting, and solve calculus/math step-by-step. Respond accurately.
-
-User Question: ${text || 'এই ছবিটি বা পাতার অংকটি বিস্তারিত স্ক্যান করে সমাধান বলো।'}`;
+            const promptDirective = `You are Kablakanta (ক্যাবলাকান্ত), an elite AI assistant.
+Always respond naturally in the exact language the user talks with you (Bengali for Bengali, English for English).
+User query: ${text || 'ছবিটি বিস্তারিত বিশ্লেষণ করো।'}`;
 
             parts.push({ text: promptDirective });
-
             const payload = { contents: [{ parts: parts }] };
-            let isGeminiSuccess = false;
-            let reply = "";
 
+            let reply = "";
             const models = ['gemini-2.0-flash', 'gemini-1.5-flash'];
+
             for (const model of models) {
                 try {
-                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+                    // ডিরেক্ট গুগল এন্ডপয়েন্ট
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_AUTH_KEY}`;
                     const res = await fetch(endpoint, {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${GEMINI_AUTH_KEY}`,
-                            'x-goog-api-key': GEMINI_AUTH_KEY
+                            'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(payload)
                     });
                     const data = await res.json();
                     if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
                         reply = data.candidates[0].content.parts[0].text;
-                        isGeminiSuccess = true;
                         break;
                     }
-                } catch (_) {}
+                } catch (e) {
+                    console.error("Gemini attempt failed:", e);
+                }
             }
 
-            if (!isGeminiSuccess) {
+            if (!reply) {
+                // Groq-কে সরাসরি টেক্সট ফলব্যাক হিসেবে ব্যবহার (কোনো পেওয়াল ছাড়া)
                 try {
-                    const fallbackQuery = `${promptDirective}\n\n${text}`;
-                    const pRes = await puter.ai.chat(fallbackQuery);
-                    reply = typeof pRes === 'string' ? pRes : (pRes?.message?.content || "রেসপন্স প্রস্তুত হয়েছে।");
-                } catch (_) {
-                    reply = "ক্যাবলাকান্ত কোর সক্রিয়। আপনার প্রশ্নের সমাধান প্রস্তুত হচ্ছে, অনুগ্রহ করে পুনরায় একবার লিখুন।";
+                    const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${GROQ_API_KEY}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            model: "llama-3.3-70b-versatile",
+                            messages: [
+                                { role: "system", content: "You are Kablakanta AI. Answer helpful, direct, in the user's language." },
+                                { role: "user", content: text }
+                            ]
+                        })
+                    });
+                    const groqData = await groqRes.json();
+                    if (groqData.choices && groqData.choices[0]?.message?.content) {
+                        reply = groqData.choices[0].message.content;
+                    }
+                } catch (err) {
+                    reply = "সার্ভারে কানেকশন এরর হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।";
                 }
             }
 
@@ -1507,8 +843,54 @@ User Question: ${text || 'এই ছবিটি বা পাতার অং�
         }
 
         // ====================================================================
-        // স্মার্ট ডিসপ্যাচার (অটো মোড রাউটিং)
+        // AI HORDE ইমেজ ইঞ্জিন (১০০% ফ্রি, জিরো ওয়াটারমার্ক)
         // ====================================================================
+        async function executeImageEngine(promptText) {
+            try {
+                const hordeReq = await fetch("https://aihorde.net/api/v2/generate/async", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Client-Agent": "KablakantaAI:3.0:github",
+                        "apikey": "0000000000"
+                    },
+                    body: JSON.stringify({
+                        prompt: promptText + ", 8k resolution, photorealistic, cinematic masterpiece",
+                        params: {
+                            steps: 20,
+                            width: 512,
+                            height: 512
+                        }
+                    })
+                });
+
+                const hordeData = await hordeReq.json();
+                if (!hordeData || !hordeData.id) throw new Error("Job queue failed");
+
+                const jobId = hordeData.id;
+                let finalImgSrc = null;
+
+                for (let i = 0; i < 15; i++) {
+                    await new Promise(r => setTimeout(r, 2000));
+                    const check = await fetch(`https://aihorde.net/api/v2/generate/status/${jobId}`);
+                    const checkData = await check.json();
+                    if (checkData && checkData.generations && checkData.generations.length > 0) {
+                        const gen = checkData.generations[0];
+                        finalImgSrc = gen.img.startsWith("http") ? gen.img : `data:image/webp;base64,${gen.img}`;
+                        break;
+                    }
+                }
+
+                if (finalImgSrc) {
+                    appendAiMessage(`দৃশ্য: "${promptText}"`, finalImgSrc);
+                } else {
+                    appendAiMessage("ইমেজ কিউতে বেশি সময় নিচ্ছে। দয়া করে আবার চেষ্টা করুন।");
+                }
+            } catch (err) {
+                appendAiMessage("ইমেজ তৈরি করতে সমস্যা হয়েছে। দয়া করে পরে চেষ্টা করুন।");
+            }
+        }
+
         async function sendUserMessage() {
             const inputField = document.getElementById('mainInputField');
             const text = inputField.value.trim();
@@ -1519,30 +901,22 @@ User Question: ${text || 'এই ছবিটি বা পাতার অং�
 
             if (!text && !hasFile) return;
 
-            lastUserPrompt = text;
-            playDropletChirp();
             inputField.value = '';
             inputField.style.height = 'auto';
             clearAttachment();
 
-            appendUserMessage(text || "স্ক্যান করা ছবিটি বিশ্লেষণ করুন...", previewSrc);
+            appendUserMessage(text || "ছবিটি স্ক্যান করুন...", previewSrc);
 
-            const commonChatGreetings = ['hello', 'hi', 'hey', 'kno', 'keno', 'কেন', 'কেমন আছো', 'বলো', 'কী করছ', 'kemon acho'];
+            const commonChatGreetings = ['hello', 'hi', 'hey', 'kno', 'keno', 'কেন', 'কেমন আছো', 'বলো'];
             const isJustGreeting = commonChatGreetings.includes(text.toLowerCase().trim());
 
-            try {
-                if (currentAppMode === 'image' && !isJustGreeting && !hasFile) {
-                    appendLoadingSkeleton("🎨 AI দৃশ্য আঁকছে, অনুগ্রহ করে অপেক্ষা করুন...");
-                    await executeImageEngine(text);
-                } else {
-                    appendLoadingSkeleton();
-                    if (currentAppMode === 'image' && isJustGreeting) {
-                        setAppMode('chat');
-                    }
-                    await executeGoogleGemini(text, currentFileBase64, currentFileMime);
-                }
-            } catch (err) {
-                appendAiMessage(`সিস্টেম এরর: ${err.message}`);
+            if (currentAppMode === 'image' && !isJustGreeting && !hasFile) {
+                appendLoadingSkeleton("🎨 AI দৃশ্য আঁকছে...");
+                await executeImageEngine(text);
+            } else {
+                appendLoadingSkeleton();
+                if (currentAppMode === 'image' && isJustGreeting) setAppMode('chat');
+                await executeGoogleGemini(text, currentFileBase64, currentFileMime);
             }
         }
     </script>
