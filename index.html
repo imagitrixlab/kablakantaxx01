@@ -520,7 +520,7 @@
             <div class="brand-orb"></div>
             <div>
                 <div class="brand-title">ক্যাবলাকান্ত</div>
-                <div class="brand-sub">Universal Gateway Edition</div>
+                <div class="brand-sub">OpenRouter & FLUX Core</div>
             </div>
         </div>
 
@@ -587,10 +587,8 @@
     </div>
 
     <script>
-        const GEMINI_AUTH_KEY = "AQ.Ab8RN6IQJpRu3tGk-Ccj59DwfX98_OVOUTmlji4dX1ct5TFsSg";
-        const GROQ_API_KEY    = "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";
-        const HF_TOKEN        = "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";
-        const WORKER_GATEWAY  = "https://kablakanta-api.agnidas505.workers.dev";
+        const OPENROUTER_API_KEY = "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"; 
+        const GROQ_API_KEY       = "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";
 
         let currentAppMode = 'chat';
         let isVoiceReadoutActive = true;
@@ -815,79 +813,80 @@
         }
 
         // ====================================================================
-        // হাইব্রিড চ্যাট ইঞ্জিন: Gemini 2.5/2.0 + Groq LLaMA 3.3 জিরো-ফেল ক্যাসকেড
+        // OpenRouter ফ্রি মাল্টি-মডেল চ্যাট ও ভিশন স্ক্যানার (100% CORS ফ্রি)
         // ====================================================================
-        async function executeGoogleGemini(text, fileBase64, fileMime) {
+        async function executeOpenRouterChat(text, fileBase64, fileMime) {
             let reply = "";
 
-            // ধাপ ১: আসল সক্রিয় জেমিনি মডেল দিয়ে চেষ্টা
-            const parts = [];
-            if (fileBase64) {
-                parts.push({ inlineData: { mimeType: fileMime || 'image/jpeg', data: fileBase64 } });
-            }
-            parts.push({ text: `You are Kablakanta (ক্যাবলাকান্ত), an intelligent AI assistant. Always reply directly in the user's language (Bengali/English): ${text || 'ছবিটি বিস্তারিত বিশ্লেষণ করো।'}` });
-            const payload = { contents: [{ parts }] };
+            const modelsToTry = fileBase64 
+                ? [
+                    "meta-llama/llama-3.2-11b-vision-instruct:free",
+                    "google/gemini-2.0-flash-exp:free"
+                  ]
+                : [
+                    "meta-llama/llama-3.3-70b-instruct:free",
+                    "google/gemini-2.0-flash-exp:free",
+                    "qwen/qwen-2.5-72b-instruct:free",
+                    "mistralai/mistral-7b-instruct:free"
+                  ];
 
-            const activeGeminiModels = ['gemini-2.5-flash', 'gemini-2.0-flash'];
-            for (const model of activeGeminiModels) {
+            let userContent;
+            if (fileBase64) {
+                userContent = [
+                    { type: "text", text: text || "ছবিটি পুঙ্খানুপুঙ্খ স্ক্যান করে বাংলায় বিস্তারিত বিশ্লেষণ করো।" },
+                    { type: "image_url", image_url: { url: `data:${fileMime || 'image/jpeg'};base64,${fileBase64}` } }
+                ];
+            } else {
+                userContent = text || "Hello";
+            }
+
+            for (const model of modelsToTry) {
                 try {
-                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
-                    const res = await fetch(endpoint, {
-                        method: 'POST',
+                    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+                        method: "POST",
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${GEMINI_AUTH_KEY}`
+                            "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+                            "HTTP-Referer": window.location.origin || "https://imagitrixlab.github.io",
+                            "X-Title": "Kablakanta AI",
+                            "Content-Type": "application/json"
                         },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify({
+                            model: model,
+                            messages: [
+                                {
+                                    role: "system",
+                                    content: "You are Kablakanta (ক্যাবলাকান্ত), an authentic, witty, elite AI assistant. Always respond directly and helpfully in the user's language (Bengali for Bengali, English for English)."
+                                },
+                                { role: "user", content: userContent }
+                            ]
+                        })
                     });
+
                     if (res.ok) {
                         const data = await res.json();
-                        reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+                        reply = data.choices?.[0]?.message?.content || "";
                         if (reply.trim()) break;
                     }
                 } catch (_) {}
             }
 
-            // ধাপ ২: জেমিনি কী ব্যর্থ হলে তাত্ক্ষণিক Groq LLaMA 3.3 ও 3.1 ফলব্যাক
-            if (!reply || !reply.trim()) {
-                const groqModels = ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"];
-                for (const gModel of groqModels) {
-                    try {
-                        const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-                            method: "POST",
-                            headers: {
-                                "Authorization": `Bearer ${GROQ_API_KEY}`,
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                model: gModel,
-                                messages: [
-                                    { role: "system", content: "You are Kablakanta (ক্যাবলাকান্ত), a witty and elite AI assistant. Always respond helpfully in Bengali or English." },
-                                    { role: "user", content: text || "Hello" }
-                                ],
-                                max_tokens: 800
-                            })
-                        });
-                        if (groqRes.ok) {
-                            const groqData = await groqRes.json();
-                            reply = groqData.choices?.[0]?.message?.content || "";
-                            if (reply.trim()) break;
-                        }
-                    } catch (_) {}
-                }
-            }
-
-            // ধাপ ৩: ক্লাউডফ্লেয়ার গেটওয়ে ফলব্যাক
+            // ওপেনরাউটার মডেল সাময়িক ব্যস্ত থাকলে Groq LLaMA ফলব্যাক
             if (!reply || !reply.trim()) {
                 try {
-                    const cfRes = await fetch(`${WORKER_GATEWAY}/chat`, {
+                    const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ prompt: text, fileBase64, fileMime })
+                        headers: {
+                            "Authorization": `Bearer ${GROQ_API_KEY}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            model: "llama-3.3-70b-versatile",
+                            messages: [{ role: "user", content: text || "Hello" }]
+                        })
                     });
-                    if (cfRes.ok) {
-                        const cfData = await cfRes.json();
-                        reply = cfData.reply || "";
+                    if (groqRes.ok) {
+                        const gData = await groqRes.json();
+                        reply = gData.choices?.[0]?.message?.content || "";
                     }
                 } catch (_) {}
             }
@@ -900,51 +899,33 @@
         }
 
         // ====================================================================
-        // হাইব্রিড ইমেজ ইঞ্জিন: Cloudflare Worker Gateway + Open-Source Cluster
+        // FLUX.1 আল্ট্রা-ফাস্ট ডিরেক্ট ক্লায়েন্ট ইমেজ ইঞ্জিন (জিরো CORS, কোনো সার্ভার লাগবে না)
         // ====================================================================
         async function executeImageEngine(promptText) {
-            updateLoadingText("🎨 হাই-কোয়ালিটি এআই দৃশ্য আঁকা হচ্ছে...");
-            let finalImageSrc = null;
+            updateLoadingText("🎨 FLUX.1 আল্ট্রা-এইচডি ইঞ্জিনে দৃশ্য তৈরি হচ্ছে...");
+            
+            const cleanPrompt = promptText.trim();
+            const enhancedPrompt = `${cleanPrompt}, 8k resolution, photorealistic, cinematic lighting, ultra detailed masterpiece`;
+            const randomSeed = Math.floor(Math.random() * 9999999);
+            const directUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=512&height=512&nologo=true&seed=${randomSeed}&model=flux`;
 
-            // এটেম্পট ১: আপনার সক্রিয় ক্লাউডফ্লেয়ার গেটওয়ে দিয়ে হাগিং ফেস রেন্ডার
             try {
-                const cfRes = await fetch(`${WORKER_GATEWAY}/image`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ prompt: promptText })
+                const isLoaded = await new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => resolve(true);
+                    img.onerror = () => resolve(false);
+                    img.src = directUrl;
+                    setTimeout(() => resolve(false), 9000);
                 });
-                if (cfRes.ok) {
-                    const blob = await cfRes.blob();
-                    if (blob.size > 2000) {
-                        finalImageSrc = URL.createObjectURL(blob);
-                    }
+
+                if (isLoaded) {
+                    appendAiMessage(`দৃশ্য তৈরি হয়েছে: "${promptText}"`, directUrl);
+                } else {
+                    const turboUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=512&height=512&nologo=true&seed=${randomSeed}&model=turbo`;
+                    appendAiMessage(`দৃশ্য তৈরি হয়েছে: "${promptText}"`, turboUrl);
                 }
-            } catch (_) {}
-
-            // এটেম্পট ২: সরাসরি ব্রাউজার-বান্ধব FLUX / SDXL আল্ট্রা ফাস্ট রেন্ডার
-            if (!finalImageSrc) {
-                try {
-                    const cleanPrompt = promptText.trim();
-                    const enhancedPrompt = `${cleanPrompt}, 8k resolution, cinematic lighting, photorealistic masterpiece`;
-                    const seed = Math.floor(Math.random() * 9999999);
-                    const directUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=512&height=512&nologo=true&seed=${seed}&model=flux`;
-
-                    const loaded = await new Promise((resolve) => {
-                        const img = new Image();
-                        img.onload = () => resolve(true);
-                        img.onerror = () => resolve(false);
-                        img.src = directUrl;
-                        setTimeout(() => resolve(false), 9000);
-                    });
-
-                    if (loaded) finalImageSrc = directUrl;
-                } catch (_) {}
-            }
-
-            if (finalImageSrc) {
-                appendAiMessage(`দৃশ্য তৈরি হয়েছে: "${promptText}"`, finalImageSrc);
-            } else {
-                appendAiMessage("ইমেজ সার্ভারগুলো এই মুহূর্তে লোড হচ্ছে। অনুগ্রহ করে কয়েক সেকেন্ড পর আবার ট্রাই করুন।");
+            } catch (_) {
+                appendAiMessage("ইমেজ সার্ভার সংযোগে সামান্য ধীরগতি দেখা দিয়েছে। অনুগ্রহ করে কয়েক সেকেন্ড পর আবার ট্রাই করুন।");
             }
         }
 
@@ -974,7 +955,7 @@
             } else {
                 appendLoadingSkeleton();
                 if (currentAppMode === 'image' && isJustGreeting) setAppMode('chat');
-                await executeGoogleGemini(text, currentFileBase64, currentFileMime);
+                await executeOpenRouterChat(text, currentFileBase64, currentFileMime);
             }
         }
     </script>
