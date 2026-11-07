@@ -610,13 +610,13 @@
 
         let currentAppMode = 'chat';
         let isVoiceReadoutActive = true;
-        let voiceGender = 'female'; // 'female' (ডিফল্ট মেয়ে) বা 'male' (ছেলে)
+        let voiceGender = 'female'; // 'female' বা 'male'
         let lastUserPrompt = '';
         let selectedFileBase64 = null;
         let selectedFileMime = null;
         let selectedFileObject = null;
 
-        // ছেলে ও মেয়ে ভয়েস টগল হ্যান্ডলার
+        // ছেলে ও মেয়ে ভয়েস টগল এবং সাথে সাথে স্পিচ প্রিভিউ
         function toggleVoiceGender() {
             voiceGender = (voiceGender === 'female') ? 'male' : 'female';
             const icon = document.getElementById('genderIcon');
@@ -625,12 +625,12 @@
             if (voiceGender === 'female') {
                 icon.innerText = "👩";
                 label.innerText = "মেয়ে কণ্ঠ";
+                speakAiResponse("মেয়ে কণ্ঠ চালু হলো।");
             } else {
                 icon.innerText = "👨";
                 label.innerText = "ছেলে কণ্ঠ";
+                speakAiResponse("ছেলে কণ্ঠ চালু হলো।");
             }
-
-            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
         function toggleVoiceEngine() {
@@ -642,19 +642,7 @@
             if (!isVoiceReadoutActive && 'speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
-        // ব্রাউজার সিস্টেমের কণ্ঠ তালিকা সিঙ্ক রাখা
-        let availableSystemVoices = [];
-        function refreshVoiceCatalog() {
-            if ('speechSynthesis' in window) {
-                availableSystemVoices = window.speechSynthesis.getVoices();
-            }
-        }
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.onvoiceschanged = refreshVoiceCatalog;
-            refreshVoiceCatalog();
-        }
-
-        // পশ্চিমবঙ্গের প্রমিত উচ্চারণে ছেলে/মেয়ে কণ্ঠে কথা বলা (bn-IN)
+        // ছেলে ও মেয়ে কণ্ঠের স্পষ্ট পার্থক্যসহ ভয়েস স্পিচ
         function speakAiResponse(text) {
             if (!isVoiceReadoutActive || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
@@ -664,41 +652,29 @@
 
             const utter = new SpeechSynthesisUtterance(clean);
             const isBengali = /[\u0980-\u09FF]/.test(clean);
-
-            // বাংলাদেশ (bn-BD) পরিহার করে ভারতের পশ্চিমবঙ্গ বাংলা (bn-IN) নির্বাচন
             utter.lang = isBengali ? 'bn-IN' : 'en-IN';
 
-            if (!availableSystemVoices.length) refreshVoiceCatalog();
+            const systemVoices = window.speechSynthesis.getVoices() || [];
+            const bengaliVoices = systemVoices.filter(v => 
+                (v.lang && (v.lang.toLowerCase().includes('bn-in') || v.lang.toLowerCase().includes('bn_in'))) ||
+                (v.lang && v.lang.toLowerCase().includes('bn')) ||
+                (v.name && v.name.toLowerCase().includes('bengali'))
+            );
 
-            if (isBengali && availableSystemVoices.length > 0) {
-                // bn-IN অগ্রাধিকার, তারপর অন্যান্য bn
-                const bengaliVoices = availableSystemVoices.filter(v => 
-                    (v.lang && (v.lang.toLowerCase().includes('bn-in') || v.lang.toLowerCase().includes('bn_in'))) ||
-                    (v.lang && v.lang.toLowerCase().includes('bn')) ||
-                    (v.name && v.name.toLowerCase().includes('bengali'))
-                );
-
-                let matchedVoice = null;
-
-                if (voiceGender === 'female') {
-                    matchedVoice = bengaliVoices.find(v => /female|woman|swara|kalpana|priya|zira/i.test(v.name)) || bengaliVoices[0];
-                    utter.pitch = 1.18; // মিষ্টি ও স্বাভাবিক মেয়ে কণ্ঠের পিচ
-                    utter.rate = 1.0;
-                } else {
-                    matchedVoice = bengaliVoices.find(v => /male|man|bashkar|pradeep|ravi|david/i.test(v.name)) || 
-                                   (bengaliVoices.length > 1 ? bengaliVoices[1] : bengaliVoices[0]);
-                    utter.pitch = 0.82; // গম্ভীর ও স্পষ্ট ছেলে কণ্ঠের পিচ
-                    utter.rate = 0.95;
-                }
-
-                if (matchedVoice) utter.voice = matchedVoice;
+            if (voiceGender === 'female') {
+                // মেয়ে কণ্ঠ: মিষ্টি ও চড়া পিচ
+                utter.pitch = 1.35;
+                utter.rate = 1.02;
+                if (bengaliVoices.length > 0) utter.voice = bengaliVoices[0];
             } else {
-                if (voiceGender === 'female') {
-                    utter.pitch = 1.2;
-                    utter.rate = 1.0;
-                } else {
-                    utter.pitch = 0.82;
-                    utter.rate = 0.95;
+                // ছেলে কণ্ঠ: ভারী ও গভীর পুরুষালি পিচ
+                utter.pitch = 0.55;
+                utter.rate = 0.88;
+                const maleVoice = bengaliVoices.find(v => /male|man|bid|voice\s*2|২/i.test(v.name));
+                if (maleVoice) {
+                    utter.voice = maleVoice;
+                } else if (bengaliVoices.length > 1) {
+                    utter.voice = bengaliVoices[1];
                 }
             }
 
@@ -741,20 +717,43 @@
             document.getElementById('galleryFileInput').click();
         }
 
+        // ক্যামেরা ছবির সাইজ ক্লায়েন্ট-সাইডেই কম্প্রেস করা
         function processIncomingImage(input) {
             const file = input.files && input.files[0];
             if (!file) return;
 
             selectedFileObject = file;
-            selectedFileMime = file.type || 'image/jpeg';
+            selectedFileMime = 'image/jpeg';
 
             const reader = new FileReader();
             reader.onload = function(e) {
-                const fullBase64 = e.target.result;
-                selectedFileBase64 = fullBase64.split(',')[1];
-                document.getElementById('attachmentThumb').src = fullBase64;
-                document.getElementById('attachmentName').innerText = file.name.slice(0, 16);
-                document.getElementById('attachmentBar').style.display = 'inline-flex';
+                const img = new Image();
+                img.onload = function() {
+                    let maxDim = 1024;
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > maxDim || height > maxDim) {
+                        if (width > height) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.82);
+
+                    selectedFileBase64 = compressedDataUrl.split(',')[1];
+                    document.getElementById('attachmentThumb').src = compressedDataUrl;
+                    document.getElementById('attachmentName').innerText = file.name.slice(0, 16);
+                    document.getElementById('attachmentBar').style.display = 'inline-flex';
+                };
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -768,7 +767,7 @@
             document.getElementById('attachmentBar').style.display = 'none';
         }
 
-        // ভয়েস ইনপুট (Speech to text) - পশ্চিমবঙ্গ বাংলা (bn-IN) ফোকাসড
+        // ভয়েস ইনপুট (Speech to text)
         let recognition = null;
         let isRecognizing = false;
 
@@ -777,7 +776,7 @@
             const micBtn = document.getElementById('dockMicBtn');
 
             if (!SpeechRec) {
-                alert("আপনার ব্রাউজারে ভয়েস স্পিচ ফিচার সাপোর্ট করছে না। Chrome/Edge ব্যবহার করুন।");
+                alert("আপনার ব্রাউজারে ভয়েস স্পিচ ফিচার নেই। Chrome বা Edge ব্যবহার করুন।");
                 return;
             }
 
@@ -789,7 +788,7 @@
             }
 
             recognition = new SpeechRec();
-            recognition.lang = 'bn-IN'; // পশ্চিমবঙ্গ ভারত বাংলা ভাষা কোড
+            recognition.lang = 'bn-IN';
             recognition.continuous = false;
             recognition.interimResults = false;
 
@@ -952,7 +951,7 @@
             const hasFile = !!selectedFileBase64;
             const currentFileBase64 = selectedFileBase64;
             const currentFileMime = selectedFileMime;
-            const previewSrc = selectedFileObject ? URL.createObjectURL(selectedFileObject) : null;
+            const previewSrc = selectedFileBase64 ? ('data:' + currentFileMime + ';base64,' + currentFileBase64) : null;
 
             if (!text && !hasFile) return;
 
@@ -970,7 +969,7 @@
                 appendLoadingSkeleton("🎨 দৃশ্য আঁকা হচ্ছে...");
                 await executeGatewayImage(text);
             } else {
-                appendLoadingSkeleton();
+                appendLoadingSkeleton(hasFile ? "🔍 ছবিটি স্ক্যান করে তথ্য পড়া হচ্ছে..." : null);
                 if (currentAppMode === 'image' && isJustGreeting) setAppMode('chat');
                 await executeGatewayChat(text, currentFileBase64, currentFileMime);
             }
