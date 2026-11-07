@@ -66,60 +66,60 @@
         .aura-header {
             position: relative;
             z-index: 50;
-            padding: 12px 22px;
+            padding: 10px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(25px) saturate(180%);
             border-bottom: 1px solid var(--silver-metal-border);
             flex-shrink: 0;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            gap: 8px;
         }
 
         .brand-core {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             cursor: pointer;
             user-select: none;
         }
 
         .brand-orb {
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 45%, var(--electric-sky) 100%);
             border: 2px solid #ffffff;
-            box-shadow: 0 2px 16px var(--electric-glow);
+            box-shadow: 0 2px 14px var(--electric-glow);
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.35s var(--spring-transition);
             flex-shrink: 0;
         }
 
         .brand-orb::after {
             content: '';
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: #ffffff;
             border-radius: 50%;
-            box-shadow: 0 0 10px #ffffff;
+            box-shadow: 0 0 8px #ffffff;
         }
 
         .brand-title {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 900;
-            letter-spacing: -0.4px;
+            letter-spacing: -0.3px;
             background: linear-gradient(135deg, var(--text-primary) 20%, var(--electric-sky-deep) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .brand-sub {
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 600;
             color: var(--electric-sky-deep);
         }
@@ -127,30 +127,39 @@
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         .luxury-pill-toggle {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(14px);
+            background: rgba(255, 255, 255, 0.9);
             border: 1px solid var(--silver-metal-border);
             color: var(--text-secondary);
-            padding: 6px 14px;
+            padding: 5px 11px;
             border-radius: var(--radius-capsule);
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             cursor: pointer;
             user-select: none;
+            transition: all 0.2s ease;
         }
 
         .luxury-pill-toggle.active {
             background: #ffffff;
             border-color: var(--electric-sky);
             color: var(--electric-sky-deep);
-            box-shadow: 0 0 14px var(--electric-glow);
+            box-shadow: 0 0 12px var(--electric-glow);
+        }
+
+        .gender-pill {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 1px solid var(--emerald-border);
+            color: var(--emerald-deep);
+            font-weight: 700;
         }
 
         .chat-viewport {
@@ -158,10 +167,10 @@
             z-index: 10;
             flex: 1;
             overflow-y: auto;
-            padding: 16px 16px 160px 16px;
+            padding: 16px 14px 160px 14px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 18px;
             max-width: 860px;
             width: 100%;
             margin: 0 auto;
@@ -175,12 +184,12 @@
             justify-content: center;
             height: 100%;
             text-align: center;
-            gap: 16px;
+            gap: 14px;
             padding: 24px 12px;
         }
 
         .hero-title {
-            font-size: 46px;
+            font-size: 42px;
             font-weight: 900;
             background: linear-gradient(135deg, #0f172a 10%, #0284c7 45%, #0ea5e9 80%, #38bdf8 100%);
             -webkit-background-clip: text;
@@ -194,7 +203,7 @@
             gap: 8px;
             background: rgba(255, 255, 255, 0.92);
             border: 1px solid var(--silver-metal-border);
-            padding: 9px 22px;
+            padding: 8px 18px;
             border-radius: var(--radius-capsule);
         }
 
@@ -206,7 +215,7 @@
         }
 
         .typewriter-text {
-            font-size: 13.8px;
+            font-size: 13.5px;
             font-weight: 600;
             color: var(--text-secondary);
         }
@@ -216,11 +225,11 @@
             flex-direction: column;
             gap: 6px;
             width: 100%;
-            animation: floatSlideUp 0.38s var(--spring-transition) forwards;
+            animation: floatSlideUp 0.35s var(--spring-transition) forwards;
         }
 
         @keyframes floatSlideUp {
-            from { opacity: 0; transform: translateY(16px); }
+            from { opacity: 0; transform: translateY(14px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -230,12 +239,12 @@
         .bubble-user {
             background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
             color: #ffffff;
-            padding: 13px 20px;
-            border-radius: 22px 22px 4px 22px;
+            padding: 12px 18px;
+            border-radius: 20px 20px 4px 20px;
             max-width: 85%;
-            font-size: 14.8px;
-            line-height: 1.55;
-            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.28);
+            font-size: 14.5px;
+            line-height: 1.5;
+            box-shadow: 0 6px 18px rgba(2, 132, 199, 0.25);
         }
 
         .user-preview-img {
@@ -251,23 +260,23 @@
             background: linear-gradient(135deg, var(--emerald-bg-start) 0%, var(--emerald-bg-end) 100%);
             border: 1.5px solid var(--emerald-border);
             color: #064e3b;
-            padding: 18px 22px;
-            border-radius: 22px 22px 22px 4px;
+            padding: 16px 20px;
+            border-radius: 20px 20px 20px 4px;
             max-width: 92%;
             font-size: 15px;
             line-height: 1.65;
-            box-shadow: 0 8px 32px var(--emerald-glow);
-            backdrop-filter: blur(22px);
+            box-shadow: 0 8px 30px var(--emerald-glow);
+            backdrop-filter: blur(20px);
         }
 
         .ai-header-badge {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             padding-bottom: 6px;
             border-bottom: 1px solid rgba(16, 185, 129, 0.25);
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 800;
             color: var(--emerald-deep);
         }
@@ -286,19 +295,19 @@
             display: flex;
             align-items: center;
             gap: 7px;
-            margin-top: 6px;
+            margin-top: 5px;
             padding: 0 4px;
             flex-wrap: wrap;
         }
 
         .action-chip-btn {
-            background: rgba(255, 255, 255, 0.88);
+            background: rgba(255, 255, 255, 0.9);
             border: 1px solid var(--silver-metal-border);
             color: var(--text-secondary);
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
-            padding: 4px 11px;
+            padding: 4px 10px;
             border-radius: var(--radius-capsule);
             transition: all 0.2s ease;
         }
@@ -314,7 +323,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 0 14px calc(14px + env(safe-area-inset-bottom)) 14px;
+            padding: 0 12px calc(12px + env(safe-area-inset-bottom)) 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -327,9 +336,9 @@
             max-width: 780px;
             background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(30px);
-            border-radius: 30px;
+            border-radius: 28px;
             box-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.1);
-            padding: 8px 14px;
+            padding: 7px 12px;
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -408,8 +417,8 @@
         }
 
         .dock-plus-btn {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: rgba(14, 165, 233, 0.1);
             border: 1px solid rgba(14, 165, 233, 0.3);
@@ -419,11 +428,12 @@
             justify-content: center;
             cursor: pointer;
             flex-shrink: 0;
+            font-size: 18px;
         }
 
         .dock-btn {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: none;
             border: none;
@@ -433,6 +443,7 @@
             cursor: pointer;
             color: var(--text-secondary);
             flex-shrink: 0;
+            font-size: 17px;
         }
 
         .dock-btn.recording { color: #ef4444; background: rgba(239, 68, 68, 0.12); }
@@ -444,15 +455,15 @@
             background: transparent;
             font-size: 15px;
             color: var(--text-primary);
-            padding: 8px 4px;
+            padding: 6px 4px;
             max-height: 120px;
             resize: none;
             line-height: 1.5;
         }
 
         .dock-send-pill {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--electric-sky) 0%, var(--electric-sky-deep) 100%);
             color: #ffffff;
@@ -463,6 +474,7 @@
             cursor: pointer;
             box-shadow: 0 4px 14px var(--electric-glow);
             flex-shrink: 0;
+            font-size: 14px;
         }
 
         .dock-meta-tray {
@@ -520,11 +532,18 @@
             <div class="brand-orb"></div>
             <div>
                 <div class="brand-title">ক্যাবলাকান্ত</div>
-                <div class="brand-sub">Hugging Face & Multi-AI Gateway Core</div>
+                <div class="brand-sub">Kolkata AI Gateway Core</div>
             </div>
         </div>
 
         <div class="header-actions">
+            <!-- ছেলে / মেয়ে ভয়েস পরিবর্তনের টগল বাটন -->
+            <button class="luxury-pill-toggle gender-pill" id="btnVoiceGender" onclick="toggleVoiceGender()">
+                <span id="genderIcon">👩</span>
+                <span id="genderLabel">মেয়ে কণ্ঠ</span>
+            </button>
+
+            <!-- ভয়েস অটো অন/অফ বাটন -->
             <button class="luxury-pill-toggle active" id="btnVoiceToggle" onclick="toggleVoiceEngine()">
                 <span id="voiceIcon">🔊</span>
                 <span id="voiceLabel">Voice Auto</span>
@@ -537,7 +556,7 @@
             <h1 class="hero-title">ক্যাবলাকান্ত</h1>
             <div class="typewriter-badge">
                 <div class="typewriter-status-dot"></div>
-                <span class="typewriter-text">বলো, আমি শুনছি...</span>
+                <span class="typewriter-text">বলো, কীভাবে সাহায্য করতে পারি?</span>
             </div>
         </div>
     </main>
@@ -568,7 +587,7 @@
                     ＋
                 </button>
 
-                <textarea id="mainInputField" class="dock-input" rows="1" placeholder="Type a message or speak..." oninput="autoGrowInput(this)" onkeydown="checkSubmitKey(event)"></textarea>
+                <textarea id="mainInputField" class="dock-input" rows="1" placeholder="মেসেজ লিখুন বা মুখে বলুন..." oninput="autoGrowInput(this)" onkeydown="checkSubmitKey(event)"></textarea>
 
                 <button type="button" class="dock-btn" id="dockMicBtn" onclick="toggleVoiceRecognition()">
                     🎤
@@ -587,18 +606,32 @@
     </div>
 
     <script>
-        // ====================================================================
-        // সম্পূর্ণ নিরাপদ ফ্রন্টএন্ড: ১টি এপিআই কী-ও এখানে নেই (Zero GitHub Exposure)
-        // সমস্ত সিক্রেট কী নিরাপদে আপনার ক্লাউডফ্লেয়ার প্রাইভেট গেটওয়েতে রয়েছে
-        // ====================================================================
         const WORKER_GATEWAY = "https://kablakanta-api.agnidas505.workers.dev";
 
         let currentAppMode = 'chat';
         let isVoiceReadoutActive = true;
+        let voiceGender = 'female'; // 'female' (ডিফল্ট মেয়ে) বা 'male' (ছেলে)
         let lastUserPrompt = '';
         let selectedFileBase64 = null;
         let selectedFileMime = null;
         let selectedFileObject = null;
+
+        // ছেলে ও মেয়ে ভয়েস টগল হ্যান্ডলার
+        function toggleVoiceGender() {
+            voiceGender = (voiceGender === 'female') ? 'male' : 'female';
+            const icon = document.getElementById('genderIcon');
+            const label = document.getElementById('genderLabel');
+
+            if (voiceGender === 'female') {
+                icon.innerText = "👩";
+                label.innerText = "মেয়ে কণ্ঠ";
+            } else {
+                icon.innerText = "👨";
+                label.innerText = "ছেলে কণ্ঠ";
+            }
+
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        }
 
         function toggleVoiceEngine() {
             isVoiceReadoutActive = !isVoiceReadoutActive;
@@ -609,6 +642,19 @@
             if (!isVoiceReadoutActive && 'speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
+        // ব্রাউজার সিস্টেমের কণ্ঠ তালিকা সিঙ্ক রাখা
+        let availableSystemVoices = [];
+        function refreshVoiceCatalog() {
+            if ('speechSynthesis' in window) {
+                availableSystemVoices = window.speechSynthesis.getVoices();
+            }
+        }
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = refreshVoiceCatalog;
+            refreshVoiceCatalog();
+        }
+
+        // পশ্চিমবঙ্গের প্রমিত উচ্চারণে ছেলে/মেয়ে কণ্ঠে কথা বলা (bn-IN)
         function speakAiResponse(text) {
             if (!isVoiceReadoutActive || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
@@ -617,7 +663,45 @@
             if (!clean.trim()) return;
 
             const utter = new SpeechSynthesisUtterance(clean);
-            utter.lang = /[\u0980-\u09FF]/.test(clean) ? 'bn-BD' : 'en-US';
+            const isBengali = /[\u0980-\u09FF]/.test(clean);
+
+            // বাংলাদেশ (bn-BD) পরিহার করে ভারতের পশ্চিমবঙ্গ বাংলা (bn-IN) নির্বাচন
+            utter.lang = isBengali ? 'bn-IN' : 'en-IN';
+
+            if (!availableSystemVoices.length) refreshVoiceCatalog();
+
+            if (isBengali && availableSystemVoices.length > 0) {
+                // bn-IN অগ্রাধিকার, তারপর অন্যান্য bn
+                const bengaliVoices = availableSystemVoices.filter(v => 
+                    (v.lang && (v.lang.toLowerCase().includes('bn-in') || v.lang.toLowerCase().includes('bn_in'))) ||
+                    (v.lang && v.lang.toLowerCase().includes('bn')) ||
+                    (v.name && v.name.toLowerCase().includes('bengali'))
+                );
+
+                let matchedVoice = null;
+
+                if (voiceGender === 'female') {
+                    matchedVoice = bengaliVoices.find(v => /female|woman|swara|kalpana|priya|zira/i.test(v.name)) || bengaliVoices[0];
+                    utter.pitch = 1.18; // মিষ্টি ও স্বাভাবিক মেয়ে কণ্ঠের পিচ
+                    utter.rate = 1.0;
+                } else {
+                    matchedVoice = bengaliVoices.find(v => /male|man|bashkar|pradeep|ravi|david/i.test(v.name)) || 
+                                   (bengaliVoices.length > 1 ? bengaliVoices[1] : bengaliVoices[0]);
+                    utter.pitch = 0.82; // গম্ভীর ও স্পষ্ট ছেলে কণ্ঠের পিচ
+                    utter.rate = 0.95;
+                }
+
+                if (matchedVoice) utter.voice = matchedVoice;
+            } else {
+                if (voiceGender === 'female') {
+                    utter.pitch = 1.2;
+                    utter.rate = 1.0;
+                } else {
+                    utter.pitch = 0.82;
+                    utter.rate = 0.95;
+                }
+            }
+
             window.speechSynthesis.speak(utter);
         }
 
@@ -627,7 +711,7 @@
             document.getElementById('chipImage').classList.toggle('active', mode === 'image');
             document.getElementById('mainInputField').placeholder = mode === 'image' 
                 ? "Describe detailed visual in English..." 
-                : "Type a message or speak...";
+                : "মেসেজ লিখুন বা মুখে বলুন...";
         }
 
         function autoGrowInput(el) {
@@ -684,7 +768,7 @@
             document.getElementById('attachmentBar').style.display = 'none';
         }
 
-        // ব্রাউজার স্পিচ রিকগনিশন (জিরো টোকেন এক্সপোজার)
+        // ভয়েস ইনপুট (Speech to text) - পশ্চিমবঙ্গ বাংলা (bn-IN) ফোকাসড
         let recognition = null;
         let isRecognizing = false;
 
@@ -705,7 +789,7 @@
             }
 
             recognition = new SpeechRec();
-            recognition.lang = 'bn-BD';
+            recognition.lang = 'bn-IN'; // পশ্চিমবঙ্গ ভারত বাংলা ভাষা কোড
             recognition.continuous = false;
             recognition.interimResults = false;
 
@@ -822,9 +906,6 @@
             speakAiResponse(content);
         }
 
-        // ====================================================================
-        // ক্লাউডফ্লেয়ার সিক্রেট গেটওয়ে কল (চ্যাট ও ভিশন)
-        // ====================================================================
         async function executeGatewayChat(text, fileBase64, fileMime) {
             try {
                 const res = await fetch(`${WORKER_GATEWAY}/chat`, {
@@ -837,18 +918,15 @@
                     const data = await res.json();
                     appendAiMessage((data.reply || "").replace(/\n/g, '<br>'));
                 } else {
-                    appendAiMessage("সার্ভারে সংযোগে সামান্য বিলম্ব হচ্ছে। অনুগ্রহ করে আবার চেষ্টা করুন।");
+                    appendAiMessage("সার্ভারে সাময়িক ধীরগতি হচ্ছে। অনুগ্রহ করে একটু পর আবার চেষ্টা করুন।");
                 }
             } catch (err) {
-                appendAiMessage("সংযোগ বিচ্ছিন্ন হয়েছে। দয়া করে আপনার ইন্টারনেট চেক করুন।");
+                appendAiMessage("সংযোগ বিচ্ছিন্ন হয়েছে। দয়া করে আপনার নেটওয়ার্ক চেক করুন।");
             }
         }
 
-        // ====================================================================
-        // ক্লাউডফ্লেয়ার সিক্রেট গেটওয়ে কল (হাগিং ফেস পিওর ইমেজ রেন্ডার)
-        // ====================================================================
         async function executeGatewayImage(promptText) {
-            updateLoadingText("🎨 হাগিং ফেস ক্লাস্টারে দৃশ্য আঁকা হচ্ছে...");
+            updateLoadingText("🎨 ক্লাউডফ্লেয়ার জিপিইউ দিয়ে দৃশ্য আঁকা হচ্ছে...");
             try {
                 const res = await fetch(`${WORKER_GATEWAY}/image`, {
                     method: "POST",
@@ -861,11 +939,10 @@
                     const imgSrc = URL.createObjectURL(blob);
                     appendAiMessage(`দৃশ্য তৈরি হয়েছে: "${promptText}"`, imgSrc);
                 } else {
-                    const errData = await res.json().catch(() => ({}));
-                    appendAiMessage(`ছবি তৈরি ব্যর্থ হয়েছে: ${errData.error || "হাগিং ফেস মডেল লোড হচ্ছে, অনুগ্রহ করে ১০ সেকেন্ড পর আবার চেষ্টা করুন।"}`);
+                    appendAiMessage("ইমেজ রেন্ডার করতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।");
                 }
             } catch (err) {
-                appendAiMessage("ছবি রেন্ডার করতে সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।");
+                appendAiMessage("ছবি তৈরি করতে সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।");
             }
         }
 
@@ -890,7 +967,7 @@
             const isJustGreeting = commonChatGreetings.includes(text.toLowerCase().trim());
 
             if (currentAppMode === 'image' && !isJustGreeting && !hasFile) {
-                appendLoadingSkeleton("🎨 হাগিং ফেস এআই দৃশ্য আঁকছে...");
+                appendLoadingSkeleton("🎨 দৃশ্য আঁকা হচ্ছে...");
                 await executeGatewayImage(text);
             } else {
                 appendLoadingSkeleton();
