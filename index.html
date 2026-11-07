@@ -368,6 +368,11 @@
             font-weight: 600;
             color: var(--text-primary);
             cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .attach-menu-btn:hover {
+            background: rgba(14, 165, 233, 0.08);
         }
 
         .attachment-preview-bar {
@@ -528,7 +533,6 @@
         </div>
 
         <div class="header-actions">
-            <!-- শুধু ভয়েস অন/অফ বাটন রাখা হয়েছে -->
             <button class="luxury-pill-toggle active" id="btnVoiceToggle" onclick="toggleVoiceEngine()">
                 <span id="voiceIcon">🔊</span>
                 <span id="voiceLabel">Voice Auto</span>
@@ -550,15 +554,12 @@
         <div class="elastic-capsule">
             
             <div class="attach-popup-menu" id="attachPopupMenu">
-                <button type="button" class="attach-menu-btn" onclick="openDeviceCamera()">
-                    <span>📷 ক্যামেরা দিয়ে স্ক্যান</span>
-                </button>
                 <button type="button" class="attach-menu-btn" onclick="openFileGallery()">
                     <span>🖼️ গ্যালারি / ফাইল আপলোড</span>
                 </button>
             </div>
 
-            <input type="file" id="directCameraInput" style="display:none;" accept="image/*" capture="environment" onchange="processIncomingImage(this)">
+            <!-- ক্যামেরা ইনপুট সম্পূর্ণ অপসারিত; শুধু গ্যালারি/ফাইল ইনপুট রাখা হয়েছে -->
             <input type="file" id="galleryFileInput" style="display:none;" accept="image/*" onchange="processIncomingImage(this)">
 
             <div class="attachment-preview-bar" id="attachmentBar">
@@ -609,7 +610,7 @@
             if (!isVoiceReadoutActive && 'speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
-        // ব্রাউজারের নেটিভ খাঁটি ও মিষ্টি নারী কণ্ঠ (কোনো কৃত্রিম পিচ বিকৃতি ছাড়া)
+        // ব্রাউজারের নেটিভ খাঁটি ও মিষ্টি নারী কণ্ঠ
         function speakAiResponse(text) {
             if (!isVoiceReadoutActive || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
@@ -621,7 +622,6 @@
             const isBengali = /[\u0980-\u09FF]/.test(clean);
             utter.lang = isBengali ? 'bn-IN' : 'en-IN';
 
-            // স্বাভাবিক গতি ও অরিজিনাল মিষ্টি পিচ (অ্যান্ড্রয়েড/উইন্ডোজের অরিজিনাল ফিমেল টিটিএস)
             utter.pitch = 1.0;
             utter.rate = 1.0;
 
@@ -666,15 +666,21 @@
             menu.classList.toggle('show');
         }
 
-        function openDeviceCamera() {
-            toggleAttachMenu();
-            document.getElementById('directCameraInput').click();
+        function openFileGallery() {
+            const menu = document.getElementById('attachPopupMenu');
+            if (menu) menu.classList.remove('show');
+            const fileInput = document.getElementById('galleryFileInput');
+            if (fileInput) fileInput.click();
         }
 
-        function openFileGallery() {
-            toggleAttachMenu();
-            document.getElementById('galleryFileInput').click();
-        }
+        // বাইরে ক্লিক করলে মেনু নিজে থেকে বন্ধ হবে
+        document.addEventListener('click', function(e) {
+            const menu = document.getElementById('attachPopupMenu');
+            const plusBtn = document.getElementById('dockPlusBtn');
+            if (menu && menu.classList.contains('show') && !menu.contains(e.target) && !plusBtn.contains(e.target)) {
+                menu.classList.remove('show');
+            }
+        });
 
         // ক্লায়েন্ট-সাইডেই ছবি অপ্টিমাইজ করা যাতে নিমেষেই সার্ভারে চলে যায়
         function processIncomingImage(input) {
@@ -721,9 +727,10 @@
             selectedFileBase64 = null;
             selectedFileMime = null;
             selectedFileObject = null;
-            document.getElementById('directCameraInput').value = '';
-            document.getElementById('galleryFileInput').value = '';
-            document.getElementById('attachmentBar').style.display = 'none';
+            const galleryInput = document.getElementById('galleryFileInput');
+            if (galleryInput) galleryInput.value = '';
+            const bar = document.getElementById('attachmentBar');
+            if (bar) bar.style.display = 'none';
         }
 
         // ভয়েস ইনপুট (Speech to text)
