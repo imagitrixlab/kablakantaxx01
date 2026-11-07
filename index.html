@@ -586,9 +586,10 @@
     </div>
 
     <script>
-        const GEMINI_AUTH_KEY = "AQ.Ab8RN6IQJpRu3tGk-Ccj59DwfX98_OVOUTmlji4dX1ct5TFsSg";
+        // সরাসরি আপনার স্ক্যান করা দুটি সঠিক এবং সক্রিয় টোকেন
+        const GEMINI_AUTH_KEY = "AQ.Ab8RN6LvFXtc5-06ycYScQodS98S47GNDTURHOEyKXbzC92ICA";
+        const HF_TOKEN        = "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";
         const GROQ_API_KEY    = "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";
-        const HF_TOKEN        = "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";
 
         let currentAppMode = 'chat';
         let isVoiceReadoutActive = true;
@@ -813,7 +814,7 @@
         }
 
         // ====================================================================
-        // সরাসরি GOOGLE GEMINI ও GROQ ফলব্যাক ইঞ্জিন (জিরো ব্ল্যাঙ্ক বাবল)
+        // জেমিনি অফিশিয়াল ইঞ্জিন (AQ Auth Key সাপোর্টেড + Groq ফলব্যাক)
         // ====================================================================
         async function executeGoogleGemini(text, fileBase64, fileMime) {
             const parts = [];
@@ -830,11 +831,8 @@
 
             let reply = "";
             
-            // জেমিনির মডেল ক্যাসকেড (৩.x অগ্রাধিকারসহ ২.x স্ট্যাবল ফলব্যাক)
+            // আসল ও সক্রিয় গুগল জেমিনি মডেল লিস্ট
             const models = [
-                'gemini-3.8-flash',
-                'gemini-3.5-flash',
-                'gemini-3.1-flash',
                 'gemini-2.5-flash',
                 'gemini-2.0-flash',
                 'gemini-1.5-flash'
@@ -863,7 +861,7 @@
                 } catch (_) {}
             }
 
-            // জেমিনির অথেনটিকেশন বা কোটা সমস্যা হলে সাথে সাথে Groq LLaMA-3.3-70b কল হবে
+            // কোনো কারণে জেমিনি সার্ভার ব্লক হলে সাথে সাথে Groq ইঞ্জিন কাজ করবে
             if (!reply || !reply.trim()) {
                 try {
                     const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -889,7 +887,6 @@
                 } catch (_) {}
             }
 
-            // কোনো অবস্থাতেই বাবল খালি থাকবে না
             if (!reply || !reply.trim()) {
                 reply = "নমস্কার! আমি ক্যাবলাকান্ত। নেটওয়ার্ক সংযোগে সামান্য ধীরগতি দেখা দিয়েছিল, দয়া করে আবার বলুন।";
             }
@@ -955,7 +952,7 @@
                 if (imgSrc) break;
             }
 
-            // হাগিং ফেসের সব মডেল ব্যস্ত থাকলে ১০০% ডিসেন্ট্রালাইজড এআই হর্ড ফলব্যাক
+            // কোনো কারণে সবকটি হাগিং ফেস মডেল ব্যর্থ হলে AI Horde ক্লাস্টার ব্যাকআপ
             if (!imgSrc) {
                 updateLoadingText("🎨 হাগিং ফেস ব্যস্ত, এআই হর্ড ইঞ্জিনে রেন্ডার হচ্ছে...");
                 try {
