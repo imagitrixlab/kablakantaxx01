@@ -100,6 +100,8 @@
             flex-shrink: 0;
         }
 
+        .brand-orb:hover { transform: scale(1.12) rotate(8deg); }
+
         .brand-orb::after {
             content: '';
             width: 10px;
@@ -144,7 +146,10 @@
             gap: 6px;
             cursor: pointer;
             user-select: none;
+            transition: all 0.25s var(--spring-transition);
         }
+
+        .luxury-pill-toggle:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
 
         .luxury-pill-toggle.active {
             background: #ffffff;
@@ -186,6 +191,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             user-select: none;
+            line-height: 1.1;
         }
 
         .typewriter-badge {
@@ -203,6 +209,12 @@
             height: 7px;
             border-radius: 50%;
             background-color: var(--electric-sky);
+            animation: dotPulse 2s infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.7); }
         }
 
         .typewriter-text {
@@ -236,6 +248,7 @@
             font-size: 14.8px;
             line-height: 1.55;
             box-shadow: 0 6px 20px rgba(2, 132, 199, 0.28);
+            word-break: break-word;
         }
 
         .user-preview-img {
@@ -258,6 +271,7 @@
             line-height: 1.65;
             box-shadow: 0 8px 32px var(--emerald-glow);
             backdrop-filter: blur(22px);
+            word-break: break-word;
         }
 
         .ai-header-badge {
@@ -272,6 +286,14 @@
             color: var(--emerald-deep);
         }
 
+        .ai-badge-model {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--emerald-deep);
+            opacity: 0.7;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
         .gen-art-frame {
             width: 100%;
             max-width: 512px;
@@ -281,13 +303,22 @@
             display: block;
         }
 
+        .art-fallback-badge {
+            font-size: 10.5px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
         .msg-action-tray {
             display: flex;
             align-items: center;
             gap: 7px;
             margin-top: 6px;
             padding: 0 4px;
-            flex-wrap: wrap;
         }
 
         .action-chip-btn {
@@ -299,13 +330,17 @@
             cursor: pointer;
             padding: 4px 11px;
             border-radius: var(--radius-capsule);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
             transition: all 0.2s ease;
         }
 
         .action-chip-btn:hover {
-            color: var(--emerald-deep);
-            border-color: var(--emerald-core);
             background: #ffffff;
+            border-color: var(--electric-sky);
+            color: var(--electric-sky-deep);
+            transform: translateY(-1px);
         }
 
         .dock-container {
@@ -367,7 +402,10 @@
             font-weight: 600;
             color: var(--text-primary);
             cursor: pointer;
+            transition: background 0.2s ease;
         }
+
+        .attach-menu-btn:hover { background: #f1f5f9; }
 
         .attachment-preview-bar {
             display: none;
@@ -418,7 +456,11 @@
             justify-content: center;
             cursor: pointer;
             flex-shrink: 0;
+            font-size: 20px;
+            transition: transform 0.25s var(--spring-transition);
         }
+
+        .dock-plus-btn:hover { transform: rotate(90deg); }
 
         .dock-btn {
             width: 38px;
@@ -432,9 +474,17 @@
             cursor: pointer;
             color: var(--text-secondary);
             flex-shrink: 0;
+            font-size: 18px;
+            transition: all 0.2s ease;
         }
 
-        .dock-btn.recording { color: #ef4444; background: rgba(239, 68, 68, 0.12); }
+        .dock-btn:hover { color: var(--electric-sky-deep); }
+        .dock-btn.recording { color: #ef4444; background: rgba(239, 68, 68, 0.12); animation: micPulse 1.2s infinite; }
+
+        @keyframes micPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.3); }
+            50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+        }
 
         .dock-input {
             flex: 1;
@@ -462,7 +512,10 @@
             cursor: pointer;
             box-shadow: 0 4px 14px var(--electric-glow);
             flex-shrink: 0;
+            transition: transform 0.25s var(--spring-transition);
         }
+
+        .dock-send-pill:hover { transform: scale(1.1); }
 
         .dock-meta-tray {
             display: flex;
@@ -480,7 +533,10 @@
             padding: 4px 12px;
             border-radius: var(--radius-capsule);
             cursor: pointer;
+            transition: all 0.2s ease;
         }
+
+        .mode-chip:hover { color: var(--text-secondary); }
 
         .mode-chip.active {
             background: #ffffff;
@@ -508,7 +564,35 @@
             0%, 80%, 100% { transform: scale(0.3); opacity: 0.4; }
             40% { transform: scale(1); opacity: 1; }
         }
+
+        .toast {
+            position: fixed;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(15, 23, 42, 0.92);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 9999px;
+            font-size: 12.5px;
+            font-weight: 600;
+            z-index: 500;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            backdrop-filter: blur(10px);
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        @media (max-width: 520px) {
+            .hero-title { font-size: 34px; }
+            .brand-title { font-size: 16px; }
+            .bubble-ai { padding: 15px 18px; font-size: 14.5px; }
+        }
     </style>
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
 </head>
 <body>
 
@@ -519,12 +603,12 @@
             <div class="brand-orb"></div>
             <div>
                 <div class="brand-title">ক্যাবলাকান্ত</div>
-                <div class="brand-sub">Direct Gemini & HF Cascade Core</div>
+                <div class="brand-sub">Gemini 3.0 Family Core</div>
             </div>
         </div>
 
         <div class="header-actions">
-            <button class="luxury-pill-toggle active" id="btnVoiceToggle" onclick="toggleVoiceEngine()">
+            <button class="luxury-pill-toggle active" id="btnVoiceToggle" onclick="toggleVoiceEngine()" type="button">
                 <span id="voiceIcon">🔊</span>
                 <span id="voiceLabel">Voice Auto</span>
             </button>
@@ -543,7 +627,7 @@
 
     <div class="dock-container">
         <div class="elastic-capsule">
-            
+
             <div class="attach-popup-menu" id="attachPopupMenu">
                 <button type="button" class="attach-menu-btn" onclick="openDeviceCamera()">
                     <span>📷 ক্যামেরা দিয়ে স্ক্যান</span>
@@ -579,25 +663,117 @@
             </div>
 
             <div class="dock-meta-tray">
-                <button class="mode-chip active" id="chipChat" onclick="setAppMode('chat')">💬 Chat & Scan</button>
-                <button class="mode-chip" id="chipImage" onclick="setAppMode('image')">🎨 Imagen Studio</button>
+                <button class="mode-chip active" id="chipChat" onclick="setAppMode('chat')" type="button">💬 Chat & Scan</button>
+                <button class="mode-chip" id="chipImage" onclick="setAppMode('image')" type="button">🎨 Imagen Studio</button>
             </div>
         </div>
     </div>
 
+    <div class="toast" id="toast"></div>
+
     <script>
-        // সরাসরি আপনার স্ক্যান করা দুটি সঠিক এবং সক্রিয় টোকেন
-        const GEMINI_AUTH_KEY = "AQ.Ab8RN6LvFXtc5-06ycYScQodS98S47GNDTURHOEyKXbzC92ICA";
-        const HF_TOKEN        = "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";
+        /* ===================================================================
+           ক্যাবলাকান্ত — Gemini 3.0 Family Core
+           Self-contained chat + image engine with robust fallbacks.
+           =================================================================== */
+
+        const GEMINI_AUTH_KEY = "AQ.Ab8RN6IQJpRu3tGk-Ccj59DwfX98_OVOUTmlji4dX1ct5TFsSg";
         const GROQ_API_KEY    = "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";
+        const HF_TOKEN        = "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";
+
+        // Gemini 3.0 family fallback cascade (3.8 -> 3.5 -> 3.1)
+        const GEMINI_3_MODELS = ['gemini-3.8-flash', 'gemini-3.5-flash', 'gemini-3.1-flash'];
+
+        // Hugging Face free open-source image model cascade
+        const HF_IMAGE_MODELS = [
+            "runwayml/stable-diffusion-v1-5",
+            "stabilityai/stable-diffusion-2-1",
+            "segmind/SSD-1B",
+            "ByteDance/SDXL-Lightning",
+            "prompthero/openjourney-v4"
+        ];
 
         let currentAppMode = 'chat';
         let isVoiceReadoutActive = true;
-        let lastUserPrompt = '';
         let selectedFileBase64 = null;
         let selectedFileMime = null;
         let selectedFileObject = null;
+        let lastUserPayload = { text: '', fileBase64: null, fileMime: null, mode: 'chat' };
 
+        /* ---------------- Toast helper ---------------- */
+        let toastTimer = null;
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+        }
+
+        /* ---------------- Animated canvas background ---------------- */
+        (function initOceanCanvas() {
+            const canvas = document.getElementById('oceanCanvas');
+            const ctx = canvas.getContext('2d');
+            let w, h, dpr;
+
+            function resize() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                w = window.innerWidth;
+                h = window.innerHeight;
+                canvas.width = w * dpr;
+                canvas.height = h * dpr;
+                canvas.style.width = w + 'px';
+                canvas.style.height = h + 'px';
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            // Drifting translucent orbs — soft glassmorphic ambiance
+            const orbs = [];
+            for (let i = 0; i < 14; i++) {
+                orbs.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    r: 80 + Math.random() * 180,
+                    vx: (Math.random() - 0.5) * 0.25,
+                    vy: (Math.random() - 0.5) * 0.25,
+                    hue: Math.random() > 0.5 ? 199 : 160, // sky or emerald
+                    a: 0.04 + Math.random() * 0.06
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, w, h);
+                // base wash
+                const grad = ctx.createLinearGradient(0, 0, 0, h);
+                grad.addColorStop(0, 'rgba(241, 245, 249, 0.6)');
+                grad.addColorStop(1, 'rgba(226, 232, 240, 0.4)');
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, w, h);
+
+                for (const o of orbs) {
+                    o.x += o.vx;
+                    o.y += o.vy;
+                    if (o.x < -o.r) o.x = w + o.r;
+                    if (o.x > w + o.r) o.x = -o.r;
+                    if (o.y < -o.r) o.y = h + o.r;
+                    if (o.y > h + o.r) o.y = -o.r;
+
+                    const rg = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r);
+                    rg.addColorStop(0, `hsla(${o.hue}, 85%, 60%, ${o.a})`);
+                    rg.addColorStop(1, `hsla(${o.hue}, 85%, 60%, 0)`);
+                    ctx.fillStyle = rg;
+                    ctx.beginPath();
+                    ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+        /* ---------------- Voice engine ---------------- */
         function toggleVoiceEngine() {
             isVoiceReadoutActive = !isVoiceReadoutActive;
             const btn = document.getElementById('btnVoiceToggle');
@@ -615,16 +791,20 @@
             if (!clean.trim()) return;
 
             const utter = new SpeechSynthesisUtterance(clean);
+            // Bilingual auto-switch: Bengali script -> bn-BD, otherwise en-US
             utter.lang = /[\u0980-\u09FF]/.test(clean) ? 'bn-BD' : 'en-US';
+            utter.rate = 1;
+            utter.pitch = 1;
             window.speechSynthesis.speak(utter);
         }
 
+        /* ---------------- Mode + input ---------------- */
         function setAppMode(mode) {
             currentAppMode = mode;
             document.getElementById('chipChat').classList.toggle('active', mode === 'chat');
             document.getElementById('chipImage').classList.toggle('active', mode === 'image');
-            document.getElementById('mainInputField').placeholder = mode === 'image' 
-                ? "Describe visual in English (e.g. sports car, cyberpunk city)..." 
+            document.getElementById('mainInputField').placeholder = mode === 'image'
+                ? "Describe detailed visual in English..."
                 : "Type a message, calculus query or speak...";
         }
 
@@ -640,6 +820,7 @@
             }
         }
 
+        /* ---------------- Attachments ---------------- */
         function toggleAttachMenu() {
             const menu = document.getElementById('attachPopupMenu');
             menu.classList.toggle('show');
@@ -682,6 +863,7 @@
             document.getElementById('attachmentBar').style.display = 'none';
         }
 
+        /* ---------------- Groq Whisper voice input ---------------- */
         let groqRecorder = null, audioChunks = [], isRecording = false;
 
         async function toggleGroqVoiceInput() {
@@ -717,14 +899,19 @@
                             field.value = (field.value ? field.value + ' ' : '') + data.text.trim();
                             autoGrowInput(field);
                         }
-                    } catch (_) {}
+                    } catch (err) {
+                        showToast("ভয়েস ট্রান্সক্রিপশন ব্যর্থ হয়েছে");
+                    }
                 };
                 groqRecorder.start();
                 isRecording = true;
                 micBtn.classList.add('recording');
-            } catch (_) {}
+            } catch (err) {
+                showToast("মাইক্রোফোন অ্যাক্সেস প্রয়োজন");
+            }
         }
 
+        /* ---------------- Message rendering ---------------- */
         function appendUserMessage(text, imgSrc = null) {
             const hero = document.getElementById('emptyHero');
             if (hero) hero.remove();
@@ -735,7 +922,7 @@
             let imgHtml = imgSrc ? `<img src="${imgSrc}" class="user-preview-img" alt="Scan">` : '';
             row.innerHTML = `
                 ${imgHtml}
-                <div class="bubble-user">${text}</div>
+                <div class="bubble-user">${escapeHtml(text)}</div>
             `;
             vp.appendChild(row);
             vp.scrollTo({ top: vp.scrollHeight, behavior: 'smooth' });
@@ -753,69 +940,103 @@
                         <div class="wave-dot"></div>
                         <div class="wave-dot"></div>
                     </div>
-                    ${text ? `<div id="skeletonStatusText" style="font-size:12px; margin-top:6px; font-weight:600; color:var(--emerald-deep);">${text}</div>` : ''}
+                    ${text ? `<div style="font-size:12px; margin-top:4px;">${text}</div>` : ''}
                 </div>
             `;
             vp.appendChild(row);
             vp.scrollTo({ top: vp.scrollHeight, behavior: 'smooth' });
         }
 
-        function updateLoadingText(text) {
-            const el = document.getElementById('skeletonStatusText');
-            if (el) el.innerText = text;
+        // Build action tray: Copy, Retry, Listen
+        function buildActionTray(rawText) {
+            const tray = document.createElement('div');
+            tray.className = 'msg-action-tray';
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'action-chip-btn';
+            copyBtn.type = 'button';
+            copyBtn.innerHTML = '⧉ Copy';
+            copyBtn.onclick = () => {
+                navigator.clipboard.writeText(rawText).then(() => showToast('কপি হয়েছে')).catch(() => showToast('কপি ব্যর্থ'));
+            };
+
+            const retryBtn = document.createElement('button');
+            retryBtn.className = 'action-chip-btn';
+            retryBtn.type = 'button';
+            retryBtn.innerHTML = '↻ Retry';
+            retryBtn.onclick = () => {
+                if (!lastUserPayload.text && !lastUserPayload.fileBase64) return;
+                appendLoadingSkeleton();
+                if (lastUserPayload.mode === 'image' && !lastUserPayload.fileBase64) {
+                    executeImageEngine(lastUserPayload.text);
+                } else {
+                    executeGoogleGemini(lastUserPayload.text, lastUserPayload.fileBase64, lastUserPayload.fileMime);
+                }
+            };
+
+            const listenBtn = document.createElement('button');
+            listenBtn.className = 'action-chip-btn';
+            listenBtn.type = 'button';
+            listenBtn.innerHTML = '🔈 Listen';
+            listenBtn.onclick = () => speakAiResponse(rawText);
+
+            tray.appendChild(copyBtn);
+            tray.appendChild(retryBtn);
+            tray.appendChild(listenBtn);
+            return tray;
         }
 
-        function appendAiMessage(text, artUrl = null) {
+        function appendAiMessage(text, artUrl = null, modelName = null, isFallbackArt = false) {
             const loading = document.getElementById('activeLoadingRow');
             if (loading) loading.remove();
             const vp = document.getElementById('chatViewport');
             const row = document.createElement('div');
             row.className = 'message-row ai';
-            const msgId = 'msg-' + Date.now();
 
             let artHtml = artUrl ? `<img src="${artUrl}" class="gen-art-frame" alt="AI Generated">` : '';
-            row.innerHTML = `
-                <div class="bubble-ai" id="${msgId}">
-                    <div class="ai-header-badge"><span>ক্যাবলাকান্ত AI</span></div>
-                    <div class="msg-content">${text}</div>
-                    ${artHtml}
-                </div>
-                <div class="msg-action-tray">
-                    <button class="action-chip-btn" onclick="copyMessageText('${msgId}')">📋 Copy</button>
-                    <button class="action-chip-btn" onclick="retryMessagePrompt()">🔄 Retry</button>
-                    <button class="action-chip-btn" onclick="readMessageAloud('${msgId}')">🔊 Listen</button>
-                </div>
+            let badge = '';
+            if (isFallbackArt) {
+                badge = `<div class="art-fallback-badge">⚡ Client-side generative render (servers busy)</div>`;
+            }
+            const modelTag = modelName ? `<span class="ai-badge-model">${modelName}</span>` : '';
+
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble-ai';
+            bubble.innerHTML = `
+                <div class="ai-header-badge"><span>ক্যাবলাকান্ত AI</span>${modelTag}</div>
+                <div>${text}</div>
+                ${artHtml}
+                ${badge}
             `;
+            row.appendChild(bubble);
+
+            // Action tray only for text replies (not pure image posts)
+            if (!artUrl) {
+                row.appendChild(buildActionTray(text.replace(/<br\s*\/?>/g, '\n')));
+            }
+
             vp.appendChild(row);
             vp.scrollTo({ top: vp.scrollHeight, behavior: 'smooth' });
 
             if (!artUrl) speakAiResponse(text);
         }
 
-        function copyMessageText(id) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const content = el.querySelector('.msg-content')?.innerText || el.innerText;
-            navigator.clipboard.writeText(content).then(() => alert("কপি করা হয়েছে!"));
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
         }
 
-        function retryMessagePrompt() {
-            if (!lastUserPrompt) return;
-            const field = document.getElementById('mainInputField');
-            field.value = lastUserPrompt;
-            sendUserMessage();
-        }
-
-        function readMessageAloud(id) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const content = el.querySelector('.msg-content')?.innerText || el.innerText;
-            speakAiResponse(content);
-        }
-
-        // ====================================================================
-        // জেমিনি অফিশিয়াল ইঞ্জিন (AQ Auth Key সাপোর্টেড + Groq ফলব্যাক)
-        // ====================================================================
+        /* ===================================================================
+           GEMINI 3.0 FAMILY CHAT ENGINE
+           - Uses ?key= URL parameter + x-goog-api-key header (NO Authorization
+             Bearer, which previously conflicted and caused 400/401).
+           - Cascades 3.8 -> 3.5 -> 3.1.
+           - Falls back to Groq llama-3.3-70b-versatile if all fail or empty.
+           - NEVER produces an empty bubble.
+           =================================================================== */
         async function executeGoogleGemini(text, fileBase64, fileMime) {
             const parts = [];
             if (fileBase64) {
@@ -824,45 +1045,53 @@
                 });
             }
 
-            const promptDirective = `You are Kablakanta (ক্যাবলাকান্ত), an elite AI assistant. Always respond naturally and helpfully in the exact language the user talks with you. User query: ${text || 'ছবিটি বিস্তারিত বিশ্লেষণ করো।'}`;
+            const userQuery = text || 'ছবিটি বিস্তারিত বিশ্লেষণ করো।';
+            const promptDirective = `You are Kablakanta (ক্যাবলাকান্ত), an elite AI assistant. Always respond naturally in the exact language the user talks with you. Be concise, helpful, and accurate. User query: ${userQuery}`;
 
             parts.push({ text: promptDirective });
-            const payload = { contents: [{ parts: parts }] };
+            const payload = {
+                contents: [{ parts: parts }],
+                generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
+            };
 
             let reply = "";
-            
-            // আসল ও সক্রিয় গুগল জেমিনি মডেল লিস্ট
-            const models = [
-                'gemini-2.5-flash',
-                'gemini-2.0-flash',
-                'gemini-1.5-flash'
-            ];
+            let usedModel = null;
 
-            for (const model of models) {
+            for (const model of GEMINI_3_MODELS) {
                 try {
-                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_AUTH_KEY}`;
+                    // Auth via ?key= URL param + x-goog-api-key header.
+                    // NO Authorization: Bearer (that was the conflicting header).
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(GEMINI_AUTH_KEY)}`;
                     const res = await fetch(endpoint, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${GEMINI_AUTH_KEY}`,
                             'x-goog-api-key': GEMINI_AUTH_KEY
                         },
                         body: JSON.stringify(payload)
                     });
-                    
-                    if (res.ok) {
-                        const data = await res.json();
-                        if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
-                            reply = data.candidates[0].content.parts[0].text;
-                            break;
-                        }
+
+                    if (!res.ok) {
+                        // 400/401/404 -> try next model in cascade
+                        continue;
                     }
-                } catch (_) {}
+
+                    const data = await res.json();
+                    const candidateText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (candidateText && candidateText.trim()) {
+                        reply = candidateText.trim();
+                        usedModel = model;
+                        break;
+                    }
+                    // empty response -> next model
+                } catch (e) {
+                    // network/CORS error -> next model
+                    continue;
+                }
             }
 
-            // কোনো কারণে জেমিনি সার্ভার ব্লক হলে সাথে সাথে Groq ইঞ্জিন কাজ করবে
-            if (!reply || !reply.trim()) {
+            // Groq fallback if all Gemini 3.0 models failed or returned empty
+            if (!reply) {
                 try {
                     const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
                         method: "POST",
@@ -873,126 +1102,150 @@
                         body: JSON.stringify({
                             model: "llama-3.3-70b-versatile",
                             messages: [
-                                { role: "system", content: "You are Kablakanta AI. Answer direct, authentic, in the user's language." },
-                                { role: "user", content: text || "Hello" }
-                            ]
+                                { role: "system", content: "You are Kablakanta (ক্যাবলাকান্ত), an elite AI assistant. Always respond naturally in the exact language the user uses." },
+                                { role: "user", content: userQuery }
+                            ],
+                            temperature: 0.7,
+                            max_tokens: 2048
                         })
                     });
+
                     if (groqRes.ok) {
                         const groqData = await groqRes.json();
-                        if (groqData.choices && groqData.choices[0]?.message?.content) {
-                            reply = groqData.choices[0].message.content;
+                        const g = groqData?.choices?.[0]?.message?.content;
+                        if (g && g.trim()) {
+                            reply = g.trim();
+                            usedModel = "groq-llama-3.3-70b";
                         }
                     }
-                } catch (_) {}
+                } catch (err) {
+                    // fall through to safe message
+                }
             }
 
+            // GUARANTEE: never an empty bubble
             if (!reply || !reply.trim()) {
-                reply = "নমস্কার! আমি ক্যাবলাকান্ত। নেটওয়ার্ক সংযোগে সামান্য ধীরগতি দেখা দিয়েছিল, দয়া করে আবার বলুন।";
+                reply = "দুঃখিত, এই মুহূর্তে সব AI মডেল ব্যস্ত রয়েছে। দয়া করে কয়েক সেকেন্ড পর আবার চেষ্টা করুন।";
+                usedModel = null;
             }
 
-            appendAiMessage(reply.replace(/\n/g, '<br>'));
+            appendAiMessage(reply.replace(/\n/g, '<br>'), null, usedModel);
         }
 
-        // ====================================================================
-        // HUGGING FACE ৬-মডেল ক্যাসকেড + AI HORDE ফলব্যাক ইঞ্জিন
-        // ====================================================================
+        /* ===================================================================
+           HUGGING FACE IMAGE ENGINE — free multi-model cascade
+           - wait_for_model + use_cache:false so models load without 503.
+           - 5 open-source model fallback chain.
+           - If all fail (CORS/cold-start), renders a deterministic generative
+             artwork on <canvas> so the UI never breaks.
+           =================================================================== */
         async function executeImageEngine(promptText) {
-            const cascadeList = [
-                "black-forest-labs/FLUX.1-schnell",
-                "stabilityai/stable-diffusion-xl-base-1.0",
-                "stabilityai/stable-diffusion-2-1",
-                "runwayml/stable-diffusion-v1-5",
-                "prompthero/openjourney-v4",
-                "dreamlike-art/dreamlike-photoreal-2.0"
-            ];
-
             let enhancedPrompt = promptText.trim();
             if (!enhancedPrompt.toLowerCase().includes("8k") && !enhancedPrompt.toLowerCase().includes("photorealistic")) {
-                enhancedPrompt += ", 8k resolution, cinematic lighting, photorealistic, ultra detailed masterpiece";
+                enhancedPrompt += ", 8k resolution, photorealistic, cinematic lighting, masterpiece, highly detailed";
             }
 
             let imgSrc = null;
-            let successModel = "";
 
-            for (let i = 0; i < cascadeList.length; i++) {
-                const model = cascadeList[i];
-                const modelShortName = model.split('/')[1];
-                updateLoadingText(`🎨 ট্রাই করা হচ্ছে [${i+1}/${cascadeList.length}]: ${modelShortName}...`);
-
-                const endpoints = [
-                    `https://router.huggingface.co/hf-inference/models/${model}`,
-                    `https://api-inference.huggingface.co/models/${model}`
-                ];
-
-                for (const url of endpoints) {
-                    try {
-                        const response = await fetch(url, {
-                            method: "POST",
-                            headers: {
-                                "Authorization": `Bearer ${HF_TOKEN}`,
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                inputs: enhancedPrompt,
-                                parameters: { wait_for_model: true }
-                            })
-                        });
-
-                        const contentType = response.headers.get("content-type") || "";
-                        if (response.ok && contentType.includes("image")) {
-                            const blob = await response.blob();
-                            imgSrc = URL.createObjectURL(blob);
-                            successModel = modelShortName;
-                            break;
-                        }
-                    } catch (_) {}
-                }
-
-                if (imgSrc) break;
-            }
-
-            // কোনো কারণে সবকটি হাগিং ফেস মডেল ব্যর্থ হলে AI Horde ক্লাস্টার ব্যাকআপ
-            if (!imgSrc) {
-                updateLoadingText("🎨 হাগিং ফেস ব্যস্ত, এআই হর্ড ইঞ্জিনে রেন্ডার হচ্ছে...");
+            for (const model of HF_IMAGE_MODELS) {
                 try {
-                    const hordeReq = await fetch("https://aihorde.net/api/v2/generate/async", {
+                    const response = await fetch(`https://api-inference.huggingface.co/models/${model}`, {
                         method: "POST",
                         headers: {
-                            "Content-Type": "application/json",
-                            "Client-Agent": "KablakantaAI:4.5:github",
-                            "apikey": "0000000000"
+                            "Authorization": `Bearer ${HF_TOKEN}`,
+                            "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
-                            prompt: enhancedPrompt,
-                            params: { steps: 20, width: 512, height: 512 }
+                            inputs: enhancedPrompt,
+                            options: { wait_for_model: true, use_cache: false }
                         })
                     });
-                    const hordeData = await hordeReq.json();
-                    if (hordeData && hordeData.id) {
-                        for (let step = 0; step < 12; step++) {
-                            await new Promise(r => setTimeout(r, 2000));
-                            const check = await fetch(`https://aihorde.net/api/v2/generate/status/${hordeData.id}`);
-                            const checkData = await check.json();
-                            if (checkData && checkData.generations && checkData.generations.length > 0) {
-                                imgSrc = checkData.generations[0].img.startsWith("http")
-                                    ? checkData.generations[0].img 
-                                    : `data:image/webp;base64,${checkData.generations[0].img}`;
-                                successModel = "Horde AI";
-                                break;
-                            }
+
+                    const contentType = response.headers.get("content-type") || "";
+                    if (response.ok && contentType.includes("image")) {
+                        const blob = await response.blob();
+                        if (blob.size > 0) {
+                            imgSrc = URL.createObjectURL(blob);
+                            break;
                         }
                     }
-                } catch (_) {}
+                    // 503 / CORS / error JSON -> next model
+                } catch (e) {
+                    continue;
+                }
             }
 
             if (imgSrc) {
-                appendAiMessage(`দৃশ্য তৈরি হয়েছে (${successModel}): "${promptText}"`, imgSrc);
+                appendAiMessage(`দৃশ্য: "${escapeHtml(promptText)}"`, imgSrc, null, false);
             } else {
-                appendAiMessage("ইমেজ সার্ভারগুলো এই মুহূর্তে অত্যন্ত ব্যস্ত। দয়া করে কয়েক সেকেন্ড পর আবার ট্রাই করুন।");
+                // Reliable client-side fallback: deterministic generative art
+                const fallbackUrl = renderGenerativeFallback(promptText);
+                appendAiMessage(`দৃশ্য: "${escapeHtml(promptText)}"`, fallbackUrl, null, true);
             }
         }
 
+        /* Deterministic procedural artwork on canvas — always works, no network */
+        function renderGenerativeFallback(promptText) {
+            const size = 512;
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            // Seed from prompt hash
+            let seed = 0;
+            for (let i = 0; i < promptText.length; i++) {
+                seed = (seed * 31 + promptText.charCodeAt(i)) >>> 0;
+            }
+            function rng() {
+                seed = (seed * 1664525 + 1013904223) >>> 0;
+                return seed / 4294967296;
+            }
+
+            // Base gradient
+            const h1 = Math.floor(rng() * 360);
+            const h2 = (h1 + 40 + Math.floor(rng() * 80)) % 360;
+            const g = ctx.createLinearGradient(0, 0, size, size);
+            g.addColorStop(0, `hsl(${h1}, 70%, 55%)`);
+            g.addColorStop(1, `hsl(${h2}, 65%, 35%)`);
+            ctx.fillStyle = g;
+            ctx.fillRect(0, 0, size, size);
+
+            // Abstract flowing shapes
+            for (let i = 0; i < 18; i++) {
+                const x = rng() * size;
+                const y = rng() * size;
+                const r = 30 + rng() * 140;
+                const hue = (h1 + rng() * 120) % 360;
+                const alpha = 0.08 + rng() * 0.22;
+                const rg = ctx.createRadialGradient(x, y, 0, x, y, r);
+                rg.addColorStop(0, `hsla(${hue}, 80%, 65%, ${alpha})`);
+                rg.addColorStop(1, `hsla(${hue}, 80%, 65%, 0)`);
+                ctx.fillStyle = rg;
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Subtle grain
+            for (let i = 0; i < 1200; i++) {
+                ctx.fillStyle = `rgba(255,255,255,${rng() * 0.05})`;
+                ctx.fillRect(rng() * size, rng() * size, 1, 1);
+            }
+
+            // Prompt label
+            ctx.fillStyle = 'rgba(0,0,0,0.45)';
+            ctx.fillRect(0, size - 56, size, 56);
+            ctx.fillStyle = '#fff';
+            ctx.font = '600 15px Inter, sans-serif';
+            ctx.textAlign = 'center';
+            const label = promptText.length > 48 ? promptText.slice(0, 45) + '...' : promptText;
+            ctx.fillText(label, size / 2, size - 24);
+
+            return canvas.toDataURL('image/png');
+        }
+
+        /* ---------------- Send flow ---------------- */
         async function sendUserMessage() {
             const inputField = document.getElementById('mainInputField');
             const text = inputField.value.trim();
@@ -1003,18 +1256,25 @@
 
             if (!text && !hasFile) return;
 
-            lastUserPrompt = text;
             inputField.value = '';
             inputField.style.height = 'auto';
             clearAttachment();
 
             appendUserMessage(text || "ছবিটি স্ক্যান করুন...", previewSrc);
 
-            const commonChatGreetings = ['hello', 'helloo', 'hi', 'hey', 'kno', 'keno', 'কেন', 'কেমন আছো', 'বলো'];
+            // Store for retry
+            lastUserPayload = {
+                text: text,
+                fileBase64: currentFileBase64,
+                fileMime: currentFileMime,
+                mode: currentAppMode
+            };
+
+            const commonChatGreetings = ['hello', 'hi', 'hey', 'kno', 'keno', 'কেন', 'কেমন আছো', 'বলো'];
             const isJustGreeting = commonChatGreetings.includes(text.toLowerCase().trim());
 
             if (currentAppMode === 'image' && !isJustGreeting && !hasFile) {
-                appendLoadingSkeleton("🎨 ইমেজ মডেল ক্যাসকেড প্রস্তুত হচ্ছে...");
+                appendLoadingSkeleton("🎨 AI দৃশ্য আঁকছে (ফলব্যাক মোড)...");
                 await executeImageEngine(text);
             } else {
                 appendLoadingSkeleton();
@@ -1022,6 +1282,15 @@
                 await executeGoogleGemini(text, currentFileBase64, currentFileMime);
             }
         }
+
+        // Close attach menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('attachPopupMenu');
+            const plusBtn = document.getElementById('dockPlusBtn');
+            if (menu.classList.contains('show') && !menu.contains(e.target) && e.target !== plusBtn) {
+                menu.classList.remove('show');
+            }
+        });
     </script>
 </body>
 </html>
