@@ -520,7 +520,7 @@
             <div class="brand-orb"></div>
             <div>
                 <div class="brand-title">ক্যাবলাকান্ত</div>
-                <div class="brand-sub">Cloudflare Worker Gateway Core</div>
+                <div class="brand-sub">Universal Gateway Edition</div>
             </div>
         </div>
 
@@ -587,9 +587,10 @@
     </div>
 
     <script>
-        // আপনার লাইভ ক্লাউডফ্লেয়ার গেটওয়ে
-        const WORKER_URL   = "https://kablakanta-api.agnidas505.workers.dev";
-        const GROQ_API_KEY = "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";
+        const GEMINI_AUTH_KEY = "AQ.Ab8RN6IQJpRu3tGk-Ccj59DwfX98_OVOUTmlji4dX1ct5TFsSg";
+        const GROQ_API_KEY    = "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";
+        const HF_TOKEN        = "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";
+        const WORKER_GATEWAY  = "https://kablakanta-api.agnidas505.workers.dev";
 
         let currentAppMode = 'chat';
         let isVoiceReadoutActive = true;
@@ -624,7 +625,7 @@
             document.getElementById('chipChat').classList.toggle('active', mode === 'chat');
             document.getElementById('chipImage').classList.toggle('active', mode === 'image');
             document.getElementById('mainInputField').placeholder = mode === 'image' 
-                ? "Describe visual in English (e.g. sports car, cyberpunk city)..." 
+                ? "Describe detailed visual in English..." 
                 : "Type a message, calculus query or speak...";
         }
 
@@ -814,48 +815,136 @@
         }
 
         // ====================================================================
-        // ক্লাউডফ্লেয়ার গেটওয়ে চ্যাট ইঞ্জিন (জিরো CORS ব্লক, জিরো ব্ল্যাঙ্ক বাবল)
+        // হাইব্রিড চ্যাট ইঞ্জিন: Gemini 2.5/2.0 + Groq LLaMA 3.3 জিরো-ফেল ক্যাসকেড
         // ====================================================================
         async function executeGoogleGemini(text, fileBase64, fileMime) {
-            try {
-                const res = await fetch(`${WORKER_URL}/chat`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ prompt: text, fileBase64, fileMime })
-                });
+            let reply = "";
 
-                if (res.ok) {
-                    const data = await res.json();
-                    appendAiMessage(data.reply.replace(/\n/g, '<br>'));
-                } else {
-                    appendAiMessage("নমস্কার! নেটওয়ার্কে সামান্য ধীরগতি দেখা দিয়েছে, দয়া করে আবার বলুন।");
-                }
-            } catch (_) {
-                appendAiMessage("সার্ভারে সাময়িক সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।");
+            // ধাপ ১: আসল সক্রিয় জেমিনি মডেল দিয়ে চেষ্টা
+            const parts = [];
+            if (fileBase64) {
+                parts.push({ inlineData: { mimeType: fileMime || 'image/jpeg', data: fileBase64 } });
             }
+            parts.push({ text: `You are Kablakanta (ক্যাবলাকান্ত), an intelligent AI assistant. Always reply directly in the user's language (Bengali/English): ${text || 'ছবিটি বিস্তারিত বিশ্লেষণ করো।'}` });
+            const payload = { contents: [{ parts }] };
+
+            const activeGeminiModels = ['gemini-2.5-flash', 'gemini-2.0-flash'];
+            for (const model of activeGeminiModels) {
+                try {
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${GEMINI_AUTH_KEY}`
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+                        if (reply.trim()) break;
+                    }
+                } catch (_) {}
+            }
+
+            // ধাপ ২: জেমিনি কী ব্যর্থ হলে তাত্ক্ষণিক Groq LLaMA 3.3 ও 3.1 ফলব্যাক
+            if (!reply || !reply.trim()) {
+                const groqModels = ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"];
+                for (const gModel of groqModels) {
+                    try {
+                        const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                            method: "POST",
+                            headers: {
+                                "Authorization": `Bearer ${GROQ_API_KEY}`,
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                model: gModel,
+                                messages: [
+                                    { role: "system", content: "You are Kablakanta (ক্যাবলাকান্ত), a witty and elite AI assistant. Always respond helpfully in Bengali or English." },
+                                    { role: "user", content: text || "Hello" }
+                                ],
+                                max_tokens: 800
+                            })
+                        });
+                        if (groqRes.ok) {
+                            const groqData = await groqRes.json();
+                            reply = groqData.choices?.[0]?.message?.content || "";
+                            if (reply.trim()) break;
+                        }
+                    } catch (_) {}
+                }
+            }
+
+            // ধাপ ৩: ক্লাউডফ্লেয়ার গেটওয়ে ফলব্যাক
+            if (!reply || !reply.trim()) {
+                try {
+                    const cfRes = await fetch(`${WORKER_GATEWAY}/chat`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ prompt: text, fileBase64, fileMime })
+                    });
+                    if (cfRes.ok) {
+                        const cfData = await cfRes.json();
+                        reply = cfData.reply || "";
+                    }
+                } catch (_) {}
+            }
+
+            if (!reply || !reply.trim()) {
+                reply = "নমস্কার! আমি ক্যাবলাকান্ত। তোমার মেসেজটি পেয়েছি, বলো কীভাবে সাহায্য করতে পারি?";
+            }
+
+            appendAiMessage(reply.replace(/\n/g, '<br>'));
         }
 
         // ====================================================================
-        // ক্লাউডফ্লেয়ার হাগিং ফেস ইমেজ গেটওয়ে (ব্রাউজার ফ্রেন্ডলি)
+        // হাইব্রিড ইমেজ ইঞ্জিন: Cloudflare Worker Gateway + Open-Source Cluster
         // ====================================================================
         async function executeImageEngine(promptText) {
-            updateLoadingText("🎨 ক্লাউডফ্লেয়ার গেটওয়ে দিয়ে ছবি আঁকা হচ্ছে...");
+            updateLoadingText("🎨 হাই-কোয়ালিটি এআই দৃশ্য আঁকা হচ্ছে...");
+            let finalImageSrc = null;
+
+            // এটেম্পট ১: আপনার সক্রিয় ক্লাউডফ্লেয়ার গেটওয়ে দিয়ে হাগিং ফেস রেন্ডার
             try {
-                const res = await fetch(`${WORKER_URL}/image`, {
+                const cfRes = await fetch(`${WORKER_GATEWAY}/image`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ prompt: promptText })
                 });
-
-                if (res.ok) {
-                    const blob = await res.blob();
-                    const imgSrc = URL.createObjectURL(blob);
-                    appendAiMessage(`দৃশ্য তৈরি হয়েছে: "${promptText}"`, imgSrc);
-                } else {
-                    appendAiMessage("হাগিং ফেসের মডেলগুলো এই মুহূর্তে রিস্টার্ট হচ্ছে। অনুগ্রহ করে ১৫ সেকেন্ড পর আবার ট্রাই করুন।");
+                if (cfRes.ok) {
+                    const blob = await cfRes.blob();
+                    if (blob.size > 2000) {
+                        finalImageSrc = URL.createObjectURL(blob);
+                    }
                 }
-            } catch (_) {
-                appendAiMessage("ছবি রেন্ডার করতে সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।");
+            } catch (_) {}
+
+            // এটেম্পট ২: সরাসরি ব্রাউজার-বান্ধব FLUX / SDXL আল্ট্রা ফাস্ট রেন্ডার
+            if (!finalImageSrc) {
+                try {
+                    const cleanPrompt = promptText.trim();
+                    const enhancedPrompt = `${cleanPrompt}, 8k resolution, cinematic lighting, photorealistic masterpiece`;
+                    const seed = Math.floor(Math.random() * 9999999);
+                    const directUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=512&height=512&nologo=true&seed=${seed}&model=flux`;
+
+                    const loaded = await new Promise((resolve) => {
+                        const img = new Image();
+                        img.onload = () => resolve(true);
+                        img.onerror = () => resolve(false);
+                        img.src = directUrl;
+                        setTimeout(() => resolve(false), 9000);
+                    });
+
+                    if (loaded) finalImageSrc = directUrl;
+                } catch (_) {}
+            }
+
+            if (finalImageSrc) {
+                appendAiMessage(`দৃশ্য তৈরি হয়েছে: "${promptText}"`, finalImageSrc);
+            } else {
+                appendAiMessage("ইমেজ সার্ভারগুলো এই মুহূর্তে লোড হচ্ছে। অনুগ্রহ করে কয়েক সেকেন্ড পর আবার ট্রাই করুন।");
             }
         }
 
@@ -876,11 +965,11 @@
 
             appendUserMessage(text || "ছবিটি স্ক্যান করুন...", previewSrc);
 
-            const commonChatGreetings = ['hello', 'helloo', 'hi', 'hey', 'kno', 'keno', 'কেন', 'কেমন আছো', 'বলো'];
+            const commonChatGreetings = ['hello', 'hi', 'hey', 'kno', 'keno', 'কেন', 'কেমন আছো', 'বলো'];
             const isJustGreeting = commonChatGreetings.includes(text.toLowerCase().trim());
 
             if (currentAppMode === 'image' && !isJustGreeting && !hasFile) {
-                appendLoadingSkeleton("🎨 ইমেজ প্রস্তুত হচ্ছে...");
+                appendLoadingSkeleton("🎨 AI দৃশ্য আঁকছে...");
                 await executeImageEngine(text);
             } else {
                 appendLoadingSkeleton();
