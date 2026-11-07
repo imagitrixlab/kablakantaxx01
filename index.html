@@ -539,8 +539,8 @@
         <div class="header-actions">
             <!-- ছেলে / মেয়ে ভয়েস পরিবর্তনের টগল বাটন -->
             <button class="luxury-pill-toggle gender-pill" id="btnVoiceGender" onclick="toggleVoiceGender()">
-                <span id="genderIcon">👩</span>
-                <span id="genderLabel">মেয়ে কণ্ঠ</span>
+                <span id="genderIcon">👨</span>
+                <span id="genderLabel">ছেলে কণ্ঠ</span>
             </button>
 
             <!-- ভয়েস অটো অন/অফ বাটন -->
@@ -610,13 +610,13 @@
 
         let currentAppMode = 'chat';
         let isVoiceReadoutActive = true;
-        let voiceGender = 'female'; // 'female' বা 'male'
+        let voiceGender = 'male'; // ডিফল্ট ছেলে কণ্ঠ
         let lastUserPrompt = '';
         let selectedFileBase64 = null;
         let selectedFileMime = null;
         let selectedFileObject = null;
 
-        // ছেলে ও মেয়ে ভয়েস টগল এবং সাথে সাথে স্পিচ প্রিভিউ
+        // ছেলে ও মেয়ে ভয়েস টগল
         function toggleVoiceGender() {
             voiceGender = (voiceGender === 'female') ? 'male' : 'female';
             const icon = document.getElementById('genderIcon');
@@ -625,11 +625,11 @@
             if (voiceGender === 'female') {
                 icon.innerText = "👩";
                 label.innerText = "মেয়ে কণ্ঠ";
-                speakAiResponse("মেয়ে কণ্ঠ চালু হলো।");
+                speakAiResponse("মেয়ে কণ্ঠ নির্বাচন করা হলো।");
             } else {
                 icon.innerText = "👨";
                 label.innerText = "ছেলে কণ্ঠ";
-                speakAiResponse("ছেলে কণ্ঠ চালু হলো।");
+                speakAiResponse("ছেলে কণ্ঠ নির্বাচন করা হলো।");
             }
         }
 
@@ -642,7 +642,7 @@
             if (!isVoiceReadoutActive && 'speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
-        // ছেলে ও মেয়ে কণ্ঠের স্পষ্ট পার্থক্যসহ ভয়েস স্পিচ
+        // ভারী, স্পষ্ট ও গম্ভীর পুরুষালি কণ্ঠ এবং মিষ্টি নারী কণ্ঠের স্পিচ ইঞ্জিন
         function speakAiResponse(text) {
             if (!isVoiceReadoutActive || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
@@ -661,21 +661,22 @@
                 (v.name && v.name.toLowerCase().includes('bengali'))
             );
 
-            if (voiceGender === 'female') {
-                // মেয়ে কণ্ঠ: মিষ্টি ও চড়া পিচ
-                utter.pitch = 1.35;
-                utter.rate = 1.02;
-                if (bengaliVoices.length > 0) utter.voice = bengaliVoices[0];
+            if (voiceGender === 'male') {
+                // ছেলে কণ্ঠ: ব্যারিটোন রেঞ্জ (০.৭৮) এবং স্বাভাবিক গতি (১.০) - যাতে রোবটিক ড্র্যাগিং না ঘটে
+                utter.pitch = 0.78;
+                utter.rate = 1.0;
+
+                // সিস্টেমে ভয়েস ২ (পুরুষ) থাকলে অগ্রাধিকার
+                const maleVoice = bengaliVoices.find(v => 
+                    /male|man|pradeep|bashkar|david|২|voice\s*2|variant\s*2/i.test(v.name)
+                ) || (bengaliVoices.length > 1 ? bengaliVoices[1] : (bengaliVoices[0] || null));
+
+                if (maleVoice) utter.voice = maleVoice;
             } else {
-                // ছেলে কণ্ঠ: ভারী ও গভীর পুরুষালি পিচ
-                utter.pitch = 0.55;
-                utter.rate = 0.88;
-                const maleVoice = bengaliVoices.find(v => /male|man|bid|voice\s*2|২/i.test(v.name));
-                if (maleVoice) {
-                    utter.voice = maleVoice;
-                } else if (bengaliVoices.length > 1) {
-                    utter.voice = bengaliVoices[1];
-                }
+                // মেয়ে কণ্ঠ: মিষ্টি ও স্বাভাবিক চড়া পিচ
+                utter.pitch = 1.15;
+                utter.rate = 1.0;
+                if (bengaliVoices.length > 0) utter.voice = bengaliVoices[0];
             }
 
             window.speechSynthesis.speak(utter);
@@ -717,7 +718,7 @@
             document.getElementById('galleryFileInput').click();
         }
 
-        // ক্যামেরা ছবির সাইজ ক্লায়েন্ট-সাইডেই কম্প্রেস করা
+        // ক্লায়েন্ট সাইড ইমেজ কম্প্রেশন
         function processIncomingImage(input) {
             const file = input.files && input.files[0];
             if (!file) return;
